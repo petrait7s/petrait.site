@@ -33,7 +33,7 @@ const label = screenLabel[p.screenSource];
       applicationCategory: "BusinessApplication",
       applicationSubCategory: p.category,
       description: p.description,
-      featureList: p.features.filter((f) => !f.planned).map((f) => f.title),
+      featureList: p.features.filter((f) => !f.onRequest).map((f) => f.title),
       url: new URL(`/products/${entry.id}`, Astro.site).href,
     },
   ]}
@@ -62,7 +62,7 @@ const label = screenLabel[p.screenSource];
             p.features.map((f) => (
               <li class="spot flex items-start justify-between gap-3 rounded-xl border border-line bg-white px-4 py-3 text-[13px]">
                 <span class="font-medium">{f.title}</span>
-                {f.planned && <Chip status="planned" />}
+                {f.onRequest && <Chip status="onrequest" />}
               </li>
             ))
           }

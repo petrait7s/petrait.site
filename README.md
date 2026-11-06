@@ -21,7 +21,7 @@ Node.js 20.9 or newer.
 | What | File |
 |---|---|
 | Company name, email, phone, Facebook link | `src/content/site.ts` |
-| Products, features, status (`preview`, `planned`, `available`) | `src/content/data/products.json` |
+| Products, features, status (`preview`, `onrequest`, `available`) | `src/content/data/products.json` |
 | Ecosystem links, industries, reasons, process steps | `src/content/data/*.json` |
 | Sectors (Hospitality, Business, Marketing, Enterprise), trust principles, deployment text | `src/content/company.ts` |
 | Colours and fonts | `src/styles/global.css` (`@theme`) |
@@ -30,7 +30,7 @@ Node.js 20.9 or newer.
 Brand colours come from the logo: navy `#0c1d35`, teal `#038d91`, tint `#e6e9ef`.
 
 ## Honesty rules (enforced by tests)
-Every product, module and integration carries a status: `available`, `preview`, `onrequest` (built for a client when needed) or `planned`. No product may be marked `available`, every ecosystem link must be `planned`, and every module must be `onrequest`, until a release really ships (`tests/unit/content.test.ts`). Change them only when that is true.
+Every product, module and connection carries a status: `available`, `preview` or `onrequest` (built for a client when needed, and in development now). No product may be marked `available`, and every connection and module must be `onrequest`, until a release really ships (`tests/unit/content.test.ts`). Nothing is labelled "planned". Change a status only when it is true.
 
 ## Images
 - `src/assets/products/*.webp`: sample interface screenshots (desktop 1440x900 and iPhone 16 393x852). Regenerate with `python3 scripts/capture.py` from the HTML in `mockups/` (needs `pip install playwright pillow`).

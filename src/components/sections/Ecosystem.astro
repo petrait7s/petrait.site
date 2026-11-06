@@ -14,8 +14,8 @@ const links = await getCollection("links");
 const products = await getCollection("products");
 
 /*
- * Diagram geometry (viewBox 1200 x 720). Top row: modules built on request. Middle: Petra Core (planned).
- * Bottom row: the five products (preview). Core links are planned, so every wire is dashed.
+ * Diagram geometry (viewBox 1200 x 720). Top row: modules built on request. Middle: Petra Core (built on request).
+ * Bottom row: the five products (preview). Every wire is a connection built on request.
  */
 const W = 1200;
 const nodeW = 200;
@@ -54,11 +54,11 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
       dark
       eyebrow="Ecosystem"
       title="Five products today. One shared core next."
-      lede="PetraPMS, PetraPOS, PetraDMS, Website Build and E-commerce Build run independently today. More modules are built on request, and we are building them now. Petra Core is the planned layer that connects everything: every dashed line is planned, not shipped."
+      lede="PetraPMS, PetraPOS, PetraDMS, Website Build and E-commerce Build run independently today. Petra Core, the modules and every connection between them are built on request, and we are building them now."
     />
 
     <div class="glass relative hidden rounded-3xl p-5 lg:block" data-reveal>
-      <svg viewBox={`0 0 ${W} 720`} class="h-auto w-full" role="img" aria-label="Diagram: five products (PetraPMS, PetraPOS, PetraDMS, Website Build, E-commerce Build) connect through the planned Petra Core, which also connects to eight modules that PETRA builds on request. The core and all connections are planned, not shipped.">
+      <svg viewBox={`0 0 ${W} 720`} class="h-auto w-full" role="img" aria-label="Diagram: five products (PetraPMS, PetraPOS, PetraDMS, Website Build, E-commerce Build) connect through Petra Core, which also connects to eight modules that PETRA builds on request. The core, the modules and all connections are built on request.">
         {/* core to modules */}
         {mods.map((m) => (
           <path d={`M${CORE.x + CORE.w / 2} ${CORE.y} V${BUS_UP} H${m.cx} V${MOD_Y + MOD_H}`} fill="none" stroke="#3fd0d3" stroke-width="1.2" stroke-dasharray="4 8" stroke-opacity="0.4" class="flow" />
@@ -108,8 +108,8 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
 
         {/* core */}
         <g>
-          <rect x={CORE.x} y={CORE.y} width={CORE.w} height={CORE.h} rx="18" fill="#0c1d35" stroke="#3fd0d3" stroke-dasharray="7 6" />
-          <text x={CORE.x + 28} y={CORE.y + 32} font-size="11" fill="#3fd0d3" letter-spacing="3">PETRA CORE · PLANNED</text>
+          <rect x={CORE.x} y={CORE.y} width={CORE.w} height={CORE.h} rx="18" fill="#14284a" stroke="#3fd0d3" />
+          <text x={CORE.x + 28} y={CORE.y + 32} font-size="11" fill="#3fd0d3" letter-spacing="2.4">PETRA CORE · BUILT ON REQUEST</text>
           <text x={CORE.x + 28} y={CORE.y + 62} font-size="22" font-weight="600" fill="#fff">{core.name}</text>
           <text x={CORE.x + 28} y={CORE.y + 82} font-size="11.5" fill="rgba(255,255,255,0.65)">{core.sub}</text>
         </g>
@@ -132,17 +132,16 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
           <rect y="-10" width="22" height="13" rx="3" fill="#14284a" stroke="rgba(255,255,255,0.5)" />
           <text x="32">Product in preview</text>
           <rect x="190" y="-10" width="22" height="13" rx="3" fill="#14284a" stroke="#3fd0d3" />
-          <text x="222">Module built on request</text>
-          <path d="M420 -3 H456" stroke="#3fd0d3" stroke-dasharray="6 5" stroke-width="1.6" />
-          <rect x="476" y="-10" width="22" height="13" rx="3" fill="none" stroke="rgba(255,255,255,0.5)" stroke-dasharray="4 3" />
-          <text x="508">Planned: Petra Core and its links (not shipped)</text>
+          <text x="222">Built on request: module or core</text>
+          <path d="M430 -3 H462" stroke="#3fd0d3" stroke-dasharray="6 5" stroke-width="1.6" />
+          <text x="472">Dashed line: connection built on request</text>
         </g>
       </svg>
     </div>
 
     <div class="grid gap-4 lg:hidden">
       <div class="glass rounded-2xl border-dashed p-5">
-        <div class="flex items-center justify-between"><b>{core.name}</b><Chip status="planned" dark /></div>
+        <div class="flex items-center justify-between"><b>{core.name}</b><Chip status="onrequest" dark /></div>
         <p class="mt-2 text-[12.5px] text-white/70">{core.role}</p>
       </div>
       <div class="grid gap-3 sm:grid-cols-2">
@@ -160,7 +159,7 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
       detail && (
         <div class="mt-14 grid gap-10 lg:grid-cols-2">
           <div data-reveal>
-            <h3 class="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white/70">Planned connections</h3>
+            <h3 class="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white/70">Connections built on request</h3>
             <ul class="divide-y divide-white/10 border-y border-white/10">
               {links.map((l) => (
                 <li class="flex items-start justify-between gap-4 py-3.5">

@@ -4,7 +4,7 @@ import { z } from "astro/zod";
  * Release status. Drives every status chip. Keep it honest.
  * onrequest: built for a client when they need it (and in development now); not an off-the-shelf release.
  */
-export const status = z.enum(["available", "preview", "planned", "onrequest"]);
+export const status = z.enum(["available", "preview", "onrequest"]);
 export type Status = z.infer<typeof status>;
 
 export const screenSource = z.enum(["illustrative", "prototype", "live"]);
@@ -19,7 +19,7 @@ export const productSchema = z.object({
   statusNote: z.string(),
   problem: z.string(),
   description: z.string(),
-  features: z.array(z.object({ title: z.string(), planned: z.boolean().default(false) })),
+  features: z.array(z.object({ title: z.string(), onRequest: z.boolean().default(false) })),
   workflow: z.array(z.string()),
   screenSource,
   /** Files in src/assets/products are named `<assetPrefix>-<view>-desktop.webp` and `-mobile.webp`. */

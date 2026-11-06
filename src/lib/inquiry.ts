@@ -10,7 +10,7 @@ export const businessTypes = [
   "Something else",
 ] as const;
 
-export const interestOptions = ["PetraPMS", "PetraPOS", "PetraDMS", "Website Build", "E-commerce Build", "Marketing", "Enterprise / custom", "Not sure yet"] as const;
+export const interestOptions = ["PetraPMS", "PetraPOS", "PetraDMS", "Website Build", "E-commerce Build", "Marketing", "Custom software", "Not sure yet"] as const;
 
 export const limits = { name: 120, company: 160, email: 200, phone: 40, message: 4000 } as const;
 

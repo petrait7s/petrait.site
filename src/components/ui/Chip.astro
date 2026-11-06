@@ -1,13 +1,13 @@
 ---
 interface Props {
-  status: "available" | "preview" | "planned" | "onrequest";
+  status: "available" | "preview" | "onrequest";
   dark?: boolean;
 }
 const { status, dark = false } = Astro.props;
-const label = { available: "Available", preview: "Preview", planned: "Planned", onrequest: "Built on request" }[status];
+const label = { available: "Available", preview: "Preview", onrequest: "Built on request" }[status];
 const tone = dark
-  ? { available: "bg-glow text-ink", preview: "border border-white/40 text-white", planned: "border border-dashed border-white/40 text-white/80", onrequest: "border border-glow/70 text-glow" }
-  : { available: "bg-accent-text text-white", preview: "border border-ink-3 text-ink-2", planned: "border border-dashed border-ink-3 text-ink-3", onrequest: "border border-accent-text text-accent-text" };
+  ? { available: "bg-glow text-ink", preview: "border border-white/40 text-white", onrequest: "border border-glow/70 text-glow" }
+  : { available: "bg-accent-text text-white", preview: "border border-ink-3 text-ink-2", onrequest: "border border-accent-text text-accent-text" };
 ---
 
 <span class:list={["inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10.5px] font-medium", tone[status]]}>

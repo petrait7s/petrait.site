@@ -82,7 +82,7 @@
       },
       {
         "title": "Room charge to PetraPMS",
-        "planned": true
+        "onRequest": true
       }
     ],
     "workflow": [

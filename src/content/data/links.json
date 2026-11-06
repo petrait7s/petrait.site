@@ -5,7 +5,7 @@
     "to": "pms",
     "label": "Guest charges",
     "detail": "Outlet bills posted to the guest's room folio.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "inventory",
@@ -13,7 +13,7 @@
     "to": "pos",
     "label": "Inventory",
     "detail": "Stock received through distribution available to outlets.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "ops-data",
@@ -21,7 +21,7 @@
     "to": "core",
     "label": "Operational data",
     "detail": "Occupancy, arrivals and folios in the shared data core.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "sales",
@@ -29,7 +29,7 @@
     "to": "core",
     "label": "Sales · Payments",
     "detail": "Outlet sales and payment totals in the shared data core.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "dues",
@@ -37,7 +37,7 @@
     "to": "core",
     "label": "Stock · Dues",
     "detail": "Stock, dues and collections in the shared data core.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "web-leads",
@@ -45,7 +45,7 @@
     "to": "core",
     "label": "Leads · Forms",
     "detail": "Website visitors, leads and form requests in the shared data core.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "shop-orders",
@@ -53,7 +53,7 @@
     "to": "core",
     "label": "Orders · Customers",
     "detail": "Online orders and customers in the shared data core.",
-    "status": "planned"
+    "status": "onrequest"
   },
   {
     "id": "reports",
@@ -61,6 +61,6 @@
     "to": "all",
     "label": "Reports",
     "detail": "One reporting view across rooms, outlets and distribution.",
-    "status": "planned"
+    "status": "onrequest"
   }
 ]

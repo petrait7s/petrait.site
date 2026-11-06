@@ -4,7 +4,7 @@ export const site = {
   legalName: "PETRA Software Solutions",
   tagline: "Built on trust.",
   description:
-    "PETRA Software Solutions builds software for hospitality, business, marketing and enterprise in Bangladesh: PetraPMS, PetraPOS, PetraDMS, website and online store builds. Built on trust.",
+    "PETRA Software Solutions builds software in Bangladesh: products for hospitality and business, and custom software of any type built to client demand. Built on trust.",
   email: "petrabd@gmail.com",
   phone: "016-16154320",
   phoneHref: "+8801616154320",

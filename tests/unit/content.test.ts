@@ -22,8 +22,8 @@ describe("honesty rules", () => {
     for (const p of load("products")) expect(p.status).not.toBe("available");
   });
 
-  it("every ecosystem link is planned (integrations do not ship yet)", () => {
-    for (const l of load("links")) expect(l.status).toBe("planned");
+  it("every ecosystem link is built on request (integrations do not ship yet)", () => {
+    for (const l of load("links")) expect(l.status).toBe("onrequest");
   });
 
   it("ids are unique within each collection", () => {
@@ -79,7 +79,7 @@ describe("ecosystem diagram data", () => {
   it("connects every product to the core, and nothing else is claimed as live", () => {
     const toCore = load("links").filter((l: { to: string }) => l.to === "core").map((l: { from: string }) => l.from);
     for (const code of productCodes) expect(toCore).toContain(code);
-    for (const l of load("links")) expect(l.status).toBe("planned");
+    for (const l of load("links")) expect(l.status).toBe("onrequest");
   });
   it("lists the eight modules built on request, none of them a current product name", () => {
     const names = [...modules.matchAll(/name: "(Petra\w+)", role:/g)].map((m) => m[1]);
@@ -87,5 +87,27 @@ describe("ecosystem diagram data", () => {
     expect([...modules.matchAll(/status: "onrequest" \}/g)].length).toBe(8);
     const productNames = load("products").map((p: { name: string }) => p.name);
     for (const n of names) expect(productNames).not.toContain(n);
+  });
+});
+
+describe("custom software positioning", () => {
+  const company = readFileSync("src/content/company.ts", "utf8");
+  it("states that any type of software is built on client demand", () => {
+    expect(company).toContain("export const customBuild");
+    expect(company).toContain("Any kind of software, to your requirement");
+  });
+  it("offers custom software as a form interest and keeps the sector list at four", () => {
+    expect(readFileSync("src/lib/inquiry.ts", "utf8")).toContain('"Custom software"');
+    const ids = [...company.matchAll(/^ {4}id: "(\w+)",$/gm)].map((m) => m[1]);
+    expect(ids).toHaveLength(5);
+  });
+});
+
+describe("status wording", () => {
+  it("never labels anything as planned", () => {
+    const files = ["src/content/company.ts", "src/content/schemas.ts", "src/components/ui/Chip.astro", "src/components/sections/Ecosystem.astro", "src/components/sections/Deployment.astro", "src/pages/ecosystem.astro", "src/pages/products/[slug].astro"];
+    for (const f of [...files, "src/content/data/links.json", "src/content/data/products.json", "src/content/data/reasons.json"]) {
+      expect(readFileSync(f, "utf8"), f).not.toMatch(/planned/i);
+    }
   });
 });

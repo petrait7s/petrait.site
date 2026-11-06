@@ -13,11 +13,11 @@ export const deployment = {
     { n: "03", title: "Petra products", items: ["PMS", "POS", "DMS"] },
   ],
   traits: [
-    { title: "Local network", text: "Terminals connect to the Petra server over the property LAN.", planned: false },
-    { title: "Fast local response", text: "Requests stay inside the building instead of crossing the internet to a remote data centre.", planned: false },
-    { title: "Centralised local data", text: "One database on the Petra server, stored on hardware you own.", planned: false },
-    { title: "Windows installer", text: "PetraPMS packaged as a Windows installer for on-site setup.", planned: true },
-    { title: "Larger deployments", text: "PostgreSQL for multi-property or cloud-hosted installations.", planned: true },
+    { title: "Local network", text: "Terminals connect to the Petra server over the property LAN.", onRequest: false },
+    { title: "Fast local response", text: "Requests stay inside the building instead of crossing the internet to a remote data centre.", onRequest: false },
+    { title: "Centralised local data", text: "One database on the Petra server, stored on hardware you own.", onRequest: false },
+    { title: "Windows installer", text: "PetraPMS packaged as a Windows installer for on-site setup.", onRequest: true },
+    { title: "Larger deployments", text: "PostgreSQL for multi-property or cloud-hosted installations.", onRequest: true },
   ],
   note: "The model above is PetraPMS's design. Deployment for PetraPOS and PetraDMS, backups and remote access are agreed per project during Discover.",
 } as const;
@@ -26,7 +26,7 @@ export const core = {
   name: "Petra Core",
   sub: "Shared data · sign-in · reports",
   role: "One data layer for all the products: shared customers and guests, one sign-in with roles, and reports across the business.",
-  status: "planned",
+  status: "onrequest",
 } as const;
 
 /** Modules PETRA builds for a client on request (in development now). Not off-the-shelf releases. */
@@ -91,9 +91,16 @@ export const layers = [
   },
 ] as const;
 
+/** The open door: PETRA builds any type of software to a client's requirement. */
+export const customBuild = {
+  title: "Custom software, any type",
+  line: "If you need it, we build it. Tell us the problem and we design, build, deploy and support the software for you.",
+  items: ["Any kind of software, to your requirement", "Scope and timeline agreed per project", "The same team designs, builds and supports it"],
+} as const;
+
 /** What "built on trust" means in practice. Only facts the company can stand behind. */
 export const trustPrinciples = [
-  { title: "Honest by default", text: "Every product, module and integration carries an honest status: available, preview, built on request or planned. We never show a feature as live before it is." },
+  { title: "Honest by default", text: "Every product, module and integration carries an honest status: available, preview or built on request. We never show something as live before it is." },
   { title: "Your data stays yours", text: "PetraPMS is designed to run on the property's own network, with its database on a server you control." },
   { title: "One accountable team", text: "The people who build the software also deploy and support it. No hand-offs, no ticket maze." },
   { title: "Support after go-live", text: "Staff training at handover, then three months of bug-fix support." },
