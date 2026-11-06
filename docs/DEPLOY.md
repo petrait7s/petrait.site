@@ -44,5 +44,8 @@ Behaviour you can rely on:
 - [ ] Have the privacy notice (`/privacy`) reviewed by someone qualified
 - [ ] Submit the sitemap in Google Search Console
 
-## 6. Updating later
+## 6. Known: dependency advisories
+`npm audit` reports advisories against Astro 5.x and its build tools. This site is static: no server, no server islands, no MDX or JSX, no user input rendered at build time, and images are our own WebP files, so the reported issues (mostly server-rendering and dev-server problems) do not apply to the deployed files. The fix is Astro 7.4 or newer, which needs Node 22.23.4 or newer; upgrade when your host and CI use that Node version, then run `npm run check` and the pre-launch checklist again.
+
+## 7. Updating later
 Edit the content files (see README), run `npm run check`, push; the host rebuilds. CI (`.github/workflows/ci.yml`) runs `npm run check` on every push and pull request.
