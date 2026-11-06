@@ -21,6 +21,7 @@
 html { scroll-behavior: smooth; background: var(--color-page); }
 body { background: var(--color-page); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 section[id] { scroll-margin-top: 5rem; }
+main > section:not(:first-child) { content-visibility: auto; contain-intrinsic-size: auto 700px; }
 :focus-visible { outline: 2px solid var(--color-accent-text); outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {

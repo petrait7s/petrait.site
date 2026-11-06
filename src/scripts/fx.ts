@@ -24,11 +24,20 @@ function initReveal() {
 function initSpot() {
   if (!finePointer()) return;
   document.querySelectorAll<HTMLElement>(".spot").forEach((el) => {
-    el.addEventListener("pointermove", (e) => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      el.style.setProperty("--my", `${e.clientY - r.top}px`);
-    });
+    let raf = 0;
+    el.addEventListener(
+      "pointermove",
+      (e) => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          const r = el.getBoundingClientRect();
+          el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          el.style.setProperty("--my", `${e.clientY - r.top}px`);
+        });
+      },
+      { passive: true },
+    );
   });
 }
 
@@ -61,8 +70,20 @@ function initSwipeRows() {
       }
     });
   mark();
-  window.addEventListener("resize", mark);
+  if (!resizeBound) {
+    resizeBound = true;
+    let t = 0;
+    window.addEventListener(
+      "resize",
+      () => {
+        clearTimeout(t);
+        t = window.setTimeout(() => initSwipeRows(), 150);
+      },
+      { passive: true },
+    );
+  }
 }
+let resizeBound = false;
 
 document.addEventListener("astro:page-load", () => {
   initSwipeRows();

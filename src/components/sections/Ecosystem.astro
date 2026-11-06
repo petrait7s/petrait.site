@@ -121,7 +121,6 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
         {nodes.map((n) => (
           <g>
             <rect x={n.x - nodeW / 2} y={NODE_Y} width={nodeW} height={NODE_H} rx="16" fill="#14284a" stroke="rgba(255,255,255,0.35)" />
-            <rect x={n.x - nodeW / 2} y={NODE_Y} width="5" height={NODE_H} rx="2.5" fill="#038d91" />
             <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 36} font-size="24" font-weight="700" fill="#fff" letter-spacing="2">{n.code}</text>
             <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 59} font-size="13.5" font-weight="600" fill="#3fd0d3">{n.name}</text>
             <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 79} font-size="12" fill="rgba(255,255,255,0.7)">{n.short}</text>

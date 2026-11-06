@@ -4,6 +4,9 @@ import { getCollection } from "astro:content";
 import Chip from "../ui/Chip.astro";
 import SectionHead from "../ui/SectionHead.astro";
 import { screenImage } from "../../lib/screens";
+import Button from "../ui/Button.astro";
+import { tints } from "../../lib/tints";
+import { customBuild } from "../../content/company";
 
 interface Props {
   withHead?: boolean;
@@ -32,7 +35,7 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
         products.map((p, i) => (
           <a
             href={`/products/${p.id}`}
-            class:list={["spot group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-[0_24px_50px_-24px_rgba(3,141,145,0.5)]", span[i]]}
+            class:list={["spot group flex flex-col overflow-hidden rounded-2xl border transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(12,29,53,0.35)]", tints[i % tints.length].card, span[i]]}
             data-reveal
             style={`--d:${i % 3}`}
           >
@@ -64,9 +67,13 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
         ))
       }
     </div>
-    <p class="mt-5 text-[13px] text-ink-2 sm:mt-8 sm:text-[14px]" data-reveal>
-      Need something else? We build any type of software on client demand.
-      <a href="/contact" class="font-medium text-accent-text underline underline-offset-4 hover:text-ink">Tell us what you need</a>
-    </p>
+    <div class="mt-4 flex flex-col items-start gap-4 rounded-2xl border border-[#b4dada] bg-[#e0f2f2] p-5 sm:mt-5 sm:flex-row sm:items-center sm:justify-between sm:p-7" data-reveal>
+      <div>
+        <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-accent-text">Custom build</p>
+        <h3 class="mt-2 text-[19px] font-medium tracking-tight">{customBuild.title}</h3>
+        <p class="mt-1 max-w-xl text-[13px] leading-relaxed text-ink-2">{customBuild.line}</p>
+      </div>
+      <Button href="/contact" variant="teal" class="w-full shrink-0 sm:w-auto">Request a custom build</Button>
+    </div>
   </div>
 </section>
