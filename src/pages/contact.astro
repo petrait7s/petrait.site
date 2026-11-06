@@ -4,6 +4,7 @@ import PageHero from "../components/sections/PageHero.astro";
 import InquiryForm from "../components/ui/InquiryForm.astro";
 import SocialLink from "../components/ui/SocialLink.astro";
 import { site } from "../content/site";
+import { tints } from "../lib/tints";
 ---
 
 <BaseLayout title="Contact" description={`Book a PETRA demo. Send a request, email ${site.email}, call ${site.phone} or message us on Facebook.`}>
@@ -11,15 +12,15 @@ import { site } from "../content/site";
   <section class="px-5 py-9 sm:px-10 sm:py-28">
     <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
       <div class="grid grid-cols-2 content-start gap-3 sm:gap-4 lg:grid-cols-1" data-reveal>
-        <a href={`mailto:${site.email}`} class="spot col-span-2 rounded-2xl border border-line bg-white p-4 transition-colors hover:border-accent sm:col-span-1 sm:p-7 lg:col-span-1">
+        <a href={`mailto:${site.email}`} class:list={["spot col-span-2 rounded-2xl border p-4 transition-colors sm:col-span-1 sm:p-7 lg:col-span-1", tints[0].card]}>
           <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Email</p>
           <p class="mt-1.5 break-all text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">{site.email}</p>
         </a>
-        <a href={`tel:${site.phoneHref}`} class="spot rounded-2xl border border-line bg-white p-4 transition-colors hover:border-accent sm:p-7">
+        <a href={`tel:${site.phoneHref}`} class:list={["spot rounded-2xl border p-4 transition-colors sm:p-7", tints[1].card]}>
           <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Phone</p>
           <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">{site.phone}</p>
         </a>
-        <div class="spot col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white p-4 sm:col-span-1 sm:gap-4 sm:p-7 lg:col-span-1">
+        <div class:list={["spot col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border p-4 sm:col-span-1 sm:gap-4 sm:p-7 lg:col-span-1", tints[3].card]}>
           <div>
             <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Social</p>
             <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">Message us on our pages</p>
@@ -29,13 +30,14 @@ import { site } from "../content/site";
             <SocialLink network="instagram" href={site.instagram} />
           </div>
         </div>
-        <div class="col-span-2 hidden rounded-2xl border border-line bg-white p-4 sm:block sm:col-span-1 sm:p-7">
+        <div class:list={["col-span-2 hidden rounded-2xl border p-4 sm:col-span-1 sm:block sm:p-7", tints[2].card]}>
           <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Location</p>
           <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">{site.country}</p>
         </div>
       </div>
-      <div class="rounded-3xl border border-line bg-white p-4 sm:p-9" data-reveal style="--d:1">
-        <h2 class="mb-4 text-[1.15rem] font-medium tracking-tight sm:mb-6 sm:text-[1.35rem]">Request a demo</h2>
+      <div class="relative overflow-hidden rounded-3xl border border-[#b4dada] bg-gradient-to-br from-[#e0f2f2] via-[#e6ecfa] to-[#ece6fa] p-4 sm:p-9" data-reveal style="--d:1">
+        <span class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-[#038d91] via-[#2f5fbf] to-[#7a5bd1]" aria-hidden="true"></span>
+        <h2 class="mb-4 mt-1 text-[1.15rem] font-medium tracking-tight sm:mb-6 sm:text-[1.35rem]">Request a demo</h2>
         <InquiryForm />
       </div>
     </div>
