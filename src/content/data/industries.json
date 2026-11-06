@@ -1,0 +1,7 @@
+[
+  { "id": "hotels", "name": "Hotels", "line": "Front desk, rooms and billing, with POS for the restaurant.", "products": ["PMS", "POS"] },
+  { "id": "resorts", "name": "Resorts", "line": "Rooms plus several food and beverage outlets.", "products": ["PMS", "POS"] },
+  { "id": "restaurants", "name": "Restaurants", "line": "Tables, kitchen tickets and payments.", "products": ["POS"] },
+  { "id": "tour-operators", "name": "Tour operators", "line": "Supplier and partner ledgers with dues.", "products": ["DMS"], "planned": "PetraTour" },
+  { "id": "dmos", "name": "DMOs", "line": "Tools for destination organizations.", "products": [], "planned": "PetraDMO" }
+]

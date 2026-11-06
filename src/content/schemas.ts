@@ -1,0 +1,43 @@
+import { z } from "astro/zod";
+
+/** Release status. Drives every chip and every 3D link style. Keep it honest. */
+export const status = z.enum(["available", "preview", "planned"]);
+export type Status = z.infer<typeof status>;
+
+export const screenSource = z.enum(["illustrative", "prototype", "live"]);
+
+export const productSchema = z.object({
+  id: z.string(),
+  code: z.enum(["PMS", "POS", "DMS"]),
+  name: z.string(),
+  full: z.string(),
+  category: z.string(),
+  status,
+  statusNote: z.string(),
+  problem: z.string(),
+  description: z.string(),
+  features: z.array(z.object({ title: z.string(), planned: z.boolean().default(false) })),
+  workflow: z.array(z.string()),
+  screenSource,
+});
+
+export const linkSchema = z.object({
+  id: z.string(),
+  from: z.string(),
+  to: z.string(),
+  label: z.string(),
+  detail: z.string(),
+  status,
+});
+
+export const industrySchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  line: z.string(),
+  products: z.array(z.enum(["PMS", "POS", "DMS"])),
+  planned: z.string().optional(),
+});
+
+export const reasonSchema = z.object({ id: z.string(), title: z.string(), text: z.string() });
+
+export const stepSchema = z.object({ id: z.string(), n: z.string(), title: z.string(), line: z.string(), detail: z.string() });

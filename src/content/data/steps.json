@@ -1,0 +1,6 @@
+[
+  { "id": "discover", "n": "01", "title": "Discover", "line": "Understand the operation and requirements.", "detail": "A call or site visit to map rooms, outlets, users and the tools you use today." },
+  { "id": "configure", "n": "02", "title": "Configure", "line": "Configure Petra around the workflow.", "detail": "Products, users, roles and settings prepared for your operation before go-live." },
+  { "id": "deploy", "n": "03", "title": "Deploy", "line": "Install and connect the system.", "detail": "Installed on your server and terminals and connected over the local network." },
+  { "id": "support", "n": "04", "title": "Support", "line": "Training and post-deployment support.", "detail": "Staff training at handover, then bug-fix support for three months after go-live." }
+]

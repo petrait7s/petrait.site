@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-page: #f0f0ee;
+  --color-surface: #ededed;
+  --color-ink: #111827;
+  --color-ink-2: #374151;
+  --color-ink-3: #6b7280;
+  --color-line: #d1d5db;
+  --color-accent: #3b82f6;
+  /* darker accent for small text on light backgrounds (>= 4.5:1 on page/surface) */
+  --color-accent-text: #1d4ed8;
+  --color-stage: #0b1020;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; background: var(--color-page); }
+body { background: var(--color-page); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+section[id] { scroll-margin-top: 5rem; }
+:focus-visible { outline: 2px solid var(--color-accent-text); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

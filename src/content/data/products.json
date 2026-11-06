@@ -1,0 +1,63 @@
+[
+  {
+    "id": "petrapms",
+    "code": "PMS",
+    "name": "PetraPMS",
+    "full": "Property Management System",
+    "category": "Hotel property management system",
+    "status": "preview",
+    "statusNote": "Pre-release · demo on request",
+    "problem": "Reservations, room status and guest bills live in one system, so the front desk is not reconciling registers, spreadsheets and paper folios at checkout.",
+    "description": "Hotel and resort operations software for reservations, guest records, room inventory, housekeeping status, billing, check-in and check-out.",
+    "features": [
+      { "title": "Reservations & front desk" },
+      { "title": "Room inventory & status" },
+      { "title": "Guest folios & billing" },
+      { "title": "Housekeeping status" },
+      { "title": "Runs on the hotel LAN" }
+    ],
+    "workflow": ["Reservation", "Room assignment", "Check-in", "Guest folio", "Checkout", "Settlement"],
+    "screenSource": "illustrative"
+  },
+  {
+    "id": "petrapos",
+    "code": "POS",
+    "name": "PetraPOS",
+    "full": "Point of Sale System",
+    "category": "Restaurant and hospitality POS",
+    "status": "preview",
+    "statusNote": "Interface preview · demo on request",
+    "problem": "Orders, kitchen tickets and payments run as one flow, so an outlet closes the day with sales and stock figures it can reconcile.",
+    "description": "Point of sale for restaurants, cafés and room service: order handling, kitchen tickets, billing, stock control and sales reporting.",
+    "features": [
+      { "title": "Table & counter orders" },
+      { "title": "Kitchen tickets" },
+      { "title": "Billing & payments" },
+      { "title": "Stock control" },
+      { "title": "Sales reports" },
+      { "title": "Room charge to PetraPMS", "planned": true }
+    ],
+    "workflow": ["Order", "Kitchen / fulfilment", "Payment", "Inventory", "Reports"],
+    "screenSource": "illustrative"
+  },
+  {
+    "id": "petradms",
+    "code": "DMS",
+    "name": "PetraDMS",
+    "full": "Distribution Management System",
+    "category": "Distribution management system",
+    "status": "preview",
+    "statusNote": "Prototype · demo on request",
+    "problem": "Purchases, stock, sales, customer dues and collections share one ledger, so a distributor always knows what is on the shelf and who still owes money.",
+    "description": "Distribution operations from one desk: sales and invoicing, purchasing, multi-unit stock, customer and supplier ledgers, expenses and daily-to-monthly reports.",
+    "features": [
+      { "title": "Invoicing with due tracking" },
+      { "title": "Big box · small box · piece stock" },
+      { "title": "Customer & supplier ledgers" },
+      { "title": "Daily to monthly reports" },
+      { "title": "Compact mode with calculator" }
+    ],
+    "workflow": ["Purchase", "Stock", "Sales", "Due", "Collection", "Profit"],
+    "screenSource": "prototype"
+  }
+]
