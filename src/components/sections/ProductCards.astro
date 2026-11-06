@@ -13,7 +13,7 @@ const products = await getCollection("products");
 const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3", "lg:col-span-3"];
 ---
 
-<section id="products" class="px-6 py-24 sm:px-10 sm:py-32">
+<section id="products" class="px-5 py-9 sm:px-10 sm:py-32">
   <div class="mx-auto max-w-6xl">
     {
       !withHead && <h2 class="sr-only">All products</h2>
@@ -27,7 +27,7 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
         />
       )
     }
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+    <div class:list={["grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-6", withHead && "hs"]}>
       {
         products.map((p, i) => (
           <a
@@ -36,9 +36,9 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
             data-reveal
             style={`--d:${i % 3}`}
           >
-            <div class="relative aspect-[16/9] overflow-hidden bg-stage">
+            <div class="relative aspect-[16/9] overflow-hidden bg-stage max-sm:aspect-[16/8]">
               <Image
-                src={screenImage(p.data.assetPrefix, p.data.screens[0].view, "desktop")}
+                src={screenImage(p.data.screens[0].page, p.data.screens[0].view, "desktop")}
                 alt=""
                 widths={[480, 720, 960]}
                 sizes="(min-width: 1024px) 420px, 92vw"
@@ -48,14 +48,14 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
               />
               <span class="absolute left-3 top-3 rounded-md bg-stage/85 px-2 py-1 text-[10.5px] font-semibold tracking-[0.14em] text-glow">{p.data.code}</span>
             </div>
-            <div class="flex flex-1 flex-col p-6">
+            <div class="flex flex-1 flex-col p-4 sm:p-6">
               <div class="flex items-start justify-between gap-3">
                 <h3 class="text-[17px] font-medium tracking-tight">{p.data.name}</h3>
                 <Chip status={p.data.status} />
               </div>
               <p class="mt-0.5 text-[12px] text-ink-3">{p.data.full}</p>
-              <p class="mt-3 flex-1 text-[13px] leading-relaxed text-ink-2">{p.data.description}</p>
-              <span class="mt-5 inline-flex items-center gap-1.5 text-[12.5px] font-medium text-accent-text">
+              <p class="mt-2 flex-1 text-[12.5px] leading-relaxed text-ink-2 max-sm:line-clamp-3 sm:mt-3 sm:text-[13px]">{p.data.description}</p>
+              <span class="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-medium text-accent-text sm:mt-5">
                 Explore {p.data.name}
                 <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
               </span>
@@ -64,7 +64,7 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
         ))
       }
     </div>
-    <p class="mt-8 text-[14px] text-ink-2" data-reveal>
+    <p class="mt-5 text-[13px] text-ink-2 sm:mt-8 sm:text-[14px]" data-reveal>
       Need something else? We build any type of software on client demand.
       <a href="/contact" class="font-medium text-accent-text underline underline-offset-4 hover:text-ink">Tell us what you need</a>
     </p>

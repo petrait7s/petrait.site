@@ -8,31 +8,31 @@ import { site } from "../content/site";
 
 <BaseLayout title="Contact" description={`Book a PETRA demo. Send a request, email ${site.email}, call ${site.phone} or message us on Facebook.`}>
   <PageHero eyebrow="Contact" title="See Petra running on your property." lede="Tell us about your operation, or the software you need built. We reply within one working day. No commitment." />
-  <section class="px-6 py-24 sm:px-10 sm:py-28">
+  <section class="px-5 py-9 sm:px-10 sm:py-28">
     <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-      <div class="grid content-start gap-4" data-reveal>
-        <a href={`mailto:${site.email}`} class="spot rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent">
-          <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Email</p>
-          <p class="mt-2 break-all text-[18px] font-medium tracking-tight">{site.email}</p>
+      <div class="grid grid-cols-2 content-start gap-3 sm:gap-4 lg:grid-cols-1" data-reveal>
+        <a href={`mailto:${site.email}`} class="spot col-span-2 rounded-2xl border border-line bg-white p-4 transition-colors hover:border-accent sm:col-span-1 sm:p-7 lg:col-span-1">
+          <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Email</p>
+          <p class="mt-1.5 break-all text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">{site.email}</p>
         </a>
-        <a href={`tel:${site.phoneHref}`} class="spot rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent">
-          <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Phone</p>
-          <p class="mt-2 text-[18px] font-medium tracking-tight">{site.phone}</p>
+        <a href={`tel:${site.phoneHref}`} class="spot rounded-2xl border border-line bg-white p-4 transition-colors hover:border-accent sm:p-7">
+          <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Phone</p>
+          <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">{site.phone}</p>
         </a>
-        <div class="spot flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-white p-7">
+        <div class="spot col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white p-4 sm:col-span-1 sm:gap-4 sm:p-7 lg:col-span-1">
           <div>
             <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Facebook</p>
-            <p class="mt-2 text-[18px] font-medium tracking-tight">Message us on our page</p>
+            <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">Message us on our page</p>
           </div>
           <FacebookLink href={site.facebook} />
         </div>
-        <div class="rounded-2xl border border-line bg-white p-7">
-          <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Location</p>
-          <p class="mt-2 text-[18px] font-medium tracking-tight">{site.country}</p>
+        <div class="col-span-2 hidden rounded-2xl border border-line bg-white p-4 sm:block sm:col-span-1 sm:p-7">
+          <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Location</p>
+          <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">{site.country}</p>
         </div>
       </div>
-      <div class="rounded-3xl border border-line bg-white p-6 sm:p-9" data-reveal style="--d:1">
-        <h2 class="mb-6 text-[1.35rem] font-medium tracking-tight">Request a demo</h2>
+      <div class="rounded-3xl border border-line bg-white p-4 sm:p-9" data-reveal style="--d:1">
+        <h2 class="mb-4 text-[1.15rem] font-medium tracking-tight sm:mb-6 sm:text-[1.35rem]">Request a demo</h2>
         <InquiryForm />
       </div>
     </div>

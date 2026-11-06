@@ -39,25 +39,25 @@ const label = screenLabel[p.screenSource];
   ]}
 >
   <PageHero eyebrow={`${p.code} · ${p.full}`} title={p.name} lede={p.description}>
-    <div class="mt-7 flex flex-wrap items-center gap-3" data-reveal style="--d:3">
+    <div class="mt-4 flex flex-wrap items-center gap-3 sm:mt-7" data-reveal style="--d:3">
       <Chip status={p.status} dark />
       <span class="text-[12px] text-white/70">{p.statusNote}</span>
     </div>
-    <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--d:4">
+    <div class="mt-5 flex flex-wrap gap-3 sm:mt-8" data-reveal style="--d:4">
       <Button href="/contact" variant="teal">Request a {p.name} demo</Button>
       <Button href="/products" variant="ghost-dark">All products</Button>
     </div>
   </PageHero>
 
-  <section class="px-6 py-24 sm:px-10 sm:py-28">
-    <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
+  <section class="px-5 py-9 sm:px-10 sm:py-28">
+    <div class="mx-auto grid max-w-6xl gap-6 sm:gap-12 lg:grid-cols-2">
       <div data-reveal>
         <h2 class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Problem it solves</h2>
-        <p class="text-[1.35rem] font-medium leading-snug tracking-tight sm:text-[1.6rem]">{p.problem}</p>
+        <p class="text-[1.1rem] font-medium leading-snug tracking-tight sm:text-[1.6rem]">{p.problem}</p>
       </div>
       <div data-reveal style="--d:1">
         <h2 class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Key capabilities</h2>
-        <ul class="grid gap-3 sm:grid-cols-2">
+        <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
           {
             p.features.map((f) => (
               <li class="spot flex items-start justify-between gap-3 rounded-xl border border-line bg-white px-4 py-3 text-[13px]">
@@ -71,19 +71,19 @@ const label = screenLabel[p.screenSource];
     </div>
   </section>
 
-  <section class="stage px-6 py-24 sm:px-10 sm:py-28" aria-labelledby="tour-title">
+  <section class="stage px-5 py-9 sm:px-10 sm:py-28" aria-labelledby="tour-title">
     <Aurora calm />
     <div class="mx-auto max-w-6xl">
       <p class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-glow" data-reveal>{label.tag}</p>
-      <h2 id="tour-title" class="mb-10 text-[1.75rem] font-medium tracking-tight sm:text-[2.2rem]" data-reveal>{p.name} on desktop and iPhone</h2>
-      <div data-reveal><Showcase id={p.id} prefix={p.assetPrefix} name={p.name} screens={p.screens} /></div>
+      <h2 id="tour-title" class="mb-5 text-[1.35rem] font-medium tracking-tight sm:mb-10 sm:text-[2.2rem]" data-reveal>{p.name} on desktop and mobile</h2>
+      <div data-reveal><Showcase id={p.id} name={p.name} screens={p.screens} /></div>
       <p class="mt-2 text-[11.5px] text-white/60">{label.note(p.name)}</p>
     </div>
   </section>
 
-  <section class="bg-surface px-6 py-24 sm:px-10 sm:py-28">
+  <section class="bg-surface px-5 py-9 sm:px-10 sm:py-28">
     <div class="mx-auto max-w-6xl">
-      <h2 class="mb-10 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text" data-reveal>How it works</h2>
+      <h2 class="mb-5 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text sm:mb-10" data-reveal>How it works</h2>
       <ol class="flex flex-wrap items-center gap-y-4">
         {
           p.workflow.map((step, i) => (
@@ -99,7 +99,7 @@ const label = screenLabel[p.screenSource];
     </div>
   </section>
 
-  <section class="px-6 pb-4 pt-16 sm:px-10">
+  <section class="px-5 pb-2 pt-8 sm:px-10 sm:pt-16">
     <nav aria-label="More products" class="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 text-[13px] font-medium">
       <a href={`/products/${prev.id}`} class="text-ink-2 hover:text-ink">← {prev.data.name}</a>
       <a href={`/products/${next.id}`} class="text-ink-2 hover:text-ink">{next.data.name} →</a>

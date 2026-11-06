@@ -3,14 +3,14 @@ import { businessTypes, interestOptions, limits } from "../../lib/inquiry";
 import { site } from "../../content/site";
 
 const endpoint = import.meta.env.PUBLIC_INQUIRY_ENDPOINT ?? "";
-const field = "h-12 w-full rounded-xl border border-line bg-white px-4 text-[14px] outline-none transition-colors focus:border-accent aria-[invalid=true]:border-red-600";
-const label = "mb-2 block text-[11.5px] font-medium uppercase tracking-[0.16em] text-ink-3";
-const err = "mt-1.5 min-h-[1.1rem] text-[12px] text-red-700";
+const field = "h-12 w-full touch-manipulation rounded-xl border border-line bg-white px-4 text-[16px] outline-none transition-colors focus:border-accent sm:text-[14px] aria-[invalid=true]:border-red-600";
+const label = "mb-1.5 block text-[11px] font-medium uppercase tracking-[0.16em] text-ink-3";
+const err = "mt-1 min-h-[1rem] text-[12px] text-red-700";
 ---
 
 <div data-inquiry data-endpoint={endpoint} data-email={site.email}>
-  <form novalidate class="grid gap-5" aria-describedby="form-note">
-    <div class="grid gap-5 sm:grid-cols-2">
+  <form novalidate class="grid gap-4 sm:gap-5" aria-describedby="form-note">
+    <div class="grid gap-4 sm:grid-cols-2 sm:gap-5">
       <div>
         <label for="f-name" class={label}>Full name *</label>
         <input id="f-name" name="name" type="text" required maxlength={limits.name} autocomplete="name" class={field} aria-describedby="e-name" />
@@ -76,7 +76,7 @@ const err = "mt-1.5 min-h-[1.1rem] text-[12px] text-red-700";
     <div role="alert" data-status class="min-h-[1.25rem] text-[13px] text-red-700"></div>
 
     <div class="flex flex-wrap items-center gap-4">
-      <button type="submit" class="btn-sheen group inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent-text px-7 text-[13px] font-medium text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60">
+      <button type="submit" class="btn-sheen press group inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-accent-text px-7 sm:w-auto text-[13px] font-medium text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60">
         <span data-label>Request a demo</span><span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
       </button>
       <p id="form-note" class="text-[12px] text-ink-3">

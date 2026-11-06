@@ -1,18 +1,17 @@
 ---
 import DeviceFrame from "./DeviceFrame.astro";
-import { screenImage } from "../../lib/screens";
+import LiveScreen from "./LiveScreen.astro";
 
 interface Props {
   id: string;
-  prefix: string;
   name: string;
-  screens: { view: string; label: string; alt: string }[];
+  screens: { page: string; view: string; label: string; alt: string }[];
 }
-const { id, prefix, name, screens } = Astro.props;
+const { id, name, screens } = Astro.props;
 ---
 
-<div class="showcase" data-showcase>
-  <div role="tablist" aria-label={`${name} screens`} class="mb-6 flex flex-wrap gap-2">
+<div class="showcase" data-showcase data-mode="phone">
+  <div role="tablist" aria-label={`${name} screens`} class="no-scrollbar -mx-5 mb-4 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:mb-6 sm:flex-wrap sm:overflow-visible sm:px-0">
     {
       screens.map((s, i) => (
         <button
@@ -22,7 +21,7 @@ const { id, prefix, name, screens } = Astro.props;
           aria-selected={i === 0 ? "true" : "false"}
           aria-controls={`${id}-panel-${i}`}
           tabindex={i === 0 ? 0 : -1}
-          class="rounded-full border border-white/20 px-4 py-1.5 text-[12px] font-medium text-white/70 transition-colors hover:text-white aria-selected:border-glow aria-selected:bg-white/10 aria-selected:text-white"
+          class="press shrink-0 whitespace-nowrap rounded-full border border-white/20 px-4 py-2 text-[12px] font-medium text-white/70 transition-colors hover:text-white aria-selected:border-glow aria-selected:bg-white/10 aria-selected:text-white sm:py-1.5"
         >
           {s.label}
         </button>
@@ -33,17 +32,37 @@ const { id, prefix, name, screens } = Astro.props;
     screens.map((s, i) => (
       <div role="tabpanel" id={`${id}-panel-${i}`} aria-labelledby={`${id}-tab-${i}`} hidden={i !== 0} class="relative">
         <div class="grid items-end gap-6 sm:grid-cols-[1fr_auto]">
-          <DeviceFrame kind="desktop" src={screenImage(prefix, s.view, "desktop")} alt={`${s.alt} (desktop)`} eager={i === 0} />
-          <DeviceFrame kind="phone" src={screenImage(prefix, s.view, "mobile")} alt={`${s.alt} (iPhone)`} eager={i === 0} class="mx-auto w-[150px] sm:w-[170px] lg:w-[200px]" />
+          <div class="dev-desktop">
+            <DeviceFrame kind="desktop">
+              <LiveScreen page={s.page} view={s.view} kind="desktop" alt={`${s.alt} (desktop)`} title={`${name}: ${s.label}`} eager={i === 0} />
+            </DeviceFrame>
+          </div>
+          <div class="dev-phone">
+            <DeviceFrame kind="phone" class="mx-auto w-[210px] sm:w-[170px] lg:w-[200px]">
+              <LiveScreen page={s.page} view={s.view} kind="phone" alt={`${s.alt} (mobile)`} title={`${name}: ${s.label}, mobile`} eager={i === 0} />
+            </DeviceFrame>
+          </div>
         </div>
       </div>
     ))
   }
+  <div class="mt-4 flex justify-center sm:hidden">
+    <button type="button" data-device-toggle class="press rounded-full border border-white/25 px-4 py-2 text-[12px] font-medium text-white/85">Show desktop view</button>
+  </div>
 </div>
+
+<style>
+  @media (max-width: 639px) {
+    .showcase[data-mode="phone"] .dev-desktop { display: none; }
+    .showcase[data-mode="desktop"] .dev-phone { display: none; }
+  }
+</style>
 
 <script>
   function bind() {
     document.querySelectorAll<HTMLElement>("[data-showcase]").forEach((root) => {
+      if (root.dataset.bound) return;
+      root.dataset.bound = "1";
       const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
       const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
       const select = (n: number, focus = false) => {
@@ -54,6 +73,12 @@ const { id, prefix, name, screens } = Astro.props;
         panels.forEach((p, i) => (p.hidden = i !== n));
         if (focus) tabs[n].focus();
       };
+      const toggle = root.querySelector<HTMLButtonElement>("[data-device-toggle]");
+      toggle?.addEventListener("click", () => {
+        const desktop = root.dataset.mode !== "desktop";
+        root.dataset.mode = desktop ? "desktop" : "phone";
+        toggle.textContent = desktop ? "Show mobile view" : "Show desktop view";
+      });
       tabs.forEach((t, i) => {
         t.addEventListener("click", () => select(i));
         t.addEventListener("keydown", (e) => {

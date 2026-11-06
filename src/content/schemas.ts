@@ -14,6 +14,8 @@ export const productSchema = z.object({
   code: z.enum(["PMS", "POS", "DMS", "WEB", "SHOP"]),
   name: z.string(),
   full: z.string(),
+  /** Two or three words, for tight spaces such as the ecosystem diagram. */
+  short: z.string(),
   category: z.string(),
   status,
   statusNote: z.string(),
@@ -22,9 +24,8 @@ export const productSchema = z.object({
   features: z.array(z.object({ title: z.string(), onRequest: z.boolean().default(false) })),
   workflow: z.array(z.string()),
   screenSource,
-  /** Files in src/assets/products are named `<assetPrefix>-<view>-desktop.webp` and `-mobile.webp`. */
-  assetPrefix: z.string(),
-  screens: z.array(z.object({ view: z.string(), label: z.string(), alt: z.string() })).min(1),
+  /** `page` is a file in public/demo (page.html), `view` a data-v section in it. Posters: src/assets/products/<page>-<view>-desktop|mobile.webp */
+  screens: z.array(z.object({ page: z.string(), view: z.string(), label: z.string(), alt: z.string() })).min(1),
 });
 
 export const linkSchema = z.object({

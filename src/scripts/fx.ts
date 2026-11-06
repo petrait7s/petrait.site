@@ -45,7 +45,27 @@ function initAurora() {
   els.forEach((el) => io.observe(el));
 }
 
+/** Swipeable card rows (.hs) must be reachable by keyboard and named for screen readers while they scroll. */
+function initSwipeRows() {
+  const rows = document.querySelectorAll<HTMLElement>(".hs");
+  const mark = () =>
+    rows.forEach((row) => {
+      if (row.scrollWidth > row.clientWidth + 2) {
+        row.tabIndex = 0;
+        const section = row.closest("section");
+        const heading = section?.querySelector("h2")?.textContent?.trim();
+        row.setAttribute("aria-label", heading ? `${heading}: swipe to see more` : "Swipe to see more");
+      } else {
+        row.removeAttribute("tabindex");
+        row.removeAttribute("aria-label");
+      }
+    });
+  mark();
+  window.addEventListener("resize", mark);
+}
+
 document.addEventListener("astro:page-load", () => {
+  initSwipeRows();
   initReveal();
   initSpot();
   initAurora();

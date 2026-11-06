@@ -35,24 +35,39 @@
       "Settlement"
     ],
     "screenSource": "illustrative",
-    "assetPrefix": "petrapms",
     "screens": [
       {
+        "page": "petrapms",
         "view": "dashboard",
         "label": "Dashboard",
-        "alt": "PetraPMS dashboard with occupancy, arrivals, departures and revenue"
+        "alt": "PetraPMS front-desk overview with occupancy, today's arrivals timeline, room status and housekeeping progress"
       },
       {
+        "page": "petrapms",
+        "view": "reservations",
+        "label": "Reservations",
+        "alt": "PetraPMS booking calendar with rooms by day and a list of reservations"
+      },
+      {
+        "page": "petrapms",
         "view": "rooms",
-        "label": "Rooms",
-        "alt": "PetraPMS floor plan with room status and housekeeping"
+        "label": "Room check",
+        "alt": "PetraPMS live floor plan showing which rooms are occupied, clean, dirty or out of order, with room details"
       },
       {
+        "page": "petrapms",
+        "view": "housekeeping",
+        "label": "Housekeeping",
+        "alt": "PetraPMS housekeeping board with rooms to clean, in progress, to inspect and ready"
+      },
+      {
+        "page": "petrapms",
         "view": "billing",
-        "label": "Billing",
-        "alt": "PetraPMS guest folio with charges, deposit and balance"
+        "label": "Guest billing",
+        "alt": "PetraPMS guest folio with charges, payments, balance and night audit"
       }
-    ]
+    ],
+    "short": "Hotel management"
   },
   {
     "id": "petrapos",
@@ -93,19 +108,39 @@
       "Reports"
     ],
     "screenSource": "illustrative",
-    "assetPrefix": "petrapos",
     "screens": [
       {
-        "view": "terminal",
-        "label": "Terminal",
-        "alt": "PetraPOS order terminal with menu and table ticket"
+        "page": "petrapos",
+        "view": "floor",
+        "label": "Floor",
+        "alt": "PetraPOS floor overview with live table status, open orders and shift sales"
       },
       {
-        "view": "analytics",
-        "label": "Analytics",
-        "alt": "PetraPOS sales analytics with hourly sales and payment mix"
+        "page": "petrapos",
+        "view": "order",
+        "label": "Order",
+        "alt": "PetraPOS order screen with menu items, the table's ticket and cash, bKash or card payment"
+      },
+      {
+        "page": "petrapos",
+        "view": "kitchen",
+        "label": "Kitchen",
+        "alt": "PetraPOS kitchen display with new, preparing and ready tickets"
+      },
+      {
+        "page": "petrapos",
+        "view": "sales",
+        "label": "Sales",
+        "alt": "PetraPOS sales report with hourly sales, payment mix and top items"
+      },
+      {
+        "page": "petrapos",
+        "view": "stock",
+        "label": "Stock",
+        "alt": "PetraPOS ingredient stock levels, reorder suggestions, deliveries and wastage"
       }
-    ]
+    ],
+    "short": "Restaurant POS"
   },
   {
     "id": "petradms",
@@ -143,19 +178,39 @@
       "Profit"
     ],
     "screenSource": "illustrative",
-    "assetPrefix": "petradms",
     "screens": [
       {
+        "page": "petradms",
         "view": "dashboard",
         "label": "Dashboard",
-        "alt": "PetraDMS dashboard with sales, collection, dues and recent invoices"
+        "alt": "PetraDMS dashboard with sales against collection, receivables aging, sales by route and stock alerts"
       },
       {
+        "page": "petradms",
+        "view": "sales",
+        "label": "Sales",
+        "alt": "PetraDMS invoice list with a selected invoice showing big box, small box and piece quantities"
+      },
+      {
+        "page": "petradms",
         "view": "inventory",
         "label": "Inventory",
-        "alt": "PetraDMS multi-unit stock with big box, small box and piece counts"
+        "alt": "PetraDMS multi-unit stock list with big box, small box and piece counts and stock value"
+      },
+      {
+        "page": "petradms",
+        "view": "purchases",
+        "label": "Purchases",
+        "alt": "PetraDMS purchase orders, supplier payables and goods receiving"
+      },
+      {
+        "page": "petradms",
+        "view": "dues",
+        "label": "Dues and ledger",
+        "alt": "PetraDMS customer ledger with overdue balances, collections and payment methods"
       }
-    ]
+    ],
+    "short": "Distribution"
   },
   {
     "id": "website-build",
@@ -189,19 +244,33 @@
       "Publish"
     ],
     "screenSource": "illustrative",
-    "assetPrefix": "website",
     "screens": [
       {
-        "view": "editor",
-        "label": "Editor",
-        "alt": "Website Build page editor with block list and live preview"
+        "page": "website",
+        "view": "resort",
+        "label": "Resort website",
+        "alt": "Sample resort website with a full-width hero image, booking bar, rooms and offers"
       },
       {
-        "view": "sites",
-        "label": "Sites",
-        "alt": "Website Build site list with domains and traffic"
+        "page": "website",
+        "view": "restaurant",
+        "label": "Restaurant website",
+        "alt": "Sample restaurant website with a hero image, menu highlights and a reservation bar"
+      },
+      {
+        "page": "website",
+        "view": "tours",
+        "label": "Tour website",
+        "alt": "Sample tour operator website with a mountain hero image, search bar and popular tours"
+      },
+      {
+        "page": "website",
+        "view": "editor",
+        "label": "Page editor",
+        "alt": "Website Build page editor with sections list, live preview and hero settings"
       }
-    ]
+    ],
+    "short": "Website design"
   },
   {
     "id": "ecommerce-build",
@@ -235,18 +304,44 @@
       "Reports"
     ],
     "screenSource": "illustrative",
-    "assetPrefix": "ecommerce",
     "screens": [
       {
-        "view": "store",
-        "label": "Overview",
-        "alt": "E-commerce Build store overview with orders and sales"
+        "page": "stores",
+        "view": "fashion",
+        "label": "Fashion store",
+        "alt": "Sample fashion online store landing page with hero, categories, new arrivals and a sale banner"
       },
       {
-        "view": "products",
+        "page": "stores",
+        "view": "decor",
+        "label": "Home decor store",
+        "alt": "Sample home decor online store landing page with hero, collections and bestsellers"
+      },
+      {
+        "page": "stores",
+        "view": "gadgets",
+        "label": "Gadget store",
+        "alt": "Sample gadget online store landing page with hero, flash deal countdown and trending products"
+      },
+      {
+        "page": "ecommerce",
+        "view": "store",
+        "label": "Store overview",
+        "alt": "E-commerce Build store dashboard with revenue, conversion funnel, latest orders and top products"
+      },
+      {
+        "page": "ecommerce",
+        "view": "orders",
+        "label": "Orders",
+        "alt": "E-commerce Build orders list with payment, courier and return status"
+      },
+      {
+        "page": "ecommerce",
+        "view": "catalog",
         "label": "Products",
-        "alt": "E-commerce Build product catalog grid"
+        "alt": "E-commerce Build product catalog grid with prices and stock"
       }
-    ]
+    ],
+    "short": "Online store"
   }
 ]

@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import { screenImage } from "../../lib/screens";
+
+interface Props {
+  page: string;
+  view: string;
+  kind: "desktop" | "phone";
+  alt: string;
+  title: string;
+  eager?: boolean;
+  sizes?: string;
+}
+const { page, view, kind, alt, title, eager = false, sizes } = Astro.props;
+const dims = kind === "desktop" ? { w: 1440, h: 900 } : { w: 393, h: 852 };
+const poster = screenImage(page, view, kind === "desktop" ? "desktop" : "mobile");
+const widths = kind === "desktop" ? [480, 800, 1200, 1600] : [200, 320, 480];
+---
+
+<!--
+  The poster image is what shows first, and all that shows without JavaScript, with reduced motion or Save-Data.
+  src/scripts/live.ts then loads the live sample interface (public/demo) over it, scaled to fit, and it moves by itself.
+-->
+<div class="live-screen relative block overflow-hidden bg-stage" data-live data-src={`/demo/${page}.html#${view}`} data-w={dims.w} data-h={dims.h} data-title={title} style={`aspect-ratio:${dims.w}/${dims.h}`}>
+  <Image
+    src={poster}
+    alt={alt}
+    widths={widths}
+    sizes={sizes ?? (kind === "desktop" ? "(min-width: 1024px) 720px, 92vw" : "(min-width: 1024px) 220px, 40vw")}
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={eager ? "high" : "auto"}
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover object-top"
+  />
+</div>
+
+<script>
+  import "../../scripts/live";
+</script>

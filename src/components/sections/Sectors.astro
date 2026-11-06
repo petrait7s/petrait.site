@@ -9,7 +9,7 @@ const foundation = layers[0];
 const sectors = layers.slice(1);
 ---
 
-<section id="solutions" class="px-6 py-24 sm:px-10 sm:py-32" aria-labelledby="solutions-title">
+<section id="solutions" class="px-5 py-9 sm:px-10 sm:py-32" aria-labelledby="solutions-title">
   <div class="mx-auto max-w-6xl">
     <SectionHead
       id="solutions-title"
@@ -17,10 +17,10 @@ const sectors = layers.slice(1);
       title="Four sectors, one foundation of trust."
       lede="Each sector stands on the same base: software that is honest about what it does and supported by the people who built it."
     />
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="hs grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {
         sectors.map((s, i) => (
-          <article class="spot flex flex-col rounded-2xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent" data-reveal style={`--d:${i}`}>
+          <article class="spot flex flex-col rounded-2xl border border-line bg-white p-5 transition-all sm:p-7 duration-300 hover:-translate-y-1 hover:border-accent" data-reveal style={`--d:${i}`}>
             <p class="text-[11px] font-medium tracking-[0.22em] text-accent-text">{String(i + 1).padStart(2, "0")}</p>
             <h3 class="mt-3 text-[19px] font-medium tracking-tight">{s.title}</h3>
             <p class="mt-2 flex-1 text-[13px] leading-relaxed text-ink-2">{s.line}</p>
@@ -40,21 +40,21 @@ const sectors = layers.slice(1);
         ))
       }
     </div>
-    <div class="stage mt-5 rounded-3xl px-7 py-10 sm:px-12" data-reveal>
+    <div class="stage mt-4 rounded-3xl px-5 py-7 sm:mt-5 sm:px-12 sm:py-10" data-reveal>
       <Aurora calm />
       <div class="grid items-center gap-8 md:grid-cols-[1.2fr_1fr]">
         <div>
           <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-glow">On demand</p>
-          <h3 class="mt-2 text-[1.6rem] font-medium leading-tight tracking-tight sm:text-[2rem]">{customBuild.title}</h3>
-          <p class="mt-3 max-w-lg text-[14px] leading-relaxed text-white/75">{customBuild.line}</p>
-          <div class="mt-6"><Button href="/contact" variant="teal">Tell us what you need</Button></div>
+          <h3 class="mt-2 text-[1.3rem] font-medium leading-tight tracking-tight sm:text-[2rem]">{customBuild.title}</h3>
+          <p class="mt-2 max-w-lg text-[13px] leading-relaxed text-white/75 sm:mt-3 sm:text-[14px]">{customBuild.line}</p>
+          <div class="mt-4 sm:mt-6"><Button href="/contact" variant="teal" class="w-full sm:w-auto">Tell us what you need</Button></div>
         </div>
-        <ul class="grid gap-3 text-[13px] text-white/85">
-          {customBuild.items.map((it) => <li class="glass rounded-xl px-4 py-3">{it}</li>)}
+        <ul class="grid gap-2 text-[12.5px] text-white/85 sm:gap-3 sm:text-[13px]">
+          {customBuild.items.map((it) => <li class="glass rounded-xl px-4 py-2.5 sm:py-3">{it}</li>)}
         </ul>
       </div>
     </div>
-    <div class="spot mt-5 rounded-2xl border border-line bg-surface p-7" data-reveal>
+    <div class="spot mt-4 rounded-2xl border border-line bg-surface p-5 sm:mt-5 sm:p-7" data-reveal>
       <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1">
         <p class="text-[11px] font-medium tracking-[0.22em] text-accent-text">FOUNDATION</p>
         <h3 class="text-[19px] font-medium tracking-tight">{foundation.title}</h3>

@@ -33,9 +33,11 @@ Brand colours come from the logo: navy `#0c1d35`, teal `#038d91`, tint `#e6e9ef`
 Every product, module and connection carries a status: `available`, `preview` or `onrequest` (built for a client when needed, and in development now). No product may be marked `available`, and every connection and module must be `onrequest`, until a release really ships (`tests/unit/content.test.ts`). Nothing is labelled "planned". Change a status only when it is true.
 
 ## Images
-- `src/assets/products/*.webp`: sample interface screenshots (desktop 1440x900 and iPhone 16 393x852). Regenerate with `python3 scripts/capture.py` from the HTML in `mockups/` (needs `pip install playwright pillow`).
+- `public/demo/*.html`: the sample interfaces (PetraPMS, PetraPOS, PetraDMS, Website Build sites and editor, E-commerce Build stores and admin). They are built from `mockups/*.py` with `python3 mockups/build.py`, shown in moving frames on the product pages, and use made-up names and numbers only.
+- `src/assets/products/*.webp`: posters of every screen (desktop 1440x900, smartphone 393x852): the first thing visitors see, and all they see with reduced motion or JavaScript off. Regenerate with `python3 scripts/capture.py` (needs `pip install playwright pillow`).
 - `public/og.png`: share image, regenerate with `python3 scripts/og.py`.
 - Replace the samples with real captures when the products ship, and set `screenSource` to `live` in `products.json`.
+- Each screen listed in `products.json` (`page` + `view`) must exist in `public/demo` and have both posters; a test checks this.
 
 ## Going live
 See [`docs/DEPLOY.md`](docs/DEPLOY.md): environment variables, form service, host settings and the pre-launch checklist.

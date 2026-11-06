@@ -48,3 +48,19 @@ section[id] { scroll-margin-top: 5rem; }
 
 /* Paused unless the section is on screen (declared last so the animation shorthands above cannot reset it). */
 .aurora:not([data-active]) .aurora-blob, .aurora:not([data-active]) .aurora-grid { animation-play-state: paused; }
+
+/* ---------- phone: app-like feel ---------- */
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; }
+.press { transition: transform .15s ease, background-color .2s; touch-action: manipulation; }
+.press:active { transform: scale(.96); }
+@media (max-width: 639px) {
+  /* swipeable cards instead of long stacks */
+  .hs { display: flex !important; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -1.25rem; padding: 2px 1.25rem 8px; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .hs::-webkit-scrollbar { display: none; }
+  .hs > * { flex: 0 0 80%; scroll-snap-align: center; min-width: 0; }
+  .hs.wide > * { flex-basis: 88%; }
+  a, button, [role="tab"] { touch-action: manipulation; }
+}
+@media (max-width: 1023px) { body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); } }
+
+.no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }

@@ -14,12 +14,14 @@ src/
   content/          site.ts, company.ts, labels.ts, schemas.ts (zod), data/*.json (Astro content collections)
   lib/              inquiry.ts (validation, reference, mailto), screens.ts (screenshot lookup)
   scripts/fx.ts     scroll reveal, card spotlight, aurora pause when off screen
-  assets/products/  sample interface screenshots (optimised by astro:assets)
-public/             brand logos, og.png, _headers
-mockups/            HTML sources of the screenshots and og.png
-scripts/            capture.py, og.py (image generation), assert-site-url.mjs (production guard)
+  assets/products/  posters of every sample screen (optimised by astro:assets)
+public/             brand logos, og.png, _headers, demo/ (the live sample interfaces, built from mockups/*.py)
+mockups/            Python sources of public/demo/*.html (build.py) and og.html
+scripts/            capture.py (posters), og.py (share image), assert-site-url.mjs (production guard)
 tests/unit/         content honesty rules, routes, form logic
 ```
+
+Product screens are live: each product page frames pages from `public/demo` (same origin, so X-Frame-Options is SAMEORIGIN) over a poster image and they scroll by themselves; reduced motion and Save-Data keep the poster.
 
 Data flow: `content/data/*.json` (validated by `schemas.ts`) → pages → HTML. The only runtime code is the navbar menu, the product tabs, the reveal/spotlight/aurora helpers and the demo form, all progressive: content is visible without JavaScript and with reduced motion.
 

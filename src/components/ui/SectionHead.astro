@@ -10,8 +10,8 @@ interface Props {
 const { eyebrow, title, lede, dark = false, class: extra = "", id } = Astro.props;
 ---
 
-<div class:list={["mb-12 max-w-2xl sm:mb-16", extra]} data-reveal>
-  <p class:list={["mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em]", dark ? "text-glow" : "text-accent-text"]}>{eyebrow}</p>
-  <h2 id={id} class:list={["text-[1.75rem] font-medium leading-[1.1] tracking-tight sm:text-[2.4rem]", dark ? "text-white" : "text-ink"]}>{title}</h2>
-  {lede && <p class:list={["mt-4 max-w-xl text-[14px] leading-relaxed", dark ? "text-white/70" : "text-ink-2"]}>{lede}</p>}
+<div class:list={["mb-5 max-w-2xl sm:mb-16", extra]} data-reveal>
+  <p class:list={["mb-2 text-[11px] font-medium uppercase tracking-[0.2em] sm:mb-3 sm:text-[11.5px]", dark ? "text-glow" : "text-accent-text"]}>{eyebrow}</p>
+  <h2 id={id} class:list={["text-[1.4rem] font-medium leading-[1.12] tracking-tight sm:text-[2.4rem]", dark ? "text-white" : "text-ink"]}>{title}</h2>
+  {lede && <p class:list={["mt-2.5 max-w-xl text-[13px] leading-relaxed sm:mt-4 sm:text-[14px]", dark ? "text-white/70" : "text-ink-2"]}>{lede}</p>}
 </div>

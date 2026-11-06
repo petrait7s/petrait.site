@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { industrySchema, linkSchema, productSchema, reasonSchema, stepSchema } from "../../src/content/schemas";
 import { z } from "astro/zod";
@@ -34,16 +34,41 @@ describe("honesty rules", () => {
   });
 });
 
-describe("product screenshots", () => {
-  it("every declared screen has a desktop and a mobile image", () => {
+describe("product screens", () => {
+  it("every declared screen has a sample page with that view, and a desktop and a mobile poster", () => {
     for (const p of load("products")) {
       for (const s of p.screens) {
+        const html = `public/demo/${s.page}.html`;
+        expect(existsSync(html), html).toBe(true);
+        expect(readFileSync(html, "utf8"), `${s.page} has view ${s.view}`).toContain(`data-v="${s.view}"`);
         for (const kind of ["desktop", "mobile"]) {
-          const file = `src/assets/products/${p.assetPrefix}-${s.view}-${kind}.webp`;
+          const file = `src/assets/products/${s.page}-${s.view}-${kind}.webp`;
           expect(existsSync(file), file).toBe(true);
         }
       }
     }
+  });
+  it("every sample page is noindex and says it is sample data", () => {
+    for (const f of readdirSync("public/demo").filter((n) => n.endsWith(".html"))) {
+      const html = readFileSync(`public/demo/${f}`, "utf8");
+      expect(html, f).toContain('name="robots" content="noindex"');
+      expect(html, f).toMatch(/SAMPLE (DATA|WEBSITE)/);
+    }
+  });
+  it("PetraPMS, PetraPOS and PetraDMS each have their own look", () => {
+    const theme = (f: string) => readFileSync(`public/demo/${f}.html`, "utf8").match(/<body class="([^"]+)"/)![1];
+    const themes = ["petrapms", "petrapos", "petradms"].map(theme);
+    expect(new Set(themes).size).toBe(3);
+  });
+  it("the word iPhone never appears on the site or in the sample pages", () => {
+    const walk = (dir: string): string[] => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${dir}/${e.name}`) : [`${dir}/${e.name}`]));
+    for (const f of [...walk("src").filter((n) => /\.(astro|ts|json)$/.test(n)), ...walk("public/demo").filter((n) => /\.(html|css|js)$/.test(n)), "README.md", "docs/DEPLOY.md", "docs/ARCHITECTURE.md"]) {
+      expect(readFileSync(f, "utf8"), f).not.toMatch(/iphone/i);
+    }
+  });
+  it("the host headers allow the site to frame its own sample pages", () => {
+    expect(readFileSync("public/_headers", "utf8")).toContain("X-Frame-Options: SAMEORIGIN");
+    expect(readFileSync("vercel.json", "utf8")).toContain('"SAMEORIGIN"');
   });
 });
 
