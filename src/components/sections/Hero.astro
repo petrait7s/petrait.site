@@ -1,22 +1,23 @@
 ---
+import Aurora from "../ui/Aurora.astro";
 import Button from "../ui/Button.astro";
 import DeviceFrame from "../ui/DeviceFrame.astro";
 import { screenImage } from "../../lib/screens";
 ---
 
 <section class="stage" aria-labelledby="hero-title">
-  <div class="grid-bg"></div>
-  <div class="mx-auto grid min-h-[100svh] max-w-6xl items-center gap-12 px-6 pb-24 pt-32 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+  <Aurora />
+  <div class="mx-auto grid min-h-[100svh] max-w-6xl items-center gap-12 px-6 pb-24 pt-32 sm:px-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
     <div>
       <p class="mb-5 inline-flex items-center gap-2 rounded-full glass px-3.5 py-1.5 text-[11.5px] font-medium text-white/80" data-reveal>
         <i class="h-1.5 w-1.5 rounded-full bg-glow" aria-hidden="true"></i>
-        PMS · POS · DMS · Web · Commerce, built in Bangladesh
+        PETRA Software Solutions · Bangladesh
       </p>
-      <h1 id="hero-title" class="text-[2.4rem] font-medium leading-[1.05] tracking-tight sm:text-[3.6rem]" data-reveal style="--d:1">
-        Software that runs <span class="gradient-text">hospitality.</span>
+      <h1 id="hero-title" class="text-[2.8rem] font-medium leading-[1.02] tracking-tight sm:text-[4.4rem]" data-reveal style="--d:1">
+        Built on <span class="gradient-text">trust.</span>
       </h1>
-      <p class="mt-6 max-w-md text-[15px] leading-relaxed text-white/70" data-reveal style="--d:2">
-        Hospitality software for properties, outlets and distribution operations, built around real-world workflows.
+      <p class="mt-6 max-w-md text-[16px] leading-relaxed text-white/75" data-reveal style="--d:2">
+        Software for hospitality, business, marketing and enterprise, made the way solid things are made: layer by layer, on a foundation that holds.
       </p>
       <div class="mt-9 flex flex-wrap gap-3" data-reveal style="--d:3">
         <Button href="/contact" variant="teal">Book a demo</Button>
@@ -25,22 +26,16 @@ import { screenImage } from "../../lib/screens";
       <p class="mt-8 text-[12px] text-white/60" data-reveal style="--d:4">All products are in preview. Demos on request.</p>
     </div>
 
-    <div class="relative" data-tilt data-reveal style="--d:2">
-      <div class="tilt relative mx-auto max-w-[640px] pb-10 lg:max-w-none">
-        <DeviceFrame kind="desktop" src={screenImage("petrapms", "dashboard", "desktop")} alt="PetraPMS dashboard with occupancy, arrivals and revenue (sample)" eager sizes="(min-width: 1024px) 640px, 92vw" />
-        <div class="float absolute -bottom-2 -left-2 w-[26%] min-w-[96px] sm:-left-8" style="transform: translateZ(60px)">
-          <DeviceFrame kind="phone" src={screenImage("petrapos", "terminal", "mobile")} alt="PetraPOS order screen on iPhone (sample)" eager sizes="180px" />
-        </div>
-        <div class="glass absolute -right-1 top-[58%] hidden rounded-xl px-3.5 py-2.5 text-[11px] text-white/80 sm:block" style="transform: translateZ(40px)">
-          <b class="block text-[12px] text-white">Sample interface</b>
-          Shown with sample data
+    <div class="relative" data-reveal style="--d:2">
+      <div class="relative mx-auto max-w-[640px] pb-10 lg:max-w-none">
+        <DeviceFrame kind="desktop" src={screenImage("petrapms", "dashboard", "desktop")} alt="PetraPMS dashboard with occupancy, arrivals and revenue (sample data)" eager sizes="(min-width: 1024px) 640px, 92vw" />
+        <div class="float absolute -bottom-2 -left-2 w-[26%] min-w-[96px] sm:-left-8">
+          <DeviceFrame kind="phone" src={screenImage("petrapos", "terminal", "mobile")} alt="PetraPOS order screen on iPhone (sample data)" eager sizes="180px" />
         </div>
       </div>
     </div>
   </div>
   <div class="absolute inset-x-0 bottom-0 border-t border-white/10">
-    <p class="mx-auto max-w-6xl px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-white/60 sm:px-10">
-      For hotels · resorts · restaurants · tour operators · DMOs
-    </p>
+    <p class="mx-auto max-w-6xl px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-white/60 sm:px-10">Hospitality · Business · Marketing · Enterprise</p>
   </div>
 </section>

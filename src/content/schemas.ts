@@ -1,6 +1,6 @@
 import { z } from "astro/zod";
 
-/** Release status. Drives every chip and every 3D link style. Keep it honest. */
+/** Release status. Drives every status chip. Keep it honest. */
 export const status = z.enum(["available", "preview", "planned"]);
 export type Status = z.infer<typeof status>;
 

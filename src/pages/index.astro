@@ -6,7 +6,8 @@ import ProductCards from "../components/sections/ProductCards.astro";
 import Ecosystem from "../components/sections/Ecosystem.astro";
 import Deployment from "../components/sections/Deployment.astro";
 import Industries from "../components/sections/Industries.astro";
-import Why from "../components/sections/Why.astro";
+import Sectors from "../components/sections/Sectors.astro";
+import Trust from "../components/sections/Trust.astro";
 import Steps from "../components/sections/Steps.astro";
 import CtaBlock from "../components/sections/CtaBlock.astro";
 ---
@@ -14,11 +15,12 @@ import CtaBlock from "../components/sections/CtaBlock.astro";
 <BaseLayout>
   <Hero />
   <Glance />
+  <Sectors />
   <ProductCards />
+  <Trust />
   <Ecosystem />
   <Deployment detail={false} />
   <Industries />
-  <Why />
   <Steps />
   <CtaBlock />
 </BaseLayout>

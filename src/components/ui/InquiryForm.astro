@@ -1,0 +1,199 @@
+---
+import { businessTypes, interestOptions, limits } from "../../lib/inquiry";
+import { site } from "../../content/site";
+
+const endpoint = import.meta.env.PUBLIC_INQUIRY_ENDPOINT ?? "";
+const field = "h-12 w-full rounded-xl border border-line bg-white px-4 text-[14px] outline-none transition-colors focus:border-accent aria-[invalid=true]:border-red-600";
+const label = "mb-2 block text-[11.5px] font-medium uppercase tracking-[0.16em] text-ink-3";
+const err = "mt-1.5 min-h-[1.1rem] text-[12px] text-red-700";
+---
+
+<div data-inquiry data-endpoint={endpoint} data-email={site.email}>
+  <form novalidate class="grid gap-5" aria-describedby="form-note">
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label for="f-name" class={label}>Full name *</label>
+        <input id="f-name" name="name" type="text" required maxlength={limits.name} autocomplete="name" class={field} aria-describedby="e-name" />
+        <p id="e-name" class={err} data-error="name"></p>
+      </div>
+      <div>
+        <label for="f-company" class={label}>Company</label>
+        <input id="f-company" name="company" type="text" maxlength={limits.company} autocomplete="organization" class={field} aria-describedby="e-company" />
+        <p id="e-company" class={err} data-error="company"></p>
+      </div>
+      <div>
+        <label for="f-email" class={label}>Email *</label>
+        <input id="f-email" name="email" type="email" required maxlength={limits.email} autocomplete="email" class={field} aria-describedby="e-email" />
+        <p id="e-email" class={err} data-error="email"></p>
+      </div>
+      <div>
+        <label for="f-phone" class={label}>Phone *</label>
+        <input id="f-phone" name="phone" type="tel" inputmode="tel" required maxlength={limits.phone} autocomplete="tel" placeholder="01XXX-XXXXXX" class={field} aria-describedby="e-phone" />
+        <p id="e-phone" class={err} data-error="phone"></p>
+      </div>
+    </div>
+
+    <div>
+      <label for="f-type" class={label}>Type of business *</label>
+      <select id="f-type" name="businessType" required class={field} aria-describedby="e-businessType">
+        <option value="">Choose one</option>
+        {businessTypes.map((t) => <option value={t}>{t}</option>)}
+      </select>
+      <p id="e-businessType" class={err} data-error="businessType"></p>
+    </div>
+
+    <fieldset>
+      <legend class={label}>Interested in (optional)</legend>
+      <div class="flex flex-wrap gap-2">
+        {
+          interestOptions.map((o) => (
+            <label class="cursor-pointer">
+              <input type="checkbox" name="interests" value={o} class="peer sr-only" />
+              <span class="inline-flex items-center rounded-full border border-line bg-white px-4 py-2 text-[12.5px] text-ink-2 transition-colors peer-checked:border-accent peer-checked:bg-accent-text peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent-text">{o}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <div>
+      <label for="f-message" class={label}>Tell us about your operation *</label>
+      <textarea id="f-message" name="message" required rows="5" maxlength={limits.message} placeholder="How many rooms, outlets or branches? What do you use today?" class={`${field} h-auto resize-y py-3`} aria-describedby="e-message"></textarea>
+      <p id="e-message" class={err} data-error="message"></p>
+    </div>
+
+    <div class="sm:max-w-xs">
+      <label for="f-date" class={label}>Preferred call date (optional)</label>
+      <input id="f-date" name="callDate" type="date" class={field} aria-describedby="e-callDate" />
+      <p id="e-callDate" class={err} data-error="callDate"></p>
+    </div>
+
+    <!-- honeypot: real visitors never see or fill this -->
+    <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+      <label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div role="alert" data-status class="min-h-[1.25rem] text-[13px] text-red-700"></div>
+
+    <div class="flex flex-wrap items-center gap-4">
+      <button type="submit" class="btn-sheen group inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent-text px-7 text-[13px] font-medium text-white transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60">
+        <span data-label>Request a demo</span><span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+      </button>
+      <p id="form-note" class="text-[12px] text-ink-3">
+        We use your details only to reply. <a href="/privacy" class="underline underline-offset-4 hover:text-ink">Privacy notice</a>
+      </p>
+    </div>
+  </form>
+
+  <div data-done hidden role="status" tabindex="-1" class="rounded-2xl bg-surface p-8 outline-none">
+    <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Request received</p>
+    <h2 class="mt-2 text-[1.5rem] font-medium tracking-tight" data-done-title>Thank you.</h2>
+    <p class="mt-3 max-w-md text-[14px] leading-relaxed text-ink-2" data-done-text></p>
+    <p class="mt-5 inline-block rounded-xl border border-dashed border-accent px-5 py-3 text-[17px] font-semibold tracking-wider text-accent-text" data-ref></p>
+    <div class="mt-6" data-fallback hidden>
+      <a data-mailto href="#" class="inline-flex h-11 items-center rounded-xl bg-ink px-5 text-[13px] font-medium text-white hover:bg-ink-2">Email it to PETRA</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { buildMailto, makeRef, todayIso, validateInquiry, type FieldName } from "../../lib/inquiry";
+
+  function bind(root: HTMLElement) {
+    if (root.dataset.bound) return;
+    root.dataset.bound = "1";
+    const form = root.querySelector<HTMLFormElement>("form")!;
+    const status = root.querySelector<HTMLElement>("[data-status]")!;
+    const done = root.querySelector<HTMLElement>("[data-done]")!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = submit.querySelector<HTMLElement>("[data-label]")!;
+    const endpoint = root.dataset.endpoint || "";
+    const toEmail = root.dataset.email || "";
+    const loadedAt = Date.now();
+    form.querySelector<HTMLInputElement>('input[name="callDate"]')!.min = todayIso();
+
+    const setError = (name: string, msg: string) => {
+      const el = form.querySelector<HTMLElement>(`[name="${name}"]`);
+      const out = root.querySelector<HTMLElement>(`[data-error="${name}"]`);
+      if (out) out.textContent = msg;
+      if (el) el.setAttribute("aria-invalid", msg ? "true" : "false");
+    };
+    const clearErrors = () => {
+      root.querySelectorAll<HTMLElement>("[data-error]").forEach((e) => setError(e.dataset.error!, ""));
+      status.textContent = "";
+    };
+    form.addEventListener("input", (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.name) setError(t.name, "");
+    });
+
+    const finish = (ref: string, title: string, text: string, mailto?: string) => {
+      form.hidden = true;
+      done.hidden = false;
+      done.querySelector("[data-done-title]")!.textContent = title;
+      done.querySelector("[data-done-text]")!.textContent = text;
+      done.querySelector("[data-ref]")!.textContent = ref;
+      const fb = done.querySelector<HTMLElement>("[data-fallback]")!;
+      fb.hidden = !mailto;
+      if (mailto) done.querySelector<HTMLAnchorElement>("[data-mailto]")!.href = mailto;
+      done.focus();
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearErrors();
+      const fd = new FormData(form);
+      const raw: Partial<Record<FieldName, unknown>> = {
+        name: fd.get("name"),
+        email: fd.get("email"),
+        phone: fd.get("phone"),
+        company: fd.get("company"),
+        businessType: fd.get("businessType"),
+        interests: fd.getAll("interests"),
+        message: fd.get("message"),
+        callDate: fd.get("callDate"),
+      };
+      const result = validateInquiry(raw);
+      if (!result.ok) {
+        Object.entries(result.errors).forEach(([k, v]) => setError(k, v));
+        status.textContent = "Please fix the highlighted fields.";
+        const first = Object.keys(result.errors)[0];
+        form.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+        return;
+      }
+      const ref = makeRef();
+      // Bots: filled honeypot, or a submit within 2.5 s of page load. Pretend success, send nothing.
+      if (fd.get("website") || Date.now() - loadedAt < 2500) {
+        finish(ref, "Thank you.", "We will reply within one working day. Keep this reference:");
+        return;
+      }
+      const mailto = buildMailto(toEmail, result.data, ref);
+      if (!endpoint) {
+        // No form service configured: hand the visitor a ready-to-send email, and say so plainly.
+        finish(ref, "One more step.", "Your inquiry has not been sent yet. Press the button to open an email with everything filled in, then send it. Reference:", mailto);
+        window.location.href = mailto;
+        return;
+      }
+      submit.disabled = true;
+      label.textContent = "Sending…";
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "content-type": "application/json", accept: "application/json" },
+          body: JSON.stringify({ ref, _subject: `Demo request (${ref})`, source: "petra website", ...result.data, interests: result.data.interests.join(", ") }),
+          signal: AbortSignal.timeout(10000),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        finish(ref, "Thank you.", "Your inquiry reached our team. We will reply within one working day. Keep this reference:");
+      } catch {
+        status.textContent = "We could not send your inquiry. Please use the button below or email us directly.";
+        finish(ref, "Not sent yet.", "Something went wrong on the way. Press the button to send the same details by email. Reference:", mailto);
+      } finally {
+        submit.disabled = false;
+        label.textContent = "Request a demo";
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", () => document.querySelectorAll<HTMLElement>("[data-inquiry]").forEach(bind));
+</script>

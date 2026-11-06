@@ -1,9 +1,26 @@
-# Architecture (summary)
+# Architecture
 
-Astro 5 static site, Tailwind v4 tokens in `src/styles/global.css`, typed content in `src/content/data/*.json`
-validated by `src/content/schemas.ts`. The full plan is in `PETRA_ARCHITECTURE_PROPOSAL.md`.
+Astro 5 static site. Content is typed data, pages are Astro components, interactivity is a few small scripts (no UI framework).
 
-- `npm run check`: typecheck, lint, unit tests, build (also run in CI).
-- `npm run verify:prod && npm run build`: production build; fails if `PUBLIC_SITE_URL` is missing or not public https.
-- Honesty rule: product and link `status` values live in the JSON files; tests fail if a product is marked
-  `available` or an integration link is not `planned`. Change them only when a release really ships.
+```
+src/
+  pages/            index, products/index, products/[slug], ecosystem, deployment, industries,
+                    why-petra, implementation, contact, privacy, 404, 500, robots.txt.ts
+  layouts/          BaseLayout: head (meta, Open Graph, JSON-LD), skip link, navbar, footer, view transitions
+  components/
+    layout/         Navbar (accessible mobile menu), Footer, Logo
+    sections/       Hero, Glance, Sectors, ProductCards, Trust, Ecosystem, Deployment, Industries, Why, Steps, CtaBlock, PageHero
+    ui/             Aurora (animated background), Button, Chip, SectionHead, DeviceFrame, Showcase (tabs), FacebookLink, InquiryForm
+  content/          site.ts, company.ts, labels.ts, schemas.ts (zod), data/*.json (Astro content collections)
+  lib/              inquiry.ts (validation, reference, mailto), screens.ts (screenshot lookup)
+  scripts/fx.ts     scroll reveal, card spotlight, aurora pause when off screen
+  assets/products/  sample interface screenshots (optimised by astro:assets)
+public/             brand logos, og.png, _headers
+mockups/            HTML sources of the screenshots and og.png
+scripts/            capture.py, og.py (image generation), assert-site-url.mjs (production guard)
+tests/unit/         content honesty rules, routes, form logic
+```
+
+Data flow: `content/data/*.json` (validated by `schemas.ts`) → pages → HTML. The only runtime code is the navbar menu, the product tabs, the reveal/spotlight/aurora helpers and the demo form, all progressive: content is visible without JavaScript and with reduced motion.
+
+Decisions: static output (cheap, fast, any host); no cookies or analytics; form posts to an external endpoint set at build time, with an email fallback so no request is lost silently; honest status labels enforced by tests.

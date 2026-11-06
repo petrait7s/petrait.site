@@ -60,3 +60,15 @@ describe("contact details", () => {
     expect(site).not.toContain("01609347600");
   });
 });
+
+describe("company story", () => {
+  const src = readFileSync("src/content/company.ts", "utf8");
+  it("lists trust first, then the four sectors, in order", () => {
+    const ids = [...src.matchAll(/^ {4}id: "(\w+)",$/gm)].map((m) => m[1]);
+    expect(ids).toEqual(["foundation", "hospitality", "business", "marketing", "enterprise"]);
+  });
+  it("only links to product pages that exist", () => {
+    const productIds = load("products").map((p: { id: string }) => p.id);
+    for (const m of src.matchAll(/href: "\/products\/([\w-]+)"/g)) expect(productIds).toContain(m[1]);
+  });
+});

@@ -14,3 +14,5 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - name: Production guard (should pass with a real https URL)
+        run: PUBLIC_SITE_URL=https://www.example.com PUBLIC_INQUIRY_ENDPOINT=https://formspree.io/f/example npm run verify:prod

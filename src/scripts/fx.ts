@@ -1,4 +1,4 @@
-/** Progressive enhancement: scroll reveal, card spotlight and device tilt. Pages are fully usable without it. */
+/** Progressive enhancement: scroll reveal, card spotlight and the aurora pause/resume. Pages are fully usable without it. */
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const finePointer = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
@@ -32,27 +32,21 @@ function initSpot() {
   });
 }
 
-function initTilt() {
-  if (!finePointer() || reduced()) return;
-  document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((host) => {
-    const target = host.querySelector<HTMLElement>(".tilt");
-    if (!target) return;
-    host.addEventListener("pointermove", (e) => {
-      const r = host.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      target.style.setProperty("--ry", `${(x * 9).toFixed(2)}deg`);
-      target.style.setProperty("--rx", `${(-y * 7).toFixed(2)}deg`);
-    });
-    host.addEventListener("pointerleave", () => {
-      target.style.setProperty("--ry", "0deg");
-      target.style.setProperty("--rx", "0deg");
-    });
-  });
+/** Run the aurora animation only while its section is on screen. */
+function initAurora() {
+  const els = document.querySelectorAll<HTMLElement>(".aurora");
+  if (!("IntersectionObserver" in window)) {
+    els.forEach((el) => el.setAttribute("data-active", ""));
+    return;
+  }
+  const io = new IntersectionObserver((entries) =>
+    entries.forEach((e) => (e.isIntersecting ? e.target.setAttribute("data-active", "") : e.target.removeAttribute("data-active"))),
+  );
+  els.forEach((el) => io.observe(el));
 }
 
 document.addEventListener("astro:page-load", () => {
   initReveal();
   initSpot();
-  initTilt();
+  initAurora();
 });

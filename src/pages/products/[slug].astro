@@ -1,4 +1,5 @@
 ---
+import Aurora from "../../components/ui/Aurora.astro";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHero from "../../components/sections/PageHero.astro";
@@ -21,7 +22,22 @@ const p = entry.data;
 const label = screenLabel[p.screenSource];
 ---
 
-<BaseLayout title={`${p.name}: ${p.category}`} description={p.description}>
+<BaseLayout
+  title={`${p.name}: ${p.category}`}
+  description={p.description}
+  jsonLd={[
+    {
+      "@type": "SoftwareApplication",
+      name: p.name,
+      alternateName: `${p.name}: ${p.full}`,
+      applicationCategory: "BusinessApplication",
+      applicationSubCategory: p.category,
+      description: p.description,
+      featureList: p.features.filter((f) => !f.planned).map((f) => f.title),
+      url: new URL(`/products/${entry.id}`, Astro.site).href,
+    },
+  ]}
+>
   <PageHero eyebrow={`${p.code} · ${p.full}`} title={p.name} lede={p.description}>
     <div class="mt-7 flex flex-wrap items-center gap-3" data-reveal style="--d:3">
       <Chip status={p.status} dark />
@@ -56,7 +72,7 @@ const label = screenLabel[p.screenSource];
   </section>
 
   <section class="stage px-6 py-24 sm:px-10 sm:py-28" aria-labelledby="tour-title">
-    <div class="grid-bg"></div>
+    <Aurora calm />
     <div class="mx-auto max-w-6xl">
       <p class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-glow" data-reveal>{label.tag}</p>
       <h2 id="tour-title" class="mb-10 text-[1.75rem] font-medium tracking-tight sm:text-[2.2rem]" data-reveal>{p.name} on desktop and iPhone</h2>

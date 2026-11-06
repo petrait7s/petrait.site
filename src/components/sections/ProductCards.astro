@@ -16,10 +16,13 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
 <section id="products" class="px-6 py-24 sm:px-10 sm:py-32">
   <div class="mx-auto max-w-6xl">
     {
+      !withHead && <h2 class="sr-only">All products</h2>
+    }
+    {
       withHead && (
         <SectionHead
           eyebrow="Products"
-          title="Five products, one hospitality workflow."
+          title="Five products, built for the way work really happens."
           lede="Hotel, restaurant, distribution, website and online store: each built for the way the work really happens. All are in preview; screens are samples."
         />
       )

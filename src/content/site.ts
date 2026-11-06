@@ -2,9 +2,9 @@
 export const site = {
   name: "PETRA",
   legalName: "PETRA Software Solutions",
-  tagline: "Software that runs hospitality.",
+  tagline: "Built on trust.",
   description:
-    "PETRA builds hospitality software in Bangladesh: PetraPMS for hotel property management, PetraPOS for restaurant and outlet point of sale, and PetraDMS for distribution management.",
+    "PETRA Software Solutions builds software for hospitality, business, marketing and enterprise in Bangladesh: PetraPMS, PetraPOS, PetraDMS, website and online store builds. Built on trust.",
   email: "petrabd@gmail.com",
   phone: "016-16154320",
   phoneHref: "+8801616154320",
@@ -37,7 +37,3 @@ export const footerLinks = {
   legal: [{ label: "Privacy", href: "/privacy" }],
 } as const;
 
-/** Routes served by the temporary placeholder page until their real pages land. */
-export const placeholderPages: Record<string, { title: string; note: string }> = {
-  privacy: { title: "Privacy notice", note: "The privacy notice arrives together with the demo request form." },
-};
