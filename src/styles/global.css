@@ -62,6 +62,21 @@ html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
   .hs.wide > * { flex-basis: 88%; }
   a, button, [role="tab"] { touch-action: manipulation; }
 }
-@media (max-width: 1023px) { body { padding-bottom: calc(60px + env(safe-area-inset-bottom)); } }
+@media (max-width: 1023px) { body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); } }
 
 .no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Swipe controls under card rows: arrows plus position dots, phones only */
+.hs-ctl { display: none; }
+@media (max-width: 639px) {
+  .hs-ctl { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 10px; }
+  .hs-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 9999px; background: var(--color-accent-text); color: #fff; box-shadow: 0 6px 14px -6px rgba(3, 141, 145, 0.7); transition: opacity 0.2s, transform 0.15s; }
+  .hs-btn:active { transform: scale(0.92); }
+  .hs-btn:disabled { opacity: 0.28; box-shadow: none; }
+  .hs-dots { display: flex; align-items: center; gap: 6px; }
+  .hs-dots i { width: 6px; height: 6px; border-radius: 9999px; background: currentColor; opacity: 0.25; transition: width 0.25s, opacity 0.25s; }
+  .hs-dots i.on { width: 18px; opacity: 0.85; background: var(--color-accent-text); }
+  .stage .hs-dots, .stage .hs-dots i { color: #fff; }
+  .stage .hs-dots i.on { background: var(--color-glow); }
+  .hs-dots { color: var(--color-ink); }
+}

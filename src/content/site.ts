@@ -9,6 +9,7 @@ export const site = {
   phone: "016-16154320",
   phoneHref: "+8801616154320",
   facebook: "https://www.facebook.com/share/1DsiFUJeNB/",
+  instagram: "https://www.instagram.com/petraitbd",
   country: "Bangladesh",
 } as const;
 

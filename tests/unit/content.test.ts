@@ -79,6 +79,7 @@ describe("contact details", () => {
     expect(site).toContain('phone: "016-16154320"');
     expect(site).toContain('phoneHref: "+8801616154320"');
     expect(site).toContain('facebook: "https://www.facebook.com/share/1DsiFUJeNB/"');
+    expect(site).toContain('instagram: "https://www.instagram.com/petraitbd"');
   });
   it("does not leave the old contact details anywhere in the source", () => {
     expect(site).not.toContain("letterbox5509");

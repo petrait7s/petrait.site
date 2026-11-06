@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/sections/PageHero.astro";
 import InquiryForm from "../components/ui/InquiryForm.astro";
-import FacebookLink from "../components/ui/FacebookLink.astro";
+import SocialLink from "../components/ui/SocialLink.astro";
 import { site } from "../content/site";
 ---
 
@@ -21,10 +21,13 @@ import { site } from "../content/site";
         </a>
         <div class="spot col-span-2 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white p-4 sm:col-span-1 sm:gap-4 sm:p-7 lg:col-span-1">
           <div>
-            <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Facebook</p>
-            <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">Message us on our page</p>
+            <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Social</p>
+            <p class="mt-1.5 text-[15px] font-medium tracking-tight sm:mt-2 sm:text-[18px]">Message us on our pages</p>
           </div>
-          <FacebookLink href={site.facebook} />
+          <div class="flex flex-wrap gap-2">
+            <SocialLink network="facebook" href={site.facebook} />
+            <SocialLink network="instagram" href={site.instagram} />
+          </div>
         </div>
         <div class="col-span-2 hidden rounded-2xl border border-line bg-white p-4 sm:block sm:col-span-1 sm:p-7">
           <p class="text-[11px] font-medium uppercase tracking-[0.2em] text-accent-text">Location</p>

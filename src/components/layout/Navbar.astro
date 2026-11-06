@@ -57,13 +57,13 @@ const more = [
   <a href="/contact" class="press inline-flex h-9 items-center rounded-full bg-accent-text px-4 text-[12.5px] font-medium text-white">Book a demo</a>
 </header>
 
-<nav aria-label="Main" class="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-[rgba(244,246,249,0.94)] pb-[env(safe-area-inset-bottom)] backdrop-blur-md lg:hidden">
+<nav aria-label="Main" class="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[rgba(12,29,53,0.96)] pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-12px_rgba(12,29,53,0.6)] backdrop-blur-md lg:hidden">
   <ul class="mx-auto flex max-w-xl items-stretch justify-around">
     {
       tabs.map((t) => (
         <li class="flex-1">
-          <a href={t.href} aria-current={t.on ? "page" : undefined} class:list={["press flex h-[58px] flex-col items-center justify-center gap-1 text-[10.5px] font-medium", t.on ? "text-accent-text" : "text-ink-3"]}>
-            <span class:list={["grid h-7 w-12 place-items-center rounded-full transition-colors", t.on && "bg-accent/15"]}>
+          <a href={t.href} aria-current={t.on ? "page" : undefined} class:list={["press flex h-[62px] flex-col items-center justify-center gap-1 text-[10.5px] font-medium", t.on ? "text-white" : "text-white/60"]}>
+            <span class:list={["grid h-7 w-12 place-items-center rounded-full transition-colors", t.on && "bg-accent"]}>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={t.icon} />
             </span>
             {t.label}
@@ -72,8 +72,8 @@ const more = [
       ))
     }
     <li class="flex-1">
-      <button id="more-toggle" type="button" aria-expanded="false" aria-controls="more-sheet" class:list={["press flex h-[58px] w-full flex-col items-center justify-center gap-1 text-[10.5px] font-medium", moreOn ? "text-accent-text" : "text-ink-3"]}>
-        <span class:list={["grid h-7 w-12 place-items-center rounded-full transition-colors", moreOn && "bg-accent/15"]}>
+      <button id="more-toggle" type="button" aria-expanded="false" aria-controls="more-sheet" class:list={["press flex h-[62px] w-full flex-col items-center justify-center gap-1 text-[10.5px] font-medium", moreOn ? "text-white" : "text-white/60"]}>
+        <span class:list={["grid h-7 w-12 place-items-center rounded-full transition-colors", moreOn && "bg-accent"]}>
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" stroke="none" aria-hidden="true" set:html={ic.more} />
         </span>
         More
@@ -83,23 +83,27 @@ const more = [
 </nav>
 
 <div id="more-backdrop" hidden class="fixed inset-0 z-40 bg-ink/50 lg:hidden"></div>
-<div id="more-sheet" hidden role="dialog" aria-label="More pages" class="fixed inset-x-0 bottom-[calc(58px+env(safe-area-inset-bottom))] z-40 mx-3 rounded-2xl border border-line bg-page p-2 shadow-2xl lg:hidden">
+<div id="more-sheet" hidden role="dialog" aria-label="More pages" class="fixed inset-x-0 bottom-[calc(66px+env(safe-area-inset-bottom))] z-40 mx-3 rounded-2xl border border-white/10 bg-stage p-2 shadow-2xl lg:hidden">
   <ul>
     {
       more.map((m) => (
         <li>
-          <a href={m.href} aria-current={isActive(m.href) ? "page" : undefined} class="press flex min-h-12 items-center justify-between rounded-xl px-4 text-[14px] font-medium text-ink hover:bg-surface">
+          <a href={m.href} aria-current={isActive(m.href) ? "page" : undefined} class="press flex min-h-12 items-center justify-between rounded-xl px-4 text-[14px] font-medium text-white hover:bg-white/10">
             {m.label}
-            <span class="text-ink-3" aria-hidden="true">›</span>
+            <span class="text-white/50" aria-hidden="true">›</span>
           </a>
         </li>
       ))
     }
-    <li>
-      <a href={site.facebook} target="_blank" rel="noopener noreferrer" class="press flex min-h-12 items-center justify-between rounded-xl px-4 text-[14px] font-medium text-ink hover:bg-surface">
-        Facebook page <span class="sr-only">(opens in a new tab)</span><span class="text-ink-3" aria-hidden="true">↗</span>
-      </a>
-    </li>
+    {
+      [["Facebook page", site.facebook], ["Instagram", site.instagram]].map(([label, href]) => (
+        <li>
+          <a href={href} target="_blank" rel="noopener noreferrer" class="press flex min-h-12 items-center justify-between rounded-xl px-4 text-[14px] font-medium text-white hover:bg-white/10">
+            {label} <span class="sr-only">(opens in a new tab)</span><span class="text-white/50" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </div>
 

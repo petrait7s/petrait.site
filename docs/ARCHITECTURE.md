@@ -10,7 +10,7 @@ src/
   components/
     layout/         Navbar (accessible mobile menu), Footer, Logo
     sections/       Hero, Glance, Sectors, ProductCards, Trust, Ecosystem, Deployment, Industries, Why, Steps, CtaBlock, PageHero
-    ui/             Aurora (animated background), Button, Chip, SectionHead, DeviceFrame, Showcase (tabs), FacebookLink, InquiryForm
+    ui/             Aurora (animated background), Button, Chip, SectionHead, DeviceFrame, Showcase (tabs), SocialLink (Facebook, Instagram), InquiryForm
   content/          site.ts, company.ts, labels.ts, schemas.ts (zod), data/*.json (Astro content collections)
   lib/              inquiry.ts (validation, reference, mailto), screens.ts (screenshot lookup)
   scripts/fx.ts     scroll reveal, card spotlight, aurora pause when off screen
