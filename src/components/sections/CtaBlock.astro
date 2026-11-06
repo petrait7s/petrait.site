@@ -24,8 +24,10 @@ const {
         <Button href="/contact" variant="teal" class="col-span-2">Book a demo</Button>
         <a href={`mailto:${site.email}`} class="press inline-flex h-11 items-center justify-center rounded-xl border border-white/25 px-3 text-[12.5px] font-medium text-white transition-colors hover:bg-white hover:text-ink sm:px-5 sm:text-[13px]">Email us</a>
         <a href={`tel:${site.phoneHref}`} class="press inline-flex h-11 items-center justify-center rounded-xl border border-white/25 px-3 text-[12.5px] font-medium text-white transition-colors hover:bg-white hover:text-ink sm:px-5 sm:text-[13px]">{site.phone}</a>
-        <SocialLink network="facebook" href={site.facebook} variant="dark" class="justify-center" />
-        <SocialLink network="instagram" href={site.instagram} variant="dark" class="justify-center" />
+        <SocialLink network="facebook" href={site.facebook} variant="mono" class="justify-center sm:hidden" />
+        <SocialLink network="instagram" href={site.instagram} variant="mono" class="justify-center sm:hidden" />
+        <SocialLink network="facebook" href={site.facebook} variant="dark" class="justify-center max-sm:hidden" />
+        <SocialLink network="instagram" href={site.instagram} variant="dark" class="justify-center max-sm:hidden" />
       </div>
     </div>
   </div>

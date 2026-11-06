@@ -36,9 +36,9 @@ const tone = mono
   target="_blank"
   rel="noopener noreferrer"
   aria-label={label ? undefined : `PETRA on ${meta.name} (opens in a new tab)`}
-  class:list={["press group inline-flex items-center gap-2.5 rounded-full text-[13px] font-medium transition-[transform,box-shadow,border-color,background-color] duration-200", label ? "h-11 pl-1.5 pr-5" : mono ? "h-10 w-10 justify-center" : "h-11 w-11 justify-center", tone, extra]}
+  class:list={["press group inline-flex items-center gap-2.5 rounded-full text-[13px] font-medium transition-[transform,box-shadow,border-color,background-color] duration-200", label ? "h-11 pl-2 pr-5" : mono ? "h-10 w-10 justify-center" : "h-11 w-11 justify-center", tone, extra]}
 >
-  <span class:list={["grid shrink-0 place-items-center rounded-full transition-colors", mono ? "h-full w-full" : ["h-8 w-8 text-white group-hover:bg-white", meta.badge, meta.ink, !label && "h-9 w-9"]]}>
+  <span class:list={["grid shrink-0 place-items-center rounded-full transition-colors", mono ? (label ? "h-8 w-8" : "h-full w-full") : ["h-8 w-8 text-white group-hover:bg-white", meta.badge, meta.ink, !label && "h-9 w-9"]]}>
     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false"><path d={meta.path}></path></svg>
   </span>
   {label && <span>{meta.name}</span>}
