@@ -1,0 +1,45 @@
+---
+import Logo from "./Logo.astro";
+import { footerLinks, site } from "../../content/site";
+
+const col = "mb-3 text-[11.5px] font-medium text-ink-3";
+const link = "text-[13px] text-ink-2 transition-colors hover:text-ink";
+---
+
+<footer class="bg-surface px-6 pb-10 pt-16 sm:px-12 md:px-20 lg:px-28">
+  <div class="mx-auto grid max-w-5xl gap-10 sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full bg-page"><Logo size={16} /></span>
+        <span class="text-[14px] font-medium tracking-wide">{site.name}</span>
+      </div>
+      <p class="mt-4 max-w-[30ch] text-[12.5px] text-ink-2">{site.legalName} builds hospitality software in {site.country}.</p>
+    </div>
+    <nav aria-label="Products">
+      <h2 class={col}>Products</h2>
+      <ul class="space-y-2">
+        {footerLinks.products.map((l) => <li><a href={l.href} class={link}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label="Company">
+      <h2 class={col}>Company</h2>
+      <ul class="space-y-2">
+        {footerLinks.company.map((l) => <li><a href={l.href} class={link}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div>
+      <h2 class={col}>Contact</h2>
+      <ul class="space-y-2 break-words">
+        <li><a href={`mailto:${site.email}`} class={link}>{site.email}</a></li>
+        <li><a href={`tel:${site.phoneHref}`} class={link}>{site.phone}</a></li>
+        <li class="text-[13px] text-ink-2">{site.country}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mx-auto mt-12 flex max-w-5xl flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-[12px] text-ink-2">
+    <span>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</span>
+    <ul class="flex gap-4">
+      {footerLinks.legal.map((l) => <li><a href={l.href} class="hover:text-ink">{l.label}</a></li>)}
+    </ul>
+  </div>
+</footer>

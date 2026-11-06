@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Placeholder from "../components/layout/Placeholder.astro";
+import { placeholderPages } from "../content/site";
+
+export function getStaticPaths() {
+  return Object.entries(placeholderPages).map(([page, props]) => ({ params: { page }, props }));
+}
+
+const { title, note } = Astro.props;
+---
+
+<BaseLayout title={title} noindex>
+  <Placeholder title={title} note={note} />
+</BaseLayout>

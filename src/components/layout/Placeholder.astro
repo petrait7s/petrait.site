@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  note: string;
+}
+const { title, note } = Astro.props;
+---
+
+<section class="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-6 pb-16 pt-32">
+  <p class="mb-3 text-[11.5px] font-medium text-accent-text">Under construction</p>
+  <h1 class="mb-3 text-[1.75rem] font-medium leading-[1.15] tracking-tight">{title}</h1>
+  <p class="mb-6 max-w-md text-[13px] text-ink-2">{note}</p>
+  <a href="/" class="self-start rounded-full border border-accent-text px-5 py-2.5 text-[13px] font-medium text-accent-text transition-colors hover:bg-accent-text hover:text-white">
+    Back to home
+  </a>
+</section>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found" noindex>
+  <section class="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-6 pb-16 pt-32">
+    <p class="mb-3 text-[11.5px] font-medium text-accent-text">Error 404</p>
+    <h1 class="mb-3 text-[1.75rem] font-medium leading-[1.15] tracking-tight">This page does not exist.</h1>
+    <p class="mb-6 max-w-md text-[13px] text-ink-2">The link may be old or mistyped. Start from the home page or pick a product.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="/" class="rounded-full border border-accent-text px-5 py-2.5 text-[13px] font-medium text-accent-text transition-colors hover:bg-accent-text hover:text-white">Back to home</a>
+      <a href="/products" class="px-3 py-2.5 text-[13px] font-medium text-ink-2 hover:text-ink">Products</a>
+    </div>
+  </section>
+</BaseLayout>
