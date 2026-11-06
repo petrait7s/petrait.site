@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { industrySchema, linkSchema, productSchema, reasonSchema, stepSchema } from "../../src/content/schemas";
 import { z } from "astro/zod";
@@ -30,6 +30,19 @@ describe("honesty rules", () => {
     for (const name of ["products", "links", "industries", "reasons", "steps"]) {
       const ids = load(name).map((x: { id: string }) => x.id);
       expect(new Set(ids).size).toBe(ids.length);
+    }
+  });
+});
+
+describe("product screenshots", () => {
+  it("every declared screen has a desktop and a mobile image", () => {
+    for (const p of load("products")) {
+      for (const s of p.screens) {
+        for (const kind of ["desktop", "mobile"]) {
+          const file = `public/products/${p.assetPrefix}-${s.view}-${kind}.webp`;
+          expect(existsSync(file), file).toBe(true);
+        }
+      }
     }
   });
 });

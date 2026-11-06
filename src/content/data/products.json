@@ -10,14 +10,49 @@
     "problem": "Reservations, room status and guest bills live in one system, so the front desk is not reconciling registers, spreadsheets and paper folios at checkout.",
     "description": "Hotel and resort operations software for reservations, guest records, room inventory, housekeeping status, billing, check-in and check-out.",
     "features": [
-      { "title": "Reservations & front desk" },
-      { "title": "Room inventory & status" },
-      { "title": "Guest folios & billing" },
-      { "title": "Housekeeping status" },
-      { "title": "Runs on the hotel LAN" }
+      {
+        "title": "Reservations & front desk"
+      },
+      {
+        "title": "Room inventory & status"
+      },
+      {
+        "title": "Guest folios & billing"
+      },
+      {
+        "title": "Housekeeping status"
+      },
+      {
+        "title": "Runs on the hotel LAN"
+      }
     ],
-    "workflow": ["Reservation", "Room assignment", "Check-in", "Guest folio", "Checkout", "Settlement"],
-    "screenSource": "illustrative"
+    "workflow": [
+      "Reservation",
+      "Room assignment",
+      "Check-in",
+      "Guest folio",
+      "Checkout",
+      "Settlement"
+    ],
+    "screenSource": "illustrative",
+    "assetPrefix": "petrapms",
+    "screens": [
+      {
+        "view": "dashboard",
+        "label": "Dashboard",
+        "alt": "PetraPMS dashboard with occupancy, arrivals, departures and revenue"
+      },
+      {
+        "view": "rooms",
+        "label": "Rooms",
+        "alt": "PetraPMS floor plan with room status and housekeeping"
+      },
+      {
+        "view": "billing",
+        "label": "Billing",
+        "alt": "PetraPMS guest folio with charges, deposit and balance"
+      }
+    ]
   },
   {
     "id": "petrapos",
@@ -30,15 +65,47 @@
     "problem": "Orders, kitchen tickets and payments run as one flow, so an outlet closes the day with sales and stock figures it can reconcile.",
     "description": "Point of sale for restaurants, cafés and room service: order handling, kitchen tickets, billing, stock control and sales reporting.",
     "features": [
-      { "title": "Table & counter orders" },
-      { "title": "Kitchen tickets" },
-      { "title": "Billing & payments" },
-      { "title": "Stock control" },
-      { "title": "Sales reports" },
-      { "title": "Room charge to PetraPMS", "planned": true }
+      {
+        "title": "Table & counter orders"
+      },
+      {
+        "title": "Kitchen tickets"
+      },
+      {
+        "title": "Billing & payments"
+      },
+      {
+        "title": "Stock control"
+      },
+      {
+        "title": "Sales reports"
+      },
+      {
+        "title": "Room charge to PetraPMS",
+        "planned": true
+      }
     ],
-    "workflow": ["Order", "Kitchen / fulfilment", "Payment", "Inventory", "Reports"],
-    "screenSource": "illustrative"
+    "workflow": [
+      "Order",
+      "Kitchen / fulfilment",
+      "Payment",
+      "Inventory",
+      "Reports"
+    ],
+    "screenSource": "illustrative",
+    "assetPrefix": "petrapos",
+    "screens": [
+      {
+        "view": "terminal",
+        "label": "Terminal",
+        "alt": "PetraPOS order terminal with menu and table ticket"
+      },
+      {
+        "view": "analytics",
+        "label": "Analytics",
+        "alt": "PetraPOS sales analytics with hourly sales and payment mix"
+      }
+    ]
   },
   {
     "id": "petradms",
@@ -51,13 +118,135 @@
     "problem": "Purchases, stock, sales, customer dues and collections share one ledger, so a distributor always knows what is on the shelf and who still owes money.",
     "description": "Distribution operations from one desk: sales and invoicing, purchasing, multi-unit stock, customer and supplier ledgers, expenses and daily-to-monthly reports.",
     "features": [
-      { "title": "Invoicing with due tracking" },
-      { "title": "Big box · small box · piece stock" },
-      { "title": "Customer & supplier ledgers" },
-      { "title": "Daily to monthly reports" },
-      { "title": "Compact mode with calculator" }
+      {
+        "title": "Invoicing with due tracking"
+      },
+      {
+        "title": "Big box · small box · piece stock"
+      },
+      {
+        "title": "Customer & supplier ledgers"
+      },
+      {
+        "title": "Daily to monthly reports"
+      },
+      {
+        "title": "Compact mode with calculator"
+      }
     ],
-    "workflow": ["Purchase", "Stock", "Sales", "Due", "Collection", "Profit"],
-    "screenSource": "prototype"
+    "workflow": [
+      "Purchase",
+      "Stock",
+      "Sales",
+      "Due",
+      "Collection",
+      "Profit"
+    ],
+    "screenSource": "illustrative",
+    "assetPrefix": "petradms",
+    "screens": [
+      {
+        "view": "dashboard",
+        "label": "Dashboard",
+        "alt": "PetraDMS dashboard with sales, collection, dues and recent invoices"
+      },
+      {
+        "view": "inventory",
+        "label": "Inventory",
+        "alt": "PetraDMS multi-unit stock with big box, small box and piece counts"
+      }
+    ]
+  },
+  {
+    "id": "website-build",
+    "code": "WEB",
+    "name": "Website Build",
+    "full": "Custom website design and build",
+    "category": "Business website design and development",
+    "status": "preview",
+    "statusNote": "Interface preview · confirm availability",
+    "problem": "A business website that is easy to update, so owners are not waiting on a developer to change a price, a photo or an opening time.",
+    "description": "Business websites built from reusable blocks, with a page editor, domains and visitor tracking in one place.",
+    "features": [
+      {
+        "title": "Block-based page editor"
+      },
+      {
+        "title": "Domains and publishing"
+      },
+      {
+        "title": "Contact forms"
+      },
+      {
+        "title": "Visitor tracking"
+      }
+    ],
+    "workflow": [
+      "Brief",
+      "Design",
+      "Build",
+      "Review",
+      "Publish"
+    ],
+    "screenSource": "illustrative",
+    "assetPrefix": "website",
+    "screens": [
+      {
+        "view": "editor",
+        "label": "Editor",
+        "alt": "Website Build page editor with block list and live preview"
+      },
+      {
+        "view": "sites",
+        "label": "Sites",
+        "alt": "Website Build site list with domains and traffic"
+      }
+    ]
+  },
+  {
+    "id": "ecommerce-build",
+    "code": "SHOP",
+    "name": "E-commerce Build",
+    "full": "Online store design and build",
+    "category": "Online store design and development",
+    "status": "preview",
+    "statusNote": "Interface preview · confirm availability",
+    "problem": "Orders, stock and payments in one place, so an online shop is not reconciling messages, spreadsheets and courier slips.",
+    "description": "Online stores with a product catalog, orders, bKash, card and cash on delivery payments, and sales reporting.",
+    "features": [
+      {
+        "title": "Product catalog"
+      },
+      {
+        "title": "Orders and shipping status"
+      },
+      {
+        "title": "bKash, card and cash on delivery"
+      },
+      {
+        "title": "Sales reports"
+      }
+    ],
+    "workflow": [
+      "Catalog",
+      "Order",
+      "Payment",
+      "Shipping",
+      "Reports"
+    ],
+    "screenSource": "illustrative",
+    "assetPrefix": "ecommerce",
+    "screens": [
+      {
+        "view": "store",
+        "label": "Overview",
+        "alt": "E-commerce Build store overview with orders and sales"
+      },
+      {
+        "view": "products",
+        "label": "Products",
+        "alt": "E-commerce Build product catalog grid"
+      }
+    ]
   }
 ]

@@ -24,7 +24,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#f0f0ee" />
+    <meta name="theme-color" content="#f4f6f9" />
+    <link rel="icon" type="image/png" href="/brand/petra-mark.png" />
+    <link rel="apple-touch-icon" href="/brand/petra-mark.png" />
     {noindex && <meta name="robots" content="noindex" />}
     <ClientRouter />
   </head>

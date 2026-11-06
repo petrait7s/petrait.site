@@ -8,7 +8,7 @@ export const screenSource = z.enum(["illustrative", "prototype", "live"]);
 
 export const productSchema = z.object({
   id: z.string(),
-  code: z.enum(["PMS", "POS", "DMS"]),
+  code: z.enum(["PMS", "POS", "DMS", "WEB", "SHOP"]),
   name: z.string(),
   full: z.string(),
   category: z.string(),
@@ -19,6 +19,9 @@ export const productSchema = z.object({
   features: z.array(z.object({ title: z.string(), planned: z.boolean().default(false) })),
   workflow: z.array(z.string()),
   screenSource,
+  /** Files in public/products are named `<assetPrefix>-<view>-desktop.webp` and `-mobile.webp`. */
+  assetPrefix: z.string(),
+  screens: z.array(z.object({ view: z.string(), label: z.string(), alt: z.string() })).min(1),
 });
 
 export const linkSchema = z.object({
@@ -34,7 +37,7 @@ export const industrySchema = z.object({
   id: z.string(),
   name: z.string(),
   line: z.string(),
-  products: z.array(z.enum(["PMS", "POS", "DMS"])),
+  products: z.array(z.enum(["PMS", "POS", "DMS", "WEB", "SHOP"])),
   planned: z.string().optional(),
 });
 
