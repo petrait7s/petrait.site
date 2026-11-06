@@ -4,27 +4,47 @@ import { getCollection } from "astro:content";
 import Chip from "../ui/Chip.astro";
 import SectionHead from "../ui/SectionHead.astro";
 import Button from "../ui/Button.astro";
-import { core, plannedModules } from "../../content/company";
+import { core, requestModules } from "../../content/company";
 
 interface Props {
   detail?: boolean;
 }
 const { detail = false } = Astro.props;
 const links = await getCollection("links");
+const products = await getCollection("products");
 
-/** Wire paths and label anchors for the diagram (viewBox 1000 x 440). Every link is planned, so every wire is dashed. */
-const wires: Record<string, { d: string; x: number; y: number }> = {
-  "ops-data": { d: "M500 160 V212 H170 V285", x: 335, y: 212 },
-  sales: { d: "M500 160 V285", x: 500, y: 250 },
-  dues: { d: "M500 160 V212 H830 V285", x: 665, y: 212 },
-  "guest-charges": { d: "M410 375 V418 H210 V375", x: 310, y: 418 },
-  inventory: { d: "M790 375 V418 H590 V375", x: 690, y: 418 },
-};
-const nodes = [
-  { code: "PMS", name: "PetraPMS", full: "Property Management", x: 170 },
-  { code: "POS", name: "PetraPOS", full: "Point of Sale", x: 500 },
-  { code: "DMS", name: "PetraDMS", full: "Distribution Management", x: 830 },
-];
+/*
+ * Diagram geometry (viewBox 1200 x 720). Top row: modules built on request. Middle: Petra Core (planned).
+ * Bottom row: the five products (preview). Core links are planned, so every wire is dashed.
+ */
+const W = 1200;
+const nodeW = 200;
+const nodeGap = 32;
+const nodeStart = (W - (products.length * nodeW + (products.length - 1) * nodeGap)) / 2;
+const nodes = products.map((p, i) => ({
+  key: p.data.code.toLowerCase(),
+  name: p.data.name,
+  code: p.data.code,
+  full: p.data.full,
+  x: nodeStart + nodeW / 2 + i * (nodeW + nodeGap),
+}));
+const nodeByKey = Object.fromEntries(nodes.map((n) => [n.key, n]));
+const NODE_Y = 500;
+const NODE_H = 96;
+const BUS_DOWN = 410;
+const CORE = { x: 420, y: 222, w: 360, h: 96 };
+
+const modW = 132;
+const modGap = 12;
+const modStart = (W - (requestModules.length * modW + (requestModules.length - 1) * modGap)) / 2;
+const mods = requestModules.map((m, i) => ({ ...m, cx: modStart + modW / 2 + i * (modW + modGap), x: modStart + i * (modW + modGap) }));
+const MOD_Y = 28;
+const MOD_H = 60;
+const BUS_UP = 150;
+
+const labelW = (s: string) => s.length * 7.2 + 28;
+const coreLinks = links.filter((l) => l.data.to === "core" && nodeByKey[l.data.from]);
+const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all" && nodeByKey[l.data.from] && nodeByKey[l.data.to]);
 ---
 
 <section id="ecosystem" class="stage px-6 py-24 sm:px-10 sm:py-32">
@@ -33,51 +53,107 @@ const nodes = [
     <SectionHead
       dark
       eyebrow="Ecosystem"
-      title="Three products today. One shared core next."
-      lede="PetraPMS, PetraPOS and PetraDMS run independently today. Petra Core is the planned layer that connects them. Every dashed link is planned, not shipped."
+      title="Five products today. One shared core next."
+      lede="PetraPMS, PetraPOS, PetraDMS, Website Build and E-commerce Build run independently today. More modules are built on request, and we are building them now. Petra Core is the planned layer that connects everything: every dashed line is planned, not shipped."
     />
 
-    <div class="glass relative hidden rounded-3xl p-6 md:block" data-reveal>
-      <svg viewBox="0 0 1000 440" class="h-auto w-full" role="img" aria-label="Diagram: PetraPMS, PetraPOS and PetraDMS connect through the planned Petra Core. All connections are planned.">
-        {
-          links.filter((l) => wires[l.id]).map((l) => (
+    <div class="glass relative hidden rounded-3xl p-5 lg:block" data-reveal>
+      <svg viewBox={`0 0 ${W} 720`} class="h-auto w-full" role="img" aria-label="Diagram: five products (PetraPMS, PetraPOS, PetraDMS, Website Build, E-commerce Build) connect through the planned Petra Core, which also connects to eight modules that PETRA builds on request. The core and all connections are planned, not shipped.">
+        {/* core to modules */}
+        {mods.map((m) => (
+          <path d={`M${CORE.x + CORE.w / 2} ${CORE.y} V${BUS_UP} H${m.cx} V${MOD_Y + MOD_H}`} fill="none" stroke="#3fd0d3" stroke-width="1.2" stroke-dasharray="4 8" stroke-opacity="0.4" class="flow" />
+        ))}
+        {/* core to products */}
+        {coreLinks.map((l) => {
+          const n = nodeByKey[l.data.from];
+          const w = labelW(l.data.label);
+          return (
             <g>
-              <path d={wires[l.id].d} fill="none" stroke="#3fd0d3" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
-              <g transform={`translate(${wires[l.id].x - (l.data.label.length * 3.6 + 14)} ${wires[l.id].y - 12})`}>
-                <rect width={l.data.label.length * 7.2 + 28} height="24" rx="12" fill="#0c1d35" stroke="rgba(255,255,255,0.28)" />
-                <text x={(l.data.label.length * 7.2 + 28) / 2} y="16" text-anchor="middle" font-size="11.5" fill="#fff" font-weight="500">{l.data.label}</text>
+              <path d={`M${CORE.x + CORE.w / 2} ${CORE.y + CORE.h} V${BUS_DOWN} H${n.x} V${NODE_Y}`} fill="none" stroke="#3fd0d3" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
+              <g transform={`translate(${n.x - w / 2} ${NODE_Y - 46})`}>
+                <rect width={w} height="24" rx="12" fill="#0c1d35" stroke="rgba(255,255,255,0.28)" />
+                <text x={w / 2} y="16" text-anchor="middle" font-size="11.5" fill="#fff" font-weight="500">{l.data.label}</text>
               </g>
             </g>
-          ))
-        }
-        <g>
-          <rect x="350" y="70" width="300" height="90" rx="18" fill="#0c1d35" stroke="#3fd0d3" stroke-dasharray="7 6" />
-          <text x="378" y="104" font-size="11" fill="#3fd0d3" letter-spacing="3">PETRA CORE · PLANNED</text>
-          <text x="378" y="134" font-size="22" font-weight="600" fill="#fff">{core.name}</text>
-          <text x="378" y="152" font-size="11.5" fill="rgba(255,255,255,0.65)">{core.sub}</text>
-        </g>
-        {
-          nodes.map((n) => (
+          );
+        })}
+        {/* product to product */}
+        {sideLinks.map((l) => {
+          const a = nodeByKey[l.data.from];
+          const b = nodeByKey[l.data.to];
+          const x1 = a.x + (b.x > a.x ? 50 : -50);
+          const x2 = b.x + (b.x > a.x ? -50 : 50);
+          const y = NODE_Y + NODE_H;
+          const w = labelW(l.data.label);
+          return (
             <g>
-              <rect x={n.x - 125} y="285" width="250" height="90" rx="18" fill="#14284a" stroke="rgba(255,255,255,0.35)" />
-              <rect x={n.x - 125} y="285" width="5" height="90" rx="2.5" fill="#038d91" />
-              <text x={n.x - 100} y="322" font-size="24" font-weight="700" fill="#fff" letter-spacing="2">{n.code}</text>
-              <text x={n.x - 100} y="346" font-size="13" font-weight="600" fill="#3fd0d3">{n.name}</text>
-              <text x={n.x - 100} y="364" font-size="11.5" fill="rgba(255,255,255,0.65)">{n.full}</text>
-              <rect x={n.x + 45} y="297" width="68" height="20" rx="10" fill="none" stroke="rgba(255,255,255,0.5)" />
-              <text x={n.x + 79} y="311" text-anchor="middle" font-size="10" fill="#fff">PREVIEW</text>
+              <path d={`M${x1} ${y} V${y + 44} H${x2} V${y}`} fill="none" stroke="#3fd0d3" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
+              <g transform={`translate(${(x1 + x2) / 2 - w / 2} ${y + 32})`}>
+                <rect width={w} height="24" rx="12" fill="#0c1d35" stroke="rgba(255,255,255,0.28)" />
+                <text x={w / 2} y="16" text-anchor="middle" font-size="11.5" fill="#fff" font-weight="500">{l.data.label}</text>
+              </g>
             </g>
-          ))
-        }
+          );
+        })}
+
+        {/* modules built on request */}
+        <text x={modStart} y="17" font-size="10" fill="#3fd0d3" letter-spacing="2.4">MODULES · BUILT ON REQUEST</text>
+        {mods.map((m) => (
+          <g>
+            <rect x={m.x} y={MOD_Y} width={modW} height={MOD_H} rx="14" fill="#14284a" stroke="#3fd0d3" stroke-opacity="0.75" />
+            <text x={m.cx} y={MOD_Y + 26} text-anchor="middle" font-size="13" font-weight="600" fill="#fff">{m.name}</text>
+            <text x={m.cx} y={MOD_Y + 46} text-anchor="middle" font-size="9.5" fill="#3fd0d3" letter-spacing="1.6">{m.group.toUpperCase()}</text>
+          </g>
+        ))}
+
+        {/* core */}
+        <g>
+          <rect x={CORE.x} y={CORE.y} width={CORE.w} height={CORE.h} rx="18" fill="#0c1d35" stroke="#3fd0d3" stroke-dasharray="7 6" />
+          <text x={CORE.x + 28} y={CORE.y + 32} font-size="11" fill="#3fd0d3" letter-spacing="3">PETRA CORE · PLANNED</text>
+          <text x={CORE.x + 28} y={CORE.y + 62} font-size="22" font-weight="600" fill="#fff">{core.name}</text>
+          <text x={CORE.x + 28} y={CORE.y + 82} font-size="11.5" fill="rgba(255,255,255,0.65)">{core.sub}</text>
+        </g>
+
+        {/* products */}
+        {nodes.map((n) => (
+          <g>
+            <rect x={n.x - nodeW / 2} y={NODE_Y} width={nodeW} height={NODE_H} rx="16" fill="#14284a" stroke="rgba(255,255,255,0.35)" />
+            <rect x={n.x - nodeW / 2} y={NODE_Y} width="5" height={NODE_H} rx="2.5" fill="#038d91" />
+            <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 36} font-size="22" font-weight="700" fill="#fff" letter-spacing="2">{n.code}</text>
+            <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 59} font-size="12.5" font-weight="600" fill="#3fd0d3">{n.name}</text>
+            <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 78} font-size="10.5" fill="rgba(255,255,255,0.65)">{n.full.length > 26 ? `${n.full.slice(0, 25)}…` : n.full}</text>
+            <rect x={n.x + nodeW / 2 - 76} y={NODE_Y + 12} width="64" height="19" rx="9.5" fill="none" stroke="rgba(255,255,255,0.5)" />
+            <text x={n.x + nodeW / 2 - 44} y={NODE_Y + 25} text-anchor="middle" font-size="9.5" fill="#fff">PREVIEW</text>
+          </g>
+        ))}
+
+        {/* legend */}
+        <g transform="translate(36 690)" font-size="11" fill="rgba(255,255,255,0.7)">
+          <rect y="-10" width="22" height="13" rx="3" fill="#14284a" stroke="rgba(255,255,255,0.5)" />
+          <text x="32">Product in preview</text>
+          <rect x="190" y="-10" width="22" height="13" rx="3" fill="#14284a" stroke="#3fd0d3" />
+          <text x="222">Module built on request</text>
+          <path d="M420 -3 H456" stroke="#3fd0d3" stroke-dasharray="6 5" stroke-width="1.6" />
+          <rect x="476" y="-10" width="22" height="13" rx="3" fill="none" stroke="rgba(255,255,255,0.5)" stroke-dasharray="4 3" />
+          <text x="508">Planned: Petra Core and its links (not shipped)</text>
+        </g>
       </svg>
     </div>
 
-    <div class="grid gap-4 md:hidden">
+    <div class="grid gap-4 lg:hidden">
       <div class="glass rounded-2xl border-dashed p-5">
         <div class="flex items-center justify-between"><b>{core.name}</b><Chip status="planned" dark /></div>
         <p class="mt-2 text-[12.5px] text-white/70">{core.role}</p>
       </div>
-      {nodes.map((n) => <div class="glass rounded-2xl p-5"><div class="flex items-center justify-between"><b>{n.name}</b><Chip status="preview" dark /></div><p class="mt-1 text-[12.5px] text-white/70">{n.full}</p></div>)}
+      <div class="grid gap-3 sm:grid-cols-2">
+        {nodes.map((n) => <div class="glass rounded-2xl p-5"><div class="flex items-center justify-between"><b>{n.name}</b><Chip status="preview" dark /></div><p class="mt-1 text-[12.5px] text-white/70">{n.full}</p></div>)}
+      </div>
+      <div class="glass rounded-2xl border-glow/40 p-5">
+        <div class="flex items-center justify-between"><b>Modules built on request</b><Chip status="onrequest" dark /></div>
+        <ul class="mt-3 flex flex-wrap gap-2">
+          {requestModules.map((m) => <li class="rounded-full border border-glow/50 px-3 py-1 text-[12px] text-white/90">{m.name}</li>)}
+        </ul>
+      </div>
     </div>
 
     {
@@ -95,13 +171,13 @@ const nodes = [
             </ul>
           </div>
           <div data-reveal style="--d:1">
-            <h3 class="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white/70">Roadmap modules (none built yet)</h3>
+            <h3 class="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white/70">Modules built on request</h3>
             <ul class="grid gap-3 sm:grid-cols-2">
-              {plannedModules.map((m) => (
-                <li class="glass spot spot-dark rounded-xl border-dashed px-4 py-3">
+              {requestModules.map((m) => (
+                <li class="glass spot spot-dark rounded-xl border-glow/40 px-4 py-3">
                   <p class="text-[13px] font-medium">{m.name}</p>
                   <p class="mt-0.5 text-[12px] text-white/65">{m.role}</p>
-                  <p class="mt-2 text-[10.5px] uppercase tracking-[0.14em] text-glow">{m.group} · Planned</p>
+                  <p class="mt-2 text-[10.5px] uppercase tracking-[0.14em] text-glow">{m.group} · Built on request</p>
                 </li>
               ))}
             </ul>
@@ -109,6 +185,6 @@ const nodes = [
         </div>
       )
     }
-    {!detail && <div class="mt-10" data-reveal><Button href="/ecosystem" variant="ghost-dark">See the roadmap</Button></div>}
+    {!detail && <div class="mt-10" data-reveal><Button href="/ecosystem" variant="ghost-dark">See the modules</Button></div>}
   </div>
 </section>

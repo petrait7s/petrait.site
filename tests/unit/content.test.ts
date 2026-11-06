@@ -72,3 +72,20 @@ describe("company story", () => {
     for (const m of src.matchAll(/href: "\/products\/([\w-]+)"/g)) expect(productIds).toContain(m[1]);
   });
 });
+
+describe("ecosystem diagram data", () => {
+  const modules = readFileSync("src/content/company.ts", "utf8");
+  const productCodes = load("products").map((p: { code: string }) => p.code.toLowerCase());
+  it("connects every product to the core, and nothing else is claimed as live", () => {
+    const toCore = load("links").filter((l: { to: string }) => l.to === "core").map((l: { from: string }) => l.from);
+    for (const code of productCodes) expect(toCore).toContain(code);
+    for (const l of load("links")) expect(l.status).toBe("planned");
+  });
+  it("lists the eight modules built on request, none of them a current product name", () => {
+    const names = [...modules.matchAll(/name: "(Petra\w+)", role:/g)].map((m) => m[1]);
+    expect(names).toEqual(["PetraBooking", "PetraTour", "PetraCRM", "PetraHouse", "PetraEvents", "PetraChannel", "PetraRMS", "PetraDMO"]);
+    expect([...modules.matchAll(/status: "onrequest" \}/g)].length).toBe(8);
+    const productNames = load("products").map((p: { name: string }) => p.name);
+    for (const n of names) expect(productNames).not.toContain(n);
+  });
+});

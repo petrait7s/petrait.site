@@ -1,7 +1,10 @@
 import { z } from "astro/zod";
 
-/** Release status. Drives every status chip. Keep it honest. */
-export const status = z.enum(["available", "preview", "planned"]);
+/**
+ * Release status. Drives every status chip. Keep it honest.
+ * onrequest: built for a client when they need it (and in development now); not an off-the-shelf release.
+ */
+export const status = z.enum(["available", "preview", "planned", "onrequest"]);
 export type Status = z.infer<typeof status>;
 
 export const screenSource = z.enum(["illustrative", "prototype", "live"]);
@@ -38,7 +41,8 @@ export const industrySchema = z.object({
   name: z.string(),
   line: z.string(),
   products: z.array(z.enum(["PMS", "POS", "DMS", "WEB", "SHOP"])),
-  planned: z.string().optional(),
+  /** A PETRA module built on request for this industry. */
+  module: z.string().optional(),
 });
 
 export const reasonSchema = z.object({ id: z.string(), title: z.string(), text: z.string() });

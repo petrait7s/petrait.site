@@ -25,20 +25,20 @@ export const deployment = {
 export const core = {
   name: "Petra Core",
   sub: "Shared data · sign-in · reports",
-  role: "One data layer for the three products: shared customers and guests, one sign-in with roles, and reports across the business.",
+  role: "One data layer for all the products: shared customers and guests, one sign-in with roles, and reports across the business.",
   status: "planned",
 } as const;
 
-/** Modules from the Petra roadmap. None of these are built yet. */
-export const plannedModules = [
-  { group: "Guest", name: "PetraBooking", role: "Direct booking engine" },
-  { group: "Guest", name: "PetraTour", role: "Tours and packages" },
-  { group: "Guest", name: "PetraCRM", role: "Guest relationships" },
-  { group: "Operations", name: "PetraHouse", role: "Housekeeping and maintenance" },
-  { group: "Operations", name: "PetraEvents", role: "Banquets and events" },
-  { group: "Intelligence", name: "PetraChannel", role: "Channel connectivity" },
-  { group: "Intelligence", name: "PetraRMS", role: "Revenue and pricing" },
-  { group: "Intelligence", name: "PetraDMO", role: "Destination organization tools" },
+/** Modules PETRA builds for a client on request (in development now). Not off-the-shelf releases. */
+export const requestModules = [
+  { group: "Guest", name: "PetraBooking", role: "Direct booking engine", status: "onrequest" },
+  { group: "Guest", name: "PetraTour", role: "Tours and packages", status: "onrequest" },
+  { group: "Guest", name: "PetraCRM", role: "Guest relationships", status: "onrequest" },
+  { group: "Operations", name: "PetraHouse", role: "Housekeeping and maintenance", status: "onrequest" },
+  { group: "Operations", name: "PetraEvents", role: "Banquets and events", status: "onrequest" },
+  { group: "Intelligence", name: "PetraChannel", role: "Channel connectivity", status: "onrequest" },
+  { group: "Intelligence", name: "PetraRMS", role: "Revenue and pricing", status: "onrequest" },
+  { group: "Intelligence", name: "PetraDMO", role: "Destination organization tools", status: "onrequest" },
 ] as const;
 
 /**
@@ -93,7 +93,7 @@ export const layers = [
 
 /** What "built on trust" means in practice. Only facts the company can stand behind. */
 export const trustPrinciples = [
-  { title: "Honest by default", text: "Every product and integration carries a status: available, preview or planned. We never show a feature as live before it is." },
+  { title: "Honest by default", text: "Every product, module and integration carries an honest status: available, preview, built on request or planned. We never show a feature as live before it is." },
   { title: "Your data stays yours", text: "PetraPMS is designed to run on the property's own network, with its database on a server you control." },
   { title: "One accountable team", text: "The people who build the software also deploy and support it. No hand-offs, no ticket maze." },
   { title: "Support after go-live", text: "Staff training at handover, then three months of bug-fix support." },

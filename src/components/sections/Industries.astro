@@ -28,10 +28,10 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
                   </a>
                 </li>
               ))}
-              {ind.data.planned && (
+              {ind.data.module && (
                 <li class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11.5px] text-ink-2">
-                  {ind.data.planned}
-                  <Chip status="planned" />
+                  {ind.data.module}
+                  <Chip status="onrequest" />
                 </li>
               )}
             </ul>

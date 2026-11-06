@@ -30,7 +30,7 @@ Node.js 20.9 or newer.
 Brand colours come from the logo: navy `#0c1d35`, teal `#038d91`, tint `#e6e9ef`.
 
 ## Honesty rules (enforced by tests)
-Every product and integration carries a status. No product may be marked `available`, and every ecosystem link must be `planned`, until a release really ships (`tests/unit/content.test.ts`). Change them only when that is true.
+Every product, module and integration carries a status: `available`, `preview`, `onrequest` (built for a client when needed) or `planned`. No product may be marked `available`, every ecosystem link must be `planned`, and every module must be `onrequest`, until a release really ships (`tests/unit/content.test.ts`). Change them only when that is true.
 
 ## Images
 - `src/assets/products/*.webp`: sample interface screenshots (desktop 1440x900 and iPhone 16 393x852). Regenerate with `python3 scripts/capture.py` from the HTML in `mockups/` (needs `pip install playwright pillow`).
