@@ -5,46 +5,101 @@ import { footerLinks, site } from "../../content/site";
 
 const col = "mb-3 text-[11.5px] font-medium text-ink-3";
 const link = "inline-block py-1 text-[13px] text-ink-2 transition-colors hover:text-ink";
+const pl = "press inline-block py-[5px] text-[12.5px] text-white/75";
+const ph = "mb-1.5 text-[10px] font-medium uppercase tracking-[0.22em] text-glow";
+const ic = {
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  pin: '<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+};
 ---
 
-<footer class="bg-surface px-5 pb-8 pt-9 sm:px-12 sm:pb-10 sm:pt-16 md:px-20 lg:px-28">
-  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-5 gap-y-7 sm:gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-    <div class="col-span-2 md:col-span-1">
-      <div class="flex items-center gap-2.5">
-        <Logo size={36} />
-        <span class="text-[14px] font-medium tracking-wide">{site.name}</span>
+<footer class="relative overflow-hidden px-5 pb-6 pt-8 max-sm:bg-stage max-sm:text-white sm:bg-surface sm:px-12 sm:pb-10 sm:pt-16 md:px-20 lg:px-28">
+  <!-- Phone: dense, dark footer that continues the tab bar -->
+  <div class="sm:hidden">
+    <span class="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full bg-accent/25 blur-3xl" aria-hidden="true"></span>
+    <div class="relative flex items-center justify-between gap-3">
+      <a href="/" class="press flex items-center gap-2.5" aria-label={`${site.name} home`}>
+        <Logo size={34} />
+        <span class="text-[14px] font-semibold tracking-[0.2em]">{site.name}</span>
+      </a>
+      <div class="flex gap-2">
+        <SocialLink network="facebook" href={site.facebook} variant="mono" label={false} />
+        <SocialLink network="instagram" href={site.instagram} variant="mono" label={false} />
       </div>
-      <p class="mt-3 max-w-[34ch] text-[12.5px] leading-relaxed text-ink-2 sm:mt-4">{site.legalName} builds software in {site.country}: products for hospitality and business, and custom software of any type on client demand.</p>
     </div>
-    <nav aria-label="Products">
-      <h2 class={col}>Products</h2>
-      <ul class="space-y-0.5">
-        {footerLinks.products.map((l) => <li><a href={l.href} class={link}>{l.label}</a></li>)}
-      </ul>
-    </nav>
-    <nav aria-label="Company">
-      <h2 class={col}>Company</h2>
-      <ul class="space-y-0.5">
-        {footerLinks.company.map((l) => <li><a href={l.href} class={link}>{l.label}</a></li>)}
-      </ul>
-    </nav>
-    <div class="col-span-2 md:col-span-1">
-      <h2 class={col}>Contact</h2>
-      <ul class="space-y-0.5 break-words">
-        <li><a href={`mailto:${site.email}`} class={link}>{site.email}</a></li>
-        <li><a href={`tel:${site.phoneHref}`} class={link}>{site.phone}</a></li>
-        <li class="py-1 text-[13px] text-ink-2">{site.country}</li>
-      </ul>
-      <div class="mt-4 flex flex-wrap gap-2 sm:mt-5">
-        <SocialLink network="facebook" href={site.facebook} />
-        <SocialLink network="instagram" href={site.instagram} />
-      </div>
+    <p class="relative mt-3 text-[12px] leading-relaxed text-white/60">{site.tagline} Software for hospitality and business, plus custom software of any type, from {site.country}.</p>
+
+    <div class="relative mt-5 grid grid-cols-[1.15fr_1fr] gap-x-5 border-t border-white/10 pt-4">
+      <nav aria-label="Products">
+        <h2 class={ph}>Products</h2>
+        <ul>{footerLinks.products.map((l) => <li><a href={l.href} class={pl}>{l.label}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Company">
+        <h2 class={ph}>Company</h2>
+        <ul>{footerLinks.company.map((l) => <li><a href={l.href} class={pl}>{l.label}</a></li>)}</ul>
+      </nav>
+    </div>
+
+    <div class="relative mt-4 grid gap-2 border-t border-white/10 pt-4">
+      <h2 class={ph}>Contact</h2>
+      {
+        [
+          { icon: ic.mail, text: site.email, href: `mailto:${site.email}` },
+          { icon: ic.phone, text: site.phone, href: `tel:${site.phoneHref}` },
+        ].map((c) => (
+          <a href={c.href} class="press flex h-11 items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-3.5 text-[13px] text-white/90">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-glow" aria-hidden="true" set:html={c.icon} />
+            <span class="truncate">{c.text}</span>
+          </a>
+        ))
+      }
+      <p class="flex items-center gap-3 px-1 text-[12px] text-white/55">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-glow/80" aria-hidden="true" set:html={ic.pin} />
+        {site.country}
+      </p>
+    </div>
+
+    <div class="relative mt-4 flex items-center justify-between gap-3 border-t border-white/10 pt-3 text-[11px] text-white/50">
+      <span>© {new Date().getFullYear()} {site.legalName}</span>
+      <ul class="flex gap-4">{footerLinks.legal.map((l) => <li><a href={l.href} class="press inline-block py-1 text-white/70">{l.label}</a></li>)}</ul>
     </div>
   </div>
-  <div class="mx-auto mt-8 flex max-w-6xl flex-col items-center gap-3 border-t border-line pt-5 text-center text-[12px] text-ink-2 sm:mt-12 sm:flex-row sm:flex-wrap sm:justify-between sm:pt-6 sm:text-left">
-    <span>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</span>
-    <ul class="flex gap-5">
-      {footerLinks.legal.map((l) => <li><a href={l.href} class="inline-block py-1 hover:text-ink">{l.label}</a></li>)}
-    </ul>
+
+  <!-- Tablet and desktop -->
+  <div class="max-sm:hidden">
+    <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div>
+        <div class="flex items-center gap-2.5">
+          <Logo size={36} />
+          <span class="text-[14px] font-medium tracking-wide">{site.name}</span>
+        </div>
+        <p class="mt-4 max-w-[30ch] text-[12.5px] leading-relaxed text-ink-2">{site.legalName} builds software in {site.country}: products for hospitality and business, and custom software of any type on client demand.</p>
+      </div>
+      <nav aria-label="Products">
+        <h2 class={col}>Products</h2>
+        <ul class="space-y-0.5">{footerLinks.products.map((l) => <li><a href={l.href} class={link}>{l.label}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Company">
+        <h2 class={col}>Company</h2>
+        <ul class="space-y-0.5">{footerLinks.company.map((l) => <li><a href={l.href} class={link}>{l.label}</a></li>)}</ul>
+      </nav>
+      <div>
+        <h2 class={col}>Contact</h2>
+        <ul class="space-y-0.5 break-words">
+          <li><a href={`mailto:${site.email}`} class={link}>{site.email}</a></li>
+          <li><a href={`tel:${site.phoneHref}`} class={link}>{site.phone}</a></li>
+          <li class="py-1 text-[13px] text-ink-2">{site.country}</li>
+        </ul>
+        <div class="mt-5 flex flex-wrap gap-2">
+          <SocialLink network="facebook" href={site.facebook} />
+          <SocialLink network="instagram" href={site.instagram} />
+        </div>
+      </div>
+    </div>
+    <div class="mx-auto mt-12 flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line pt-6 text-[12px] text-ink-2">
+      <span>© {new Date().getFullYear()} {site.legalName}. All rights reserved.</span>
+      <ul class="flex gap-5">{footerLinks.legal.map((l) => <li><a href={l.href} class="inline-block py-1 hover:text-ink">{l.label}</a></li>)}</ul>
+    </div>
   </div>
 </footer>
