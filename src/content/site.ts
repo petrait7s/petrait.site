@@ -21,9 +21,11 @@ export const nav = [
 
 export const footerLinks = {
   products: [
-    { label: "PetraPMS", href: "/products" },
-    { label: "PetraPOS", href: "/products" },
-    { label: "PetraDMS", href: "/products" },
+    { label: "PetraPMS", href: "/products/petrapms" },
+    { label: "PetraPOS", href: "/products/petrapos" },
+    { label: "PetraDMS", href: "/products/petradms" },
+    { label: "Website Build", href: "/products/website-build" },
+    { label: "E-commerce Build", href: "/products/ecommerce-build" },
   ],
   company: [
     { label: "Why Petra", href: "/why-petra" },
@@ -34,14 +36,7 @@ export const footerLinks = {
   legal: [{ label: "Privacy", href: "/privacy" }],
 } as const;
 
-/** Routes served by the temporary placeholder page until their real pages land (Phase 3+). */
+/** Routes served by the temporary placeholder page until their real pages land. */
 export const placeholderPages: Record<string, { title: string; note: string }> = {
-  products: { title: "Products", note: "PetraPMS, PetraPOS and PetraDMS detail pages arrive in Phase 3." },
-  ecosystem: { title: "Ecosystem", note: "The Petra Core and planned integrations page arrives in Phase 3." },
-  deployment: { title: "Deployment", note: "The local-first deployment page arrives in Phase 3." },
-  industries: { title: "Industries", note: "The industries page arrives in Phase 3." },
-  "why-petra": { title: "Why Petra", note: "This page arrives in Phase 3." },
-  implementation: { title: "Implementation", note: "This page arrives in Phase 3." },
-  contact: { title: "Contact", note: "The demo request form arrives in Phase 6. Until then, email or call us." },
-  privacy: { title: "Privacy notice", note: "The privacy notice arrives with the demo form in Phase 6." },
+  privacy: { title: "Privacy notice", note: "The privacy notice arrives together with the demo request form." },
 };

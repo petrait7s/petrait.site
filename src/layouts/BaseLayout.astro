@@ -28,6 +28,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" type="image/png" href="/brand/petra-mark.png" />
     <link rel="apple-touch-icon" href="/brand/petra-mark.png" />
     {noindex && <meta name="robots" content="noindex" />}
+    <script is:inline>document.documentElement.classList.add("js");</script>
     <ClientRouter />
   </head>
   <body class="min-h-screen">
@@ -42,5 +43,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Footer />
+    <script>
+      import "../scripts/fx";
+    </script>
   </body>
 </html>

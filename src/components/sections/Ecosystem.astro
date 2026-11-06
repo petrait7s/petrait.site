@@ -1,0 +1,113 @@
+---
+import { getCollection } from "astro:content";
+import Chip from "../ui/Chip.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import Button from "../ui/Button.astro";
+import { core, plannedModules } from "../../content/company";
+
+interface Props {
+  detail?: boolean;
+}
+const { detail = false } = Astro.props;
+const links = await getCollection("links");
+
+/** Wire paths and label anchors for the diagram (viewBox 1000 x 440). Every link is planned, so every wire is dashed. */
+const wires: Record<string, { d: string; x: number; y: number }> = {
+  "ops-data": { d: "M500 160 V212 H170 V285", x: 335, y: 212 },
+  sales: { d: "M500 160 V285", x: 500, y: 250 },
+  dues: { d: "M500 160 V212 H830 V285", x: 665, y: 212 },
+  "guest-charges": { d: "M410 375 V418 H210 V375", x: 310, y: 418 },
+  inventory: { d: "M790 375 V418 H590 V375", x: 690, y: 418 },
+};
+const nodes = [
+  { code: "PMS", name: "PetraPMS", full: "Property Management", x: 170 },
+  { code: "POS", name: "PetraPOS", full: "Point of Sale", x: 500 },
+  { code: "DMS", name: "PetraDMS", full: "Distribution Management", x: 830 },
+];
+---
+
+<section id="ecosystem" class="stage px-6 py-24 sm:px-10 sm:py-32">
+  <div class="grid-bg"></div>
+  <div class="mx-auto max-w-6xl">
+    <SectionHead
+      dark
+      eyebrow="Ecosystem"
+      title="Three products today. One shared core next."
+      lede="PetraPMS, PetraPOS and PetraDMS run independently today. Petra Core is the planned layer that connects them. Every dashed link is planned, not shipped."
+    />
+
+    <div class="glass relative hidden rounded-3xl p-6 md:block" data-reveal>
+      <svg viewBox="0 0 1000 440" class="h-auto w-full" role="img" aria-label="Diagram: PetraPMS, PetraPOS and PetraDMS connect through the planned Petra Core. All connections are planned.">
+        {
+          links.filter((l) => wires[l.id]).map((l) => (
+            <g>
+              <path d={wires[l.id].d} fill="none" stroke="#3fd0d3" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
+              <g transform={`translate(${wires[l.id].x - (l.data.label.length * 3.6 + 14)} ${wires[l.id].y - 12})`}>
+                <rect width={l.data.label.length * 7.2 + 28} height="24" rx="12" fill="#0c1d35" stroke="rgba(255,255,255,0.28)" />
+                <text x={(l.data.label.length * 7.2 + 28) / 2} y="16" text-anchor="middle" font-size="11.5" fill="#fff" font-weight="500">{l.data.label}</text>
+              </g>
+            </g>
+          ))
+        }
+        <g>
+          <rect x="350" y="70" width="300" height="90" rx="18" fill="#0c1d35" stroke="#3fd0d3" stroke-dasharray="7 6" />
+          <text x="378" y="104" font-size="11" fill="#3fd0d3" letter-spacing="3">PETRA CORE · PLANNED</text>
+          <text x="378" y="134" font-size="22" font-weight="600" fill="#fff">{core.name}</text>
+          <text x="378" y="152" font-size="11.5" fill="rgba(255,255,255,0.65)">{core.sub}</text>
+        </g>
+        {
+          nodes.map((n) => (
+            <g>
+              <rect x={n.x - 125} y="285" width="250" height="90" rx="18" fill="#14284a" stroke="rgba(255,255,255,0.35)" />
+              <rect x={n.x - 125} y="285" width="5" height="90" rx="2.5" fill="#038d91" />
+              <text x={n.x - 100} y="322" font-size="24" font-weight="700" fill="#fff" letter-spacing="2">{n.code}</text>
+              <text x={n.x - 100} y="346" font-size="13" font-weight="600" fill="#3fd0d3">{n.name}</text>
+              <text x={n.x - 100} y="364" font-size="11.5" fill="rgba(255,255,255,0.65)">{n.full}</text>
+              <rect x={n.x + 45} y="297" width="68" height="20" rx="10" fill="none" stroke="rgba(255,255,255,0.5)" />
+              <text x={n.x + 79} y="311" text-anchor="middle" font-size="10" fill="#fff">PREVIEW</text>
+            </g>
+          ))
+        }
+      </svg>
+    </div>
+
+    <div class="grid gap-4 md:hidden">
+      <div class="glass rounded-2xl border-dashed p-5">
+        <div class="flex items-center justify-between"><b>{core.name}</b><Chip status="planned" dark /></div>
+        <p class="mt-2 text-[12.5px] text-white/70">{core.role}</p>
+      </div>
+      {nodes.map((n) => <div class="glass rounded-2xl p-5"><div class="flex items-center justify-between"><b>{n.name}</b><Chip status="preview" dark /></div><p class="mt-1 text-[12.5px] text-white/70">{n.full}</p></div>)}
+    </div>
+
+    {
+      detail && (
+        <div class="mt-14 grid gap-10 lg:grid-cols-2">
+          <div data-reveal>
+            <h3 class="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white/70">Planned connections</h3>
+            <ul class="divide-y divide-white/10 border-y border-white/10">
+              {links.map((l) => (
+                <li class="flex items-start justify-between gap-4 py-3.5">
+                  <div><p class="text-[14px] font-medium">{l.data.label}</p><p class="mt-0.5 text-[12.5px] text-white/65">{l.data.detail}</p></div>
+                  <Chip status={l.data.status} dark />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div data-reveal style="--d:1">
+            <h3 class="mb-4 text-[13px] font-medium uppercase tracking-[0.18em] text-white/70">Roadmap modules (none built yet)</h3>
+            <ul class="grid gap-3 sm:grid-cols-2">
+              {plannedModules.map((m) => (
+                <li class="glass spot spot-dark rounded-xl border-dashed px-4 py-3">
+                  <p class="text-[13px] font-medium">{m.name}</p>
+                  <p class="mt-0.5 text-[12px] text-white/65">{m.role}</p>
+                  <p class="mt-2 text-[10.5px] uppercase tracking-[0.14em] text-glow">{m.group} · Planned</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    }
+    {!detail && <div class="mt-10" data-reveal><Button href="/ecosystem" variant="ghost-dark">See the roadmap</Button></div>}
+  </div>
+</section>

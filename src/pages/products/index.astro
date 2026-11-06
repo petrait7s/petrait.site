@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import ProductCards from "../../components/sections/ProductCards.astro";
+import CtaBlock from "../../components/sections/CtaBlock.astro";
+---
+
+<BaseLayout title="Products" description="PetraPMS, PetraPOS, PetraDMS, Website Build and E-commerce Build: software for hotels, restaurants, distributors, websites and online stores.">
+  <PageHero eyebrow="Products" title="Five products, built for the way work really happens." lede="Hotel, restaurant, distribution, website and online store. All are in preview and shown in demos on request." />
+  <ProductCards withHead={false} />
+  <CtaBlock />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import Deployment from "../components/sections/Deployment.astro";
+import CtaBlock from "../components/sections/CtaBlock.astro";
+---
+
+<BaseLayout title="Deployment" description="PetraPMS is designed to run on the property's own network, with data on a server you control.">
+  <PageHero eyebrow="Deployment" title="Your network. Your server. Your data." lede="Local-first deployment keeps the front desk fast and the data on hardware you own." />
+  <Deployment />
+  <CtaBlock />
+</BaseLayout>

@@ -19,7 +19,7 @@ export const productSchema = z.object({
   features: z.array(z.object({ title: z.string(), planned: z.boolean().default(false) })),
   workflow: z.array(z.string()),
   screenSource,
-  /** Files in public/products are named `<assetPrefix>-<view>-desktop.webp` and `-mobile.webp`. */
+  /** Files in src/assets/products are named `<assetPrefix>-<view>-desktop.webp` and `-mobile.webp`. */
   assetPrefix: z.string(),
   screens: z.array(z.object({ view: z.string(), label: z.string(), alt: z.string() })).min(1),
 });

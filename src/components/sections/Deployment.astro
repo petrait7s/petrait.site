@@ -1,0 +1,65 @@
+---
+import Chip from "../ui/Chip.astro";
+import SectionHead from "../ui/SectionHead.astro";
+import Button from "../ui/Button.astro";
+import { deployment } from "../../content/company";
+
+interface Props {
+  detail?: boolean;
+}
+const { detail = true } = Astro.props;
+const { tiers, traits, note } = deployment;
+---
+
+<section id="deployment" class="bg-surface px-6 py-24 sm:px-10 sm:py-32">
+  <div class="mx-auto max-w-6xl">
+    <SectionHead
+      eyebrow="Deployment"
+      title="Local-first when reliability matters."
+      lede="PetraPMS is designed to run on the property's own network: terminals talk to a Petra server on site, and the data stays on hardware you control."
+    />
+
+    <ol class="grid items-stretch gap-4 lg:grid-cols-[1fr_auto_1fr_auto_1fr]">
+      {
+        tiers.flatMap((t, i) => {
+          const card = (
+            <li class:list={["spot rounded-2xl border p-6", i === 1 ? "border-accent bg-stage text-white spot-dark" : "border-line bg-white"]} data-reveal style={`--d:${i}`}>
+              <p class:list={["text-[11px] font-medium tracking-[0.2em]", i === 1 ? "text-glow" : "text-accent-text"]}>{t.n}</p>
+              <h3 class="mt-2 text-[16px] font-medium">{t.title}</h3>
+              <ul class="mt-4 space-y-2">
+                {t.items.map((it) => (
+                  <li class:list={["rounded-lg px-3 py-2 text-[12.5px]", i === 1 ? "bg-white/10" : "bg-page"]}>{it}</li>
+                ))}
+              </ul>
+            </li>
+          );
+          const link =
+            i < tiers.length - 1 ? (
+              <li aria-hidden="true" class="hidden items-center lg:flex">
+                <svg width="64" height="12" viewBox="0 0 64 12"><path d="M0 6 H56" stroke="#038d91" stroke-width="2" stroke-dasharray="5 6" class="flow" /><path d="M54 1 L63 6 L54 11" fill="none" stroke="#038d91" stroke-width="2" /></svg>
+              </li>
+            ) : null;
+          return [card, link];
+        })
+      }
+    </ol>
+
+    {
+      detail && (
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {traits.map((t, i) => (
+            <li class="spot rounded-2xl border border-line bg-white p-5" data-reveal style={`--d:${i}`}>
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-[13.5px] font-medium">{t.title}</h3>
+                {t.planned && <Chip status="planned" />}
+              </div>
+              <p class="mt-2 text-[12.5px] leading-relaxed text-ink-2">{t.text}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <p class="mt-6 max-w-2xl text-[12.5px] text-ink-2" data-reveal>{note}</p>
+    {!detail && <div class="mt-8" data-reveal><Button href="/deployment" variant="ghost">How deployment works</Button></div>}
+  </div>
+</section>

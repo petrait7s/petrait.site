@@ -1,27 +1,24 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { site } from "../content/site";
-
-const products = await getCollection("products");
+import Hero from "../components/sections/Hero.astro";
+import Glance from "../components/sections/Glance.astro";
+import ProductCards from "../components/sections/ProductCards.astro";
+import Ecosystem from "../components/sections/Ecosystem.astro";
+import Deployment from "../components/sections/Deployment.astro";
+import Industries from "../components/sections/Industries.astro";
+import Why from "../components/sections/Why.astro";
+import Steps from "../components/sections/Steps.astro";
+import CtaBlock from "../components/sections/CtaBlock.astro";
 ---
 
 <BaseLayout>
-  <section class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-6 py-24">
-    <p class="mb-3 text-[11.5px] font-medium text-accent-text">Phase 1 shell · rebuild in progress</p>
-    <h1 class="mb-3 text-[1.75rem] font-medium leading-[1.15] tracking-tight">{site.tagline}</h1>
-    <p class="mb-6 text-[13px] text-ink-3">
-      Astro + Tailwind v4 foundation with typed content. Pages and the 3D layer follow in later phases.
-    </p>
-    <ul class="divide-y divide-line border-y border-line text-[13px]">
-      {
-        products.map((p) => (
-          <li class="flex items-center justify-between gap-4 py-3">
-            <span class="font-medium">{p.data.name}</span>
-            <span class="rounded-full border border-ink-3 px-2 py-0.5 text-[10.5px] font-medium text-ink-2">{p.data.status}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <Hero />
+  <Glance />
+  <ProductCards />
+  <Ecosystem />
+  <Deployment detail={false} />
+  <Industries />
+  <Why />
+  <Steps />
+  <CtaBlock />
 </BaseLayout>

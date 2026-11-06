@@ -1,0 +1,70 @@
+---
+import DeviceFrame from "./DeviceFrame.astro";
+import { screenImage } from "../../lib/screens";
+
+interface Props {
+  id: string;
+  prefix: string;
+  name: string;
+  screens: { view: string; label: string; alt: string }[];
+}
+const { id, prefix, name, screens } = Astro.props;
+---
+
+<div class="showcase" data-showcase>
+  <div role="tablist" aria-label={`${name} screens`} class="mb-6 flex flex-wrap gap-2">
+    {
+      screens.map((s, i) => (
+        <button
+          role="tab"
+          type="button"
+          id={`${id}-tab-${i}`}
+          aria-selected={i === 0 ? "true" : "false"}
+          aria-controls={`${id}-panel-${i}`}
+          tabindex={i === 0 ? 0 : -1}
+          class="rounded-full border border-white/20 px-4 py-1.5 text-[12px] font-medium text-white/70 transition-colors hover:text-white aria-selected:border-glow aria-selected:bg-white/10 aria-selected:text-white"
+        >
+          {s.label}
+        </button>
+      ))
+    }
+  </div>
+  {
+    screens.map((s, i) => (
+      <div role="tabpanel" id={`${id}-panel-${i}`} aria-labelledby={`${id}-tab-${i}`} hidden={i !== 0} class="relative">
+        <div class="grid items-end gap-6 sm:grid-cols-[1fr_auto]">
+          <DeviceFrame kind="desktop" src={screenImage(prefix, s.view, "desktop")} alt={`${s.alt} (desktop)`} eager={i === 0} />
+          <DeviceFrame kind="phone" src={screenImage(prefix, s.view, "mobile")} alt={`${s.alt} (iPhone)`} eager={i === 0} class="mx-auto w-[150px] sm:w-[170px] lg:w-[200px]" />
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  function bind() {
+    document.querySelectorAll<HTMLElement>("[data-showcase]").forEach((root) => {
+      const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+      const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+      const select = (n: number, focus = false) => {
+        tabs.forEach((t, i) => {
+          t.setAttribute("aria-selected", String(i === n));
+          t.tabIndex = i === n ? 0 : -1;
+        });
+        panels.forEach((p, i) => (p.hidden = i !== n));
+        if (focus) tabs[n].focus();
+      };
+      tabs.forEach((t, i) => {
+        t.addEventListener("click", () => select(i));
+        t.addEventListener("keydown", (e) => {
+          const k = e.key;
+          if (k !== "ArrowRight" && k !== "ArrowLeft" && k !== "Home" && k !== "End") return;
+          e.preventDefault();
+          const n = k === "Home" ? 0 : k === "End" ? tabs.length - 1 : (i + (k === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+          select(n, true);
+        });
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", bind);
+</script>

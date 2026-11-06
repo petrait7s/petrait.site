@@ -1,0 +1,22 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "teal" | "ghost" | "ghost-dark";
+  class?: string;
+}
+const { href, variant = "primary", class: extra = "" } = Astro.props;
+const styles = {
+  primary: "bg-ink text-white hover:bg-ink-2",
+  teal: "bg-accent-text text-white hover:bg-accent",
+  ghost: "border border-accent-text text-accent-text hover:bg-accent-text hover:text-white",
+  "ghost-dark": "border border-white/30 text-white hover:bg-white hover:text-ink",
+} as const;
+---
+
+<a
+  href={href}
+  class:list={["btn-sheen group inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-[13px] font-medium transition-colors duration-200", styles[variant], extra]}
+>
+  <slot />
+  <span class="inline-block transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">→</span>
+</a>

@@ -1,4 +1,4 @@
-"""Render the sample product interfaces in mockups/ to WebP screenshots in public/products.
+"""Render the sample product interfaces in mockups/ to WebP screenshots in src/assets/products.
 
 Usage: python3 scripts/capture.py [petrapms petrapos ...]   (default: all)
 Needs: pip install playwright pillow. Set CHROMIUM_PATH to use an existing Chromium binary instead of Playwright's own.
@@ -14,7 +14,7 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "public" / "products"
+OUT = ROOT / "src" / "assets" / "products"
 OUT.mkdir(parents=True, exist_ok=True)
 
 # product id -> views captured (the first view is the hero shot)

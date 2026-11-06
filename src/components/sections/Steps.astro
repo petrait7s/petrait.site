@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import SectionHead from "../ui/SectionHead.astro";
+
+const steps = await getCollection("steps");
+---
+
+<section id="process" class="stage px-6 py-24 sm:px-10 sm:py-32">
+  <div class="grid-bg"></div>
+  <div class="mx-auto max-w-6xl">
+    <SectionHead dark eyebrow="Implementation" title="What happens after you contact Petra." lede="Four steps from first call to a running system, handled by the same team throughout." />
+    <ol class="relative grid gap-5 lg:grid-cols-4">
+      <span aria-hidden="true" class="absolute left-0 right-0 top-[22px] hidden h-px bg-gradient-to-r from-glow/60 via-glow/20 to-transparent lg:block"></span>
+      {
+        steps.map((s, i) => (
+          <li class="relative" data-reveal style={`--d:${i}`}>
+            <span class="relative z-10 grid h-11 w-11 place-items-center rounded-full border border-glow bg-stage text-[12px] font-semibold text-glow shadow-[0_0_24px_rgba(63,208,211,0.35)]">{s.data.n}</span>
+            <div class="glass spot spot-dark mt-5 rounded-2xl p-6">
+              <h3 class="text-[16px] font-medium">{s.data.title}</h3>
+              <p class="mt-1.5 text-[13px] font-medium text-white/90">{s.data.line}</p>
+              <p class="mt-2 text-[12.5px] leading-relaxed text-white/65">{s.data.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

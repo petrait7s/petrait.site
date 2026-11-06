@@ -1,0 +1,16 @@
+---
+import { glance } from "../../content/company";
+---
+
+<section class="bg-surface px-6 py-12 sm:px-10" aria-label="PETRA at a glance">
+  <ul class="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      glance.map((g, i) => (
+        <li data-reveal style={`--d:${i}`}>
+          <p class="text-[13px] font-medium">{g.title}</p>
+          <p class="mt-1.5 text-[12.5px] leading-relaxed text-ink-2">{g.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

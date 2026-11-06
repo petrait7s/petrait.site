@@ -1,0 +1,93 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHero from "../../components/sections/PageHero.astro";
+import CtaBlock from "../../components/sections/CtaBlock.astro";
+import Showcase from "../../components/ui/Showcase.astro";
+import Chip from "../../components/ui/Chip.astro";
+import Button from "../../components/ui/Button.astro";
+import { screenLabel } from "../../content/labels";
+
+export async function getStaticPaths() {
+  const all = await getCollection("products");
+  return all.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: all[(i + all.length - 1) % all.length], next: all[(i + 1) % all.length] },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const p = entry.data;
+const label = screenLabel[p.screenSource];
+---
+
+<BaseLayout title={`${p.name}: ${p.category}`} description={p.description}>
+  <PageHero eyebrow={`${p.code} · ${p.full}`} title={p.name} lede={p.description}>
+    <div class="mt-7 flex flex-wrap items-center gap-3" data-reveal style="--d:3">
+      <Chip status={p.status} dark />
+      <span class="text-[12px] text-white/70">{p.statusNote}</span>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--d:4">
+      <Button href="/contact" variant="teal">Request a {p.name} demo</Button>
+      <Button href="/products" variant="ghost-dark">All products</Button>
+    </div>
+  </PageHero>
+
+  <section class="px-6 py-24 sm:px-10 sm:py-28">
+    <div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2">
+      <div data-reveal>
+        <h2 class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Problem it solves</h2>
+        <p class="text-[1.35rem] font-medium leading-snug tracking-tight sm:text-[1.6rem]">{p.problem}</p>
+      </div>
+      <div data-reveal style="--d:1">
+        <h2 class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Key capabilities</h2>
+        <ul class="grid gap-3 sm:grid-cols-2">
+          {
+            p.features.map((f) => (
+              <li class="spot flex items-start justify-between gap-3 rounded-xl border border-line bg-white px-4 py-3 text-[13px]">
+                <span class="font-medium">{f.title}</span>
+                {f.planned && <Chip status="planned" />}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage px-6 py-24 sm:px-10 sm:py-28" aria-labelledby="tour-title">
+    <div class="grid-bg"></div>
+    <div class="mx-auto max-w-6xl">
+      <p class="mb-3 text-[11.5px] font-medium uppercase tracking-[0.2em] text-glow" data-reveal>{label.tag}</p>
+      <h2 id="tour-title" class="mb-10 text-[1.75rem] font-medium tracking-tight sm:text-[2.2rem]" data-reveal>{p.name} on desktop and iPhone</h2>
+      <div data-reveal><Showcase id={p.id} prefix={p.assetPrefix} name={p.name} screens={p.screens} /></div>
+      <p class="mt-2 text-[11.5px] text-white/60">{label.note(p.name)}</p>
+    </div>
+  </section>
+
+  <section class="bg-surface px-6 py-24 sm:px-10 sm:py-28">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="mb-10 text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text" data-reveal>How it works</h2>
+      <ol class="flex flex-wrap items-center gap-y-4">
+        {
+          p.workflow.map((step, i) => (
+            <li class="flex items-center" data-reveal style={`--d:${i}`}>
+              <span class="rounded-xl border border-line bg-white px-4 py-2.5 text-[13px] font-medium">
+                <span class="mr-2 text-[11px] text-accent-text">{String(i + 1).padStart(2, "0")}</span>{step}
+              </span>
+              {i < p.workflow.length - 1 && <span class="mx-3 hidden h-px w-8 bg-accent/50 sm:block" aria-hidden="true" />}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="px-6 pb-4 pt-16 sm:px-10">
+    <nav aria-label="More products" class="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 text-[13px] font-medium">
+      <a href={`/products/${prev.id}`} class="text-ink-2 hover:text-ink">← {prev.data.name}</a>
+      <a href={`/products/${next.id}`} class="text-ink-2 hover:text-ink">{next.data.name} →</a>
+    </nav>
+  </section>
+  <CtaBlock />
+</BaseLayout>

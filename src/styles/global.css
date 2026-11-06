@@ -12,6 +12,8 @@
   /* darker teal for small text on light backgrounds (4.9:1 on surface, 5.5:1 on page) */
   --color-accent-text: #026f73;
   --color-stage: #0c1d35;
+  --color-stage-2: #14284a;
+  --color-glow: #3fd0d3;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -24,4 +26,45 @@ section[id] { scroll-margin-top: 5rem; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* ---------- futuristic layer ---------- */
+.stage { position: relative; background: var(--color-stage); color: #fff; overflow: hidden; isolation: isolate; }
+.stage::before { content: ""; position: absolute; inset: 0; z-index: -2; background:
+  radial-gradient(55% 60% at 80% 18%, rgba(3,141,145,.38), transparent 70%),
+  radial-gradient(40% 50% at 8% 90%, rgba(63,208,211,.14), transparent 70%); }
+.grid-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+  background-image: linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse 75% 75% at 70% 35%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 75% 75% at 70% 35%, #000 20%, transparent 75%); }
+.glass { background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.03)); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
+.gradient-text { background: linear-gradient(100deg, #ffffff 10%, var(--color-glow) 70%, #7fe6e8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.gradient-text-dark { background: linear-gradient(100deg, var(--color-ink) 20%, var(--color-accent) 85%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* pointer spotlight on cards (set by src/scripts/fx.ts) */
+.spot { position: relative; --mx: 50%; --my: 0%; }
+.spot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .25s;
+  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(3,141,145,.20), transparent 65%); }
+.spot:hover::after { opacity: 1; }
+.stage .spot::after, .spot-dark::after { background: radial-gradient(260px circle at var(--mx) var(--my), rgba(63,208,211,.22), transparent 65%); }
+
+/* 3D tilt for device compositions */
+.tilt { transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .25s var(--ease-out-expo); transform-style: preserve-3d; will-change: transform; }
+
+/* scroll reveal: content stays visible without JS */
+.js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease-out-expo) calc(var(--d, 0) * 80ms), transform .8s var(--ease-out-expo) calc(var(--d, 0) * 80ms); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+
+@keyframes dash { to { stroke-dashoffset: -28; } }
+.flow { animation: dash 1.4s linear infinite; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.float { animation: float 6s ease-in-out infinite; }
+@keyframes sheen { from { transform: translateX(-120%) skewX(-18deg); } to { transform: translateX(320%) skewX(-18deg); } }
+.btn-sheen { position: relative; overflow: hidden; }
+.btn-sheen::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 40%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); transform: translateX(-120%) skewX(-18deg); }
+.btn-sheen:hover::before { animation: sheen .9s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .flow, .float { animation: none; }
+  .tilt { transform: none; }
 }

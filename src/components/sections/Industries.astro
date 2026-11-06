@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Chip from "../ui/Chip.astro";
+import SectionHead from "../ui/SectionHead.astro";
+
+const industries = await getCollection("industries");
+const products = await getCollection("products");
+const byCode = Object.fromEntries(products.map((p) => [p.data.code, p]));
+const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3", "sm:col-span-2 lg:col-span-3"];
+---
+
+<section id="industries" class="px-6 py-24 sm:px-10 sm:py-32">
+  <div class="mx-auto max-w-6xl">
+    <SectionHead eyebrow="Industries" title="Built for the people who host, serve and move guests." />
+    <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+      {
+        industries.map((ind, i) => (
+          <li class:list={["spot flex flex-col rounded-2xl border border-line bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent", span[i]]} data-reveal style={`--d:${i % 3}`}>
+            <span class="text-[34px] font-semibold leading-none tracking-tight text-ink/10">0{i + 1}</span>
+            <h3 class="mt-6 text-[19px] font-medium tracking-tight">{ind.data.name}</h3>
+            <p class="mt-2 flex-1 text-[13px] leading-relaxed text-ink-2">{ind.data.line}</p>
+            <ul class="mt-5 flex flex-wrap gap-2 border-t border-line pt-4" aria-label={`Petra products for ${ind.data.name}`}>
+              {ind.data.products.map((code) => (
+                <li>
+                  <a href={`/products/${byCode[code].id}`} class="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1 text-[11.5px] font-medium text-ink hover:bg-accent-text hover:text-white">
+                    {byCode[code].data.name}
+                    <Chip status={byCode[code].data.status} />
+                  </a>
+                </li>
+              ))}
+              {ind.data.planned && (
+                <li class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11.5px] text-ink-2">
+                  {ind.data.planned}
+                  <Chip status="planned" />
+                </li>
+              )}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

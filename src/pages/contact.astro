@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import { site } from "../content/site";
+
+const include = ["Type of business and how many rooms, outlets or branches", "Products you are considering", "What you use today", "A good time for a call"];
+---
+
+<BaseLayout title="Contact" description={`Book a PETRA demo. Email ${site.email} or call ${site.phone}.`}>
+  <PageHero eyebrow="Contact" title="See Petra running on your property." lede="Email or call us. We reply within one working day. No commitment." />
+  <section class="px-6 py-24 sm:px-10 sm:py-28">
+    <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1fr]">
+      <div class="grid gap-4" data-reveal>
+        <a href={`mailto:${site.email}`} class="spot rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent">
+          <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Email</p>
+          <p class="mt-2 break-all text-[18px] font-medium tracking-tight">{site.email}</p>
+        </a>
+        <a href={`tel:${site.phoneHref}`} class="spot rounded-2xl border border-line bg-white p-7 transition-colors hover:border-accent">
+          <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Phone</p>
+          <p class="mt-2 text-[18px] font-medium tracking-tight">{site.phone}</p>
+        </a>
+        <div class="rounded-2xl border border-line bg-white p-7">
+          <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Location</p>
+          <p class="mt-2 text-[18px] font-medium tracking-tight">{site.country}</p>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-surface p-7 sm:p-9" data-reveal style="--d:1">
+        <h2 class="text-[1.2rem] font-medium tracking-tight">What to include in your message</h2>
+        <ul class="mt-5 space-y-3">
+          {include.map((i) => <li class="flex gap-3 text-[13.5px] text-ink-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>{i}</li>)}
+        </ul>
+        <p class="mt-6 text-[12.5px] text-ink-3">We use your details only to reply to your inquiry.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -39,7 +39,7 @@ describe("product screenshots", () => {
     for (const p of load("products")) {
       for (const s of p.screens) {
         for (const kind of ["desktop", "mobile"]) {
-          const file = `public/products/${p.assetPrefix}-${s.view}-${kind}.webp`;
+          const file = `src/assets/products/${p.assetPrefix}-${s.view}-${kind}.webp`;
           expect(existsSync(file), file).toBe(true);
         }
       }
