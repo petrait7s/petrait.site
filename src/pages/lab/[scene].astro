@@ -1,0 +1,21 @@
+---
+// Developer-only 3D test page. Generated in `astro dev` and when ENABLE_LAB is set at build time; never in production builds.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Scene3D from "../../components/three/Scene3D.astro";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV || process.env.ENABLE_LAB ? [{ params: { scene: "lab" } }] : [];
+}
+---
+
+<BaseLayout title="3D lab" noindex>
+  <section class="stage px-6 pb-20 pt-32 sm:px-10">
+    <div class="grid-bg"></div>
+    <div class="mx-auto max-w-5xl">
+      <p class="mb-4 text-[11.5px] uppercase tracking-[0.2em] text-glow">Developer page · not part of the site</p>
+      <div id="stage-3d">
+        <Scene3D scene="lab" description="3D view: PetraPMS, PetraPOS and PetraDMS panels around the planned Petra Core, connected by dashed planned links." class="rounded-3xl border border-white/10" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

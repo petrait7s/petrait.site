@@ -46,3 +46,17 @@ describe("product screenshots", () => {
     }
   });
 });
+
+describe("contact details", () => {
+  const site = readFileSync("src/content/site.ts", "utf8");
+  it("uses the current company contact details", () => {
+    expect(site).toContain('email: "petrabd@gmail.com"');
+    expect(site).toContain('phone: "016-16154320"');
+    expect(site).toContain('phoneHref: "+8801616154320"');
+    expect(site).toContain('facebook: "https://www.facebook.com/share/1DsiFUJeNB/"');
+  });
+  it("does not leave the old contact details anywhere in the source", () => {
+    expect(site).not.toContain("letterbox5509");
+    expect(site).not.toContain("01609347600");
+  });
+});

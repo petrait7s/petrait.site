@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/sections/PageHero.astro";
+import FacebookLink from "../components/ui/FacebookLink.astro";
 import { site } from "../content/site";
 
 const include = ["Type of business and how many rooms, outlets or branches", "Products you are considering", "What you use today", "A good time for a call"];
 ---
 
-<BaseLayout title="Contact" description={`Book a PETRA demo. Email ${site.email} or call ${site.phone}.`}>
+<BaseLayout title="Contact" description={`Book a PETRA demo. Email ${site.email}, call ${site.phone} or message us on Facebook.`}>
   <PageHero eyebrow="Contact" title="See Petra running on your property." lede="Email or call us. We reply within one working day. No commitment." />
   <section class="px-6 py-24 sm:px-10 sm:py-28">
     <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1fr]">
@@ -19,6 +20,13 @@ const include = ["Type of business and how many rooms, outlets or branches", "Pr
           <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Phone</p>
           <p class="mt-2 text-[18px] font-medium tracking-tight">{site.phone}</p>
         </a>
+        <div class="spot flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-white p-7">
+          <div>
+            <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Facebook</p>
+            <p class="mt-2 text-[18px] font-medium tracking-tight">Message us on our page</p>
+          </div>
+          <FacebookLink href={site.facebook} />
+        </div>
         <div class="rounded-2xl border border-line bg-white p-7">
           <p class="text-[11.5px] font-medium uppercase tracking-[0.2em] text-accent-text">Location</p>
           <p class="mt-2 text-[18px] font-medium tracking-tight">{site.country}</p>

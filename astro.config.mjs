@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
 
 const site = (process.env.PUBLIC_SITE_URL || "http://localhost:4321").replace(/\/+$/, "");
 
@@ -13,5 +14,6 @@ if (!process.env.PUBLIC_SITE_URL && process.argv.includes("build")) {
 export default defineConfig({
   site,
   output: "static",
+  integrations: [react()],
   vite: { plugins: [tailwindcss()] },
 });
