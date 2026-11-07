@@ -10,7 +10,7 @@ interface Props {
 const { id, name, screens } = Astro.props;
 ---
 
-<div class="showcase" data-showcase data-mode="phone">
+<div class="showcase" data-showcase data-mode="desktop">
   <div role="tablist" aria-label={`${name} screens`} class="no-scrollbar -mx-5 mb-4 flex gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:mb-6 sm:flex-wrap sm:overflow-visible sm:px-0">
     {
       screens.map((s, i) => (
@@ -47,7 +47,7 @@ const { id, name, screens } = Astro.props;
     ))
   }
   <div class="mt-4 flex justify-center sm:hidden">
-    <button type="button" data-device-toggle class="press rounded-full border border-white/25 px-4 py-2 text-[12px] font-medium text-white/85">Show desktop view</button>
+    <button type="button" data-device-toggle class="press rounded-full border border-white/25 px-4 py-2 text-[12px] font-medium text-white/85">Show mobile view</button>
   </div>
 </div>
 

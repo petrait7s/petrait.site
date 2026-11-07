@@ -29,6 +29,8 @@ function mount(box: HTMLElement) {
   const send = (pause: boolean) => frame.contentWindow?.postMessage({ type: "petra-demo", pause }, window.location.origin);
   box.addEventListener("pointerenter", () => send(true));
   box.addEventListener("pointerleave", () => send(false));
+  // stop the sample scrolling while it is off screen, so phones keep their frame budget for the page itself
+  new IntersectionObserver((es) => es.forEach((e) => send(!e.isIntersecting))).observe(box);
 }
 
 function init() {

@@ -35,6 +35,12 @@ describe("honesty rules", () => {
 });
 
 describe("product screens", () => {
+  it("opens Website Build on the restaurant site and E-commerce Build on the gadgets store", () => {
+    const by = Object.fromEntries(load("products").map((p: { id: string; screens: { view: string }[] }) => [p.id, p.screens[0].view]));
+    expect(by["website-build"]).toBe("restaurant");
+    expect(by["ecommerce-build"]).toBe("gadgets");
+  });
+
   it("every declared screen has a sample page with that view, and a desktop and a mobile poster", () => {
     for (const p of load("products")) {
       for (const s of p.screens) {

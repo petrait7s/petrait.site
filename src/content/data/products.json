@@ -247,15 +247,15 @@
     "screens": [
       {
         "page": "website",
-        "view": "resort",
-        "label": "Resort website",
-        "alt": "Sample resort website with a full-width hero image, booking bar, rooms and offers"
-      },
-      {
-        "page": "website",
         "view": "restaurant",
         "label": "Restaurant website",
         "alt": "Sample restaurant website with a hero image, menu highlights and a reservation bar"
+      },
+      {
+        "page": "website",
+        "view": "resort",
+        "label": "Resort website",
+        "alt": "Sample resort website with a full-width hero image, booking bar, rooms and offers"
       },
       {
         "page": "website",
@@ -307,6 +307,12 @@
     "screens": [
       {
         "page": "stores",
+        "view": "gadgets",
+        "label": "Gadget store",
+        "alt": "Sample gadget online store landing page with hero, flash deal countdown and trending products"
+      },
+      {
+        "page": "stores",
         "view": "fashion",
         "label": "Fashion store",
         "alt": "Sample fashion online store landing page with hero, categories, new arrivals and a sale banner"
@@ -316,12 +322,6 @@
         "view": "decor",
         "label": "Home decor store",
         "alt": "Sample home decor online store landing page with hero, collections and bestsellers"
-      },
-      {
-        "page": "stores",
-        "view": "gadgets",
-        "label": "Gadget store",
-        "alt": "Sample gadget online store landing page with hero, flash deal countdown and trending products"
       },
       {
         "page": "ecommerce",

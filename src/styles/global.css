@@ -80,3 +80,13 @@ html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
   .stage .hs-dots i.on { background: var(--color-glow); }
   .hs-dots { color: var(--color-ink); }
 }
+
+/* Phone scrolling: keep the compositor light (no animated repaints, no live blur, no tap flash) */
+html { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+@media (max-width: 1023px) {
+  .aurora-grid { animation: none; }
+  .aurora-blob { filter: blur(40px); }
+  .glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .hs { -webkit-overflow-scrolling: touch; }
+  #site-header + header, nav[aria-label="Main"] { transform: translateZ(0); }
+}
