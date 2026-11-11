@@ -35,7 +35,7 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
         products.map((p, i) => (
           <a
             href={`/products/${p.id}`}
-            class:list={["spot group flex flex-col overflow-hidden rounded-2xl border transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(12,29,53,0.35)]", tints[i % tints.length].card, span[i]]}
+            class:list={["spot group flex flex-col overflow-hidden rounded-2xl border transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_50px_-24px_rgba(15,23,42,0.35)]", tints[i % tints.length].card, span[i]]}
             data-reveal
             style={`--d:${i % 3}`}
           >
@@ -67,7 +67,7 @@ const span = ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-3"
         ))
       }
     </div>
-    <div class="mt-4 flex flex-col items-start gap-4 rounded-2xl border border-[#b4dada] bg-[#e0f2f2] p-5 sm:mt-5 sm:flex-row sm:items-center sm:justify-between sm:p-7" data-reveal>
+    <div class="mt-4 flex flex-col items-start gap-4 rounded-2xl border border-[#bddcd5] bg-[#DCEFEB] p-5 sm:mt-5 sm:flex-row sm:items-center sm:justify-between sm:p-7" data-reveal>
       <div>
         <p class="text-[11px] font-medium uppercase tracking-[0.22em] text-accent-text">Custom build</p>
         <h3 class="mt-2 text-[19px] font-medium tracking-tight">{customBuild.title}</h3>

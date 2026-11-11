@@ -64,7 +64,7 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
       <svg viewBox={`0 0 ${W} 720`} class="h-auto w-full" role="img" aria-label="Diagram: five products (PetraPMS, PetraPOS, PetraDMS, Website Build, E-commerce Build) connect through Petra Core, which also connects to eight modules that PETRA builds on request. The core, the modules and all connections are built on request.">
         {/* core to modules */}
         {mods.map((m) => (
-          <path d={`M${CORE.x + CORE.w / 2} ${CORE.y} V${BUS_UP} H${m.cx} V${MOD_Y + MOD_H}`} fill="none" stroke="#3fd0d3" stroke-width="1.2" stroke-dasharray="4 8" stroke-opacity="0.4" class="flow" />
+          <path d={`M${CORE.x + CORE.w / 2} ${CORE.y} V${BUS_UP} H${m.cx} V${MOD_Y + MOD_H}`} fill="none" stroke="#5eead4" stroke-width="1.2" stroke-dasharray="4 8" stroke-opacity="0.4" class="flow" />
         ))}
         {/* core to products */}
         {coreLinks.map((l) => {
@@ -72,9 +72,9 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
           const w = labelW(l.data.label);
           return (
             <g>
-              <path d={`M${CORE.x + CORE.w / 2} ${CORE.y + CORE.h} V${BUS_DOWN} H${n.x} V${NODE_Y}`} fill="none" stroke="#3fd0d3" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
+              <path d={`M${CORE.x + CORE.w / 2} ${CORE.y + CORE.h} V${BUS_DOWN} H${n.x} V${NODE_Y}`} fill="none" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
               <g transform={`translate(${n.x - w / 2} ${NODE_Y - 46})`}>
-                <rect width={w} height="24" rx="12" fill="#0c1d35" stroke="rgba(255,255,255,0.28)" />
+                <rect width={w} height="24" rx="12" fill="#0F172A" stroke="rgba(255,255,255,0.28)" />
                 <text x={w / 2} y="16" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="500">{l.data.label}</text>
               </g>
             </g>
@@ -90,9 +90,9 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
           const w = labelW(l.data.label);
           return (
             <g>
-              <path d={`M${x1} ${y} V${y + 44} H${x2} V${y}`} fill="none" stroke="#3fd0d3" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
+              <path d={`M${x1} ${y} V${y + 44} H${x2} V${y}`} fill="none" stroke="#5eead4" stroke-width="1.6" stroke-dasharray="6 8" stroke-opacity="0.85" class="flow" />
               <g transform={`translate(${(x1 + x2) / 2 - w / 2} ${y + 32})`}>
-                <rect width={w} height="24" rx="12" fill="#0c1d35" stroke="rgba(255,255,255,0.28)" />
+                <rect width={w} height="24" rx="12" fill="#0F172A" stroke="rgba(255,255,255,0.28)" />
                 <text x={w / 2} y="16" text-anchor="middle" font-size="12.5" fill="#fff" font-weight="500">{l.data.label}</text>
               </g>
             </g>
@@ -100,19 +100,19 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
         })}
 
         {/* modules built on request */}
-        <text x={modStart} y="17" font-size="10" fill="#3fd0d3" letter-spacing="2.4">MODULES · BUILT ON REQUEST</text>
+        <text x={modStart} y="17" font-size="10" fill="#5eead4" letter-spacing="2.4">MODULES · BUILT ON REQUEST</text>
         {mods.map((m) => (
           <g>
-            <rect x={m.x} y={MOD_Y} width={modW} height={MOD_H} rx="14" fill="#14284a" stroke="#3fd0d3" stroke-opacity="0.75" />
+            <rect x={m.x} y={MOD_Y} width={modW} height={MOD_H} rx="14" fill="#16223d" stroke="#5eead4" stroke-opacity="0.75" />
             <text x={m.cx} y={MOD_Y + 26} text-anchor="middle" font-size="14" font-weight="600" fill="#fff">{m.name}</text>
-            <text x={m.cx} y={MOD_Y + 46} text-anchor="middle" font-size="10" fill="#3fd0d3" letter-spacing="1.6">{m.group.toUpperCase()}</text>
+            <text x={m.cx} y={MOD_Y + 46} text-anchor="middle" font-size="10" fill="#5eead4" letter-spacing="1.6">{m.group.toUpperCase()}</text>
           </g>
         ))}
 
         {/* core */}
         <g>
-          <rect x={CORE.x} y={CORE.y} width={CORE.w} height={CORE.h} rx="18" fill="#14284a" stroke="#3fd0d3" />
-          <text x={CORE.x + 28} y={CORE.y + 32} font-size="11" fill="#3fd0d3" letter-spacing="2.4">PETRA CORE · BUILT ON REQUEST</text>
+          <rect x={CORE.x} y={CORE.y} width={CORE.w} height={CORE.h} rx="18" fill="#16223d" stroke="#5eead4" />
+          <text x={CORE.x + 28} y={CORE.y + 32} font-size="11" fill="#5eead4" letter-spacing="2.4">PETRA CORE · BUILT ON REQUEST</text>
           <text x={CORE.x + 28} y={CORE.y + 62} font-size="25" font-weight="600" fill="#fff">{core.name}</text>
           <text x={CORE.x + 28} y={CORE.y + 82} font-size="12.5" fill="rgba(255,255,255,0.72)">{core.sub}</text>
         </g>
@@ -120,9 +120,9 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
         {/* products */}
         {nodes.map((n) => (
           <g>
-            <rect x={n.x - nodeW / 2} y={NODE_Y} width={nodeW} height={NODE_H} rx="16" fill="#14284a" stroke="rgba(255,255,255,0.35)" />
+            <rect x={n.x - nodeW / 2} y={NODE_Y} width={nodeW} height={NODE_H} rx="16" fill="#16223d" stroke="rgba(255,255,255,0.35)" />
             <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 36} font-size="24" font-weight="700" fill="#fff" letter-spacing="2">{n.code}</text>
-            <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 59} font-size="13.5" font-weight="600" fill="#3fd0d3">{n.name}</text>
+            <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 59} font-size="13.5" font-weight="600" fill="#5eead4">{n.name}</text>
             <text x={n.x - nodeW / 2 + 22} y={NODE_Y + 79} font-size="12" fill="rgba(255,255,255,0.7)">{n.short}</text>
             <rect x={n.x + nodeW / 2 - 76} y={NODE_Y + 12} width="64" height="19" rx="9.5" fill="none" stroke="rgba(255,255,255,0.5)" />
             <text x={n.x + nodeW / 2 - 44} y={NODE_Y + 25} text-anchor="middle" font-size="9.5" fill="#fff">PREVIEW</text>
@@ -131,11 +131,11 @@ const sideLinks = links.filter((l) => l.data.to !== "core" && l.data.to !== "all
 
         {/* legend */}
         <g transform="translate(36 690)" font-size="12" fill="rgba(255,255,255,0.75)">
-          <rect y="-10" width="22" height="13" rx="3" fill="#14284a" stroke="rgba(255,255,255,0.5)" />
+          <rect y="-10" width="22" height="13" rx="3" fill="#16223d" stroke="rgba(255,255,255,0.5)" />
           <text x="32">Product in preview</text>
-          <rect x="190" y="-10" width="22" height="13" rx="3" fill="#14284a" stroke="#3fd0d3" />
+          <rect x="190" y="-10" width="22" height="13" rx="3" fill="#16223d" stroke="#5eead4" />
           <text x="222">Built on request: module or core</text>
-          <path d="M430 -3 H462" stroke="#3fd0d3" stroke-dasharray="6 5" stroke-width="1.6" />
+          <path d="M430 -3 H462" stroke="#5eead4" stroke-dasharray="6 5" stroke-width="1.6" />
           <text x="472">Dashed line: connection built on request</text>
         </g>
       </svg>

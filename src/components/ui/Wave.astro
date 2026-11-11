@@ -1,0 +1,13 @@
+---
+interface Props {
+  /** colour of the section below (the wave is cut out of it) */
+  fill?: string;
+  back?: string;
+}
+const { fill = "#F7F9FC", back = "#14B8A6" } = Astro.props;
+---
+
+<div class="wave" aria-hidden="true">
+  <svg class="wave-b" viewBox="0 0 2880 110" preserveAspectRatio="none"><path fill={back} d="M0 60 C240 0 480 120 720 60 S1200 0 1440 60 C1680 0 1920 120 2160 60 S2640 0 2880 60 V110 H0Z"></path></svg>
+  <svg class="wave-f" viewBox="0 0 2880 110" preserveAspectRatio="none"><path fill={fill} d="M0 78 C240 30 480 126 720 78 S1200 30 1440 78 C1680 30 1920 126 2160 78 S2640 30 2880 78 V110 H0Z"></path></svg>
+</div>

@@ -111,7 +111,24 @@ function initSwipeRows() {
 }
 let resizeBound = false;
 
+/** Liquid buttons flood from the point where the pointer enters or leaves. */
+let liquidBound = false;
+function initLiquid() {
+  if (liquidBound) return;
+  liquidBound = true;
+  const set = (e: PointerEvent) => {
+    const el = (e.target as HTMLElement | null)?.closest<HTMLElement>(".liquid");
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--x", `${e.clientX - r.left}px`);
+    el.style.setProperty("--y", `${e.clientY - r.top}px`);
+  };
+  document.addEventListener("pointerover", set, { passive: true });
+  document.addEventListener("pointerout", set, { passive: true });
+}
+
 document.addEventListener("astro:page-load", () => {
+  initLiquid();
   initSwipeRows();
   initReveal();
   initSpot();

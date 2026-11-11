@@ -3,6 +3,7 @@ import Aurora from "../ui/Aurora.astro";
 import Button from "../ui/Button.astro";
 import DeviceFrame from "../ui/DeviceFrame.astro";
 import LiveScreen from "../ui/LiveScreen.astro";
+import Wave from "../ui/Wave.astro";
 ---
 
 <section class="stage" aria-labelledby="hero-title">
@@ -39,7 +40,8 @@ import LiveScreen from "../ui/LiveScreen.astro";
       </div>
     </div>
   </div>
-  <div class="absolute inset-x-0 bottom-0 border-t border-white/10">
+  <Wave />
+  <div class="absolute inset-x-0 bottom-10 border-t border-white/10 sm:bottom-16">
     <p class="mx-auto hidden max-w-6xl px-6 py-4 text-[11px] uppercase tracking-[0.2em] text-white/60 sm:block sm:px-10">Hospitality · Business · Marketing · Enterprise</p>
   </div>
 </section>

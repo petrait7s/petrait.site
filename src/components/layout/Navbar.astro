@@ -42,30 +42,31 @@ const more = [
     <a href="/" aria-label={`${site.name} home`} class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl">
       <Logo size={44} />
     </a>
-    <nav aria-label="Primary" class="flex items-center gap-1 rounded-2xl bg-surface p-[5px]">
+    <nav aria-label="Primary" class="pnav flex items-center gap-1 rounded-2xl bg-surface p-[5px]">
+      <span class="pill" aria-hidden="true"></span>
       {
         nav.map((n) => (
-          <a href={n.href} aria-current={isActive(n.href) ? "page" : undefined} class:list={[link, isActive(n.href) ? "bg-stage text-white shadow-[0_6px_14px_-6px_rgba(12,29,53,0.8)]" : "text-ink-2 hover:bg-white/70 hover:text-ink"]}>
+          <a href={n.href} aria-current={isActive(n.href) ? "page" : undefined} class:list={[link, isActive(n.href) ? "bg-stage text-white shadow-[0_6px_14px_-6px_rgba(15,23,42,0.8)]" : "text-ink-2 hover:bg-white/70 hover:text-ink"]}>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" class:list={[isActive(n.href) && "text-glow"]} aria-hidden="true" set:html={navIcon[n.label]} />
             {n.label}
           </a>
         ))
       }
     </nav>
-    <a href="/contact" class="inline-flex h-11 items-center rounded-xl bg-accent-text px-5 text-[13px] font-medium text-white shadow-lg shadow-black/20 transition-colors duration-200 hover:bg-accent">Book a demo</a>
+    <a href="/contact" class="inline-flex h-11 items-center rounded-xl liquid bg-accent px-5 text-[13px] font-medium text-ink shadow-lg shadow-black/20 transition-colors duration-200 [--fill:#DCEFEB]">Book a demo</a>
   </div>
 </header>
 
 <!-- Phone and tablet: slim top bar plus an app-style bottom tab bar -->
-<header class="fixed inset-x-0 top-0 z-50 flex h-[52px] items-center justify-between border-b border-white/10 bg-[#0c1d35] px-4 lg:hidden">
+<header class="fixed inset-x-0 top-0 z-50 flex h-[52px] items-center justify-between border-b border-white/10 bg-[#0F172A] px-4 lg:hidden">
   <a href="/" aria-label={`${site.name} home`} class="flex items-center gap-2.5 text-white">
     <Logo size={32} />
     <span class="text-[14px] font-semibold tracking-[0.18em]">{site.name}</span>
   </a>
-  <a href="/contact" class="press inline-flex h-9 items-center rounded-full bg-accent-text px-4 text-[12.5px] font-medium text-white">Book a demo</a>
+  <a href="/contact" class="press inline-flex h-9 items-center rounded-full bg-accent px-4 text-[12.5px] font-medium text-ink">Book a demo</a>
 </header>
 
-<nav aria-label="Main" class="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0c1d35] pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-12px_rgba(12,29,53,0.6)] lg:hidden">
+<nav aria-label="Main" class="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0F172A] pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-12px_rgba(15,23,42,0.6)] lg:hidden">
   <ul class="mx-auto flex max-w-xl items-stretch justify-around">
     {
       tabs.map((t) => (
@@ -128,6 +129,34 @@ const more = [
     back.hidden = !open;
     if (!open && returnFocus) btn.focus();
   }
+  function bindPill() {
+    const nav = document.querySelector<HTMLElement>(".pnav");
+    const pill = nav?.querySelector<HTMLElement>(".pill");
+    if (!nav || !pill || nav.dataset.bound) return;
+    nav.dataset.bound = "1";
+    const links = [...nav.querySelectorAll<HTMLElement>("a")];
+    const current = links.find((a) => a.hasAttribute("aria-current")) ?? null;
+    const go = (a: HTMLElement | null, instant = false) => {
+      links.forEach((l) => l.toggleAttribute("data-under", l === a));
+      if (!a) {
+        pill.style.opacity = "0";
+        return;
+      }
+      if (instant) pill.style.transition = "none";
+      pill.style.left = `${a.offsetLeft}px`;
+      pill.style.width = `${a.offsetWidth}px`;
+      pill.style.opacity = "1";
+      if (instant) requestAnimationFrame(() => requestAnimationFrame(() => (pill.style.transition = "")));
+    };
+    nav.classList.add("has-pill");
+    go(current, true);
+    links.forEach((a) => {
+      a.addEventListener("pointerenter", () => go(a));
+      a.addEventListener("focus", () => go(a));
+    });
+    nav.addEventListener("pointerleave", () => go(current));
+    nav.addEventListener("focusout", () => go(current));
+  }
   const isOpen = () => $("more-toggle")?.getAttribute("aria-expanded") === "true";
 
   // Document-level listeners are added once; the elements are re-bound on every page load.
@@ -139,6 +168,7 @@ const more = [
   });
 
   document.addEventListener("astro:page-load", () => {
+    bindPill();
     $("more-toggle")?.addEventListener("click", () => setOpen(!isOpen()));
     $("more-backdrop")?.addEventListener("click", () => setOpen(false));
     $("more-sheet")?.addEventListener("click", (e) => {

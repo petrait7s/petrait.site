@@ -5,17 +5,18 @@ interface Props {
   class?: string;
 }
 const { href, variant = "primary", class: extra = "" } = Astro.props;
+// Liquid buttons: on hover the fill colour floods in from the point where the pointer entered.
 const styles = {
-  primary: "bg-ink text-white hover:bg-ink-2",
-  teal: "bg-accent-text text-white hover:bg-accent",
-  ghost: "border border-accent-text text-accent-text hover:bg-accent-text hover:text-white",
-  "ghost-dark": "border border-white/30 text-white hover:bg-white hover:text-ink",
+  primary: "bg-ink text-white hover:text-ink [--fill:#5eead4]",
+  teal: "bg-accent text-ink hover:text-ink [--fill:#DCEFEB]",
+  ghost: "border border-accent-text text-accent-text hover:text-white [--fill:#0F766E]",
+  "ghost-dark": "border border-white/30 text-white hover:text-ink [--fill:#14B8A6]",
 } as const;
 ---
 
 <a
   href={href}
-  class:list={["btn-sheen press group inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-[13px] font-medium transition-colors duration-200", styles[variant], extra]}
+  class:list={["liquid press group inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-[13px] font-medium transition-colors duration-300", styles[variant], extra]}
 >
   <slot />
   <span class="inline-block transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">→</span>
