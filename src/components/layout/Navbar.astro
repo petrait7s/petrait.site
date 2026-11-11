@@ -58,7 +58,7 @@ const more = [
 </header>
 
 <!-- Phone and tablet: slim top bar plus an app-style bottom tab bar -->
-<header class="fixed inset-x-0 top-0 z-50 flex h-[52px] items-center justify-between border-b border-white/10 bg-[#0F172A] px-4 lg:hidden">
+<header id="topbar" class="fixed inset-x-0 top-0 z-50 flex h-[52px] items-center justify-between border-b border-white/10 bg-[#0F172A] px-4 lg:hidden">
   <a href="/" aria-label={`${site.name} home`} class="flex items-center gap-2.5 text-white">
     <Logo size={32} />
     <span class="text-[14px] font-semibold tracking-[0.18em]">{site.name}</span>
@@ -66,8 +66,9 @@ const more = [
   <a href="/contact" class="press inline-flex h-9 items-center rounded-full bg-accent px-4 text-[12.5px] font-medium text-ink">Book a demo</a>
 </header>
 
-<nav aria-label="Main" class="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0F172A] pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-12px_rgba(15,23,42,0.6)] lg:hidden">
-  <ul class="mx-auto flex max-w-xl items-stretch justify-around">
+<nav aria-label="Main" id="tabbar" class="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-[#0F172A] pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_-12px_rgba(15,23,42,0.6)] lg:hidden">
+  <ul class="relative mx-auto flex max-w-xl items-stretch justify-around">
+    <span class="tab-pill" aria-hidden="true"></span>
     {
       tabs.map((t) => (
         <li class="flex-1">
@@ -92,7 +93,8 @@ const more = [
 </nav>
 
 <div id="more-backdrop" hidden class="fixed inset-0 z-40 bg-ink/50 lg:hidden"></div>
-<div id="more-sheet" hidden role="dialog" aria-label="More pages" class="fixed inset-x-0 bottom-[calc(66px+env(safe-area-inset-bottom))] z-40 mx-3 rounded-2xl border border-white/10 bg-stage p-2 shadow-2xl lg:hidden">
+<div id="more-sheet" hidden role="dialog" aria-label="More pages" class="fixed inset-x-0 bottom-[calc(66px+env(safe-area-inset-bottom))] z-40 mx-3 rounded-3xl border border-white/10 bg-stage p-2 pt-0 shadow-2xl lg:hidden">
+  <div class="sheet-grab" data-grab aria-hidden="true"><i></i></div>
   <ul>
     {
       more.map((m) => (
@@ -129,6 +131,90 @@ const more = [
     back.hidden = !open;
     if (!open && returnFocus) btn.focus();
   }
+  function bindTabs() {
+    const bar = document.getElementById("tabbar");
+    const pill = bar?.querySelector<HTMLElement>(".tab-pill");
+    if (!bar || !pill) return;
+    const items = [...bar.querySelectorAll<HTMLElement>("li")];
+    const idxOf = () => {
+      const i = items.findIndex((li) => li.querySelector("[aria-current]"));
+      return i === -1 ? items.length - 1 : i;
+    };
+    const place = (i: number) => {
+      const icon = items[i].querySelector<HTMLElement>("span.grid");
+      if (!icon) return;
+      const r = icon.getBoundingClientRect();
+      const b = bar.querySelector("ul")!.getBoundingClientRect();
+      pill.style.width = `${r.width}px`;
+      pill.style.height = `${r.height}px`;
+      pill.style.transform = `translate(${r.left - b.left}px, ${r.top - b.top}px)`;
+    };
+    const now = idxOf();
+    let prev = now;
+    try {
+      const v = sessionStorage.getItem("petra-tab");
+      if (v !== null) prev = Math.min(items.length - 1, Number(v) || 0);
+      sessionStorage.setItem("petra-tab", String(now));
+    } catch {
+      /* storage can be blocked */
+    }
+    pill.style.transition = "none";
+    place(prev);
+    bar.classList.add("has-tabpill");
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        pill.style.transition = "";
+        place(now);
+      }),
+    );
+    bar.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("a,button")) navigator.vibrate?.(6);
+    });
+    window.addEventListener("resize", () => {
+      pill.style.transition = "none";
+      place(idxOf());
+    }, { passive: true });
+  }
+
+  function bindTopbar() {
+    const top = document.getElementById("topbar");
+    if (!top) return;
+    const set = () => top.classList.toggle("scrolled", window.scrollY > 6);
+    set();
+    window.addEventListener("scroll", set, { passive: true });
+  }
+
+  function bindSheetDrag() {
+    const sheet = $("more-sheet");
+    if (!sheet || sheet.dataset.drag) return;
+    sheet.dataset.drag = "1";
+    let y0 = 0;
+    let dy = 0;
+    let on = false;
+    sheet.addEventListener("pointerdown", (e) => {
+      if (!(e.target as HTMLElement).closest("[data-grab]")) return;
+      on = true;
+      y0 = e.clientY;
+      dy = 0;
+      sheet.style.transition = "none";
+      sheet.setPointerCapture(e.pointerId);
+    });
+    sheet.addEventListener("pointermove", (e) => {
+      if (!on) return;
+      dy = Math.max(0, e.clientY - y0);
+      sheet.style.transform = `translateY(${dy}px)`;
+    });
+    const end = () => {
+      if (!on) return;
+      on = false;
+      sheet.style.transition = "";
+      sheet.style.transform = "";
+      if (dy > 70) setOpen(false, true);
+    };
+    sheet.addEventListener("pointerup", end);
+    sheet.addEventListener("pointercancel", end);
+  }
+
   function bindPill() {
     const nav = document.querySelector<HTMLElement>(".pnav");
     const pill = nav?.querySelector<HTMLElement>(".pill");
@@ -169,6 +255,9 @@ const more = [
 
   document.addEventListener("astro:page-load", () => {
     bindPill();
+    bindTabs();
+    bindTopbar();
+    bindSheetDrag();
     $("more-toggle")?.addEventListener("click", () => setOpen(!isOpen()));
     $("more-backdrop")?.addEventListener("click", () => setOpen(false));
     $("more-sheet")?.addEventListener("click", (e) => {

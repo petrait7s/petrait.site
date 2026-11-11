@@ -147,3 +147,32 @@ html { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
   .flow, .float, .wave svg, .gradient-text { animation: none; }
 }
 .pnav.has-pill a:not([data-under]) svg { color: inherit !important; }
+
+/* ---------- phone: native-app motion ---------- */
+.tab-pill { position: absolute; left: 0; top: 0; width: 0; height: 0; border-radius: 9999px; background: var(--color-accent); box-shadow: 0 6px 16px -6px rgba(20,184,166,.9); transition: transform .5s var(--ease-out-expo), width .4s var(--ease-out-expo); pointer-events: none; opacity: 0; }
+#tabbar.has-tabpill .tab-pill { opacity: 1; }
+#tabbar.has-tabpill span.bg-accent { background: transparent; }
+#tabbar.has-tabpill a[aria-current] svg { color: var(--color-ink); }
+#tabbar.has-tabpill a svg, #tabbar.has-tabpill button svg { position: relative; z-index: 1; }
+#tabbar.has-tabpill li:has(button[aria-expanded="true"]) .tab-pill { opacity: 1; }
+#topbar { transition: box-shadow .3s, background-color .3s; }
+#topbar.scrolled { box-shadow: 0 10px 24px -14px rgba(0,0,0,.7); }
+.sheet-grab { display: grid; place-items: center; height: 26px; cursor: grab; touch-action: none; }
+.sheet-grab i { width: 40px; height: 4px; border-radius: 9999px; background: rgba(255,255,255,.28); }
+#more-sheet { transition: transform .35s var(--ease-out-expo); transform-origin: bottom center; }
+#more-sheet:not([hidden]) { animation: sheet-in .5s var(--ease-out-expo); }
+#more-backdrop:not([hidden]) { animation: fade-in .3s ease; }
+@keyframes sheet-in { from { transform: translateY(24px) scale(.97); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+/* the bars stay put while the page itself slides, like a native stack */
+#topbar { view-transition-name: topbar; }
+#tabbar { view-transition-name: tabbar; }
+@media (max-width: 1023px) {
+  ::view-transition-old(root) { animation: pg-out .22s ease both; }
+  ::view-transition-new(root) { animation: pg-in .45s var(--ease-out-expo) both; }
+  body { -webkit-user-select: none; user-select: none; }
+  p, h1, h2, h3, li, input, textarea { -webkit-user-select: text; user-select: text; }
+  html { overscroll-behavior-y: none; }
+}
+@keyframes pg-out { to { opacity: 0; transform: translateX(-14px); } }
+@keyframes pg-in { from { opacity: 0; transform: translateX(28px); } }
