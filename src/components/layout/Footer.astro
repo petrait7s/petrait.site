@@ -91,9 +91,9 @@ const ic = {
           <li><a href={`tel:${site.phoneHref}`} class={link}>{site.phone}</a></li>
           <li class="py-1 text-[13px] text-ink-2">{site.country}</li>
         </ul>
-        <div class="mt-5 flex flex-wrap gap-2">
-          <SocialLink network="facebook" href={site.facebook} />
-          <SocialLink network="instagram" href={site.instagram} />
+        <div class="mt-5 flex gap-2">
+          <SocialLink network="facebook" href={site.facebook} label={false} />
+          <SocialLink network="instagram" href={site.instagram} label={false} />
         </div>
       </div>
     </div>
