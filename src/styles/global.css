@@ -176,3 +176,19 @@ html { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 }
 @keyframes pg-out { to { opacity: 0; transform: translateX(-14px); } }
 @keyframes pg-in { from { opacity: 0; transform: translateX(28px); } }
+
+/* ---------- phone: liquid at phone scale ---------- */
+@media (max-width: 1023px) {
+  .aurora-goo { filter: url(#goo-s); }
+  .aurora-blob { filter: none; }
+  .aurora::after { background: linear-gradient(180deg, rgba(15,23,42,.6), rgba(15,23,42,.36) 60%, rgba(15,23,42,.5)); }
+  .aurora-b1 { width: 74vw; height: 74vw; left: -14vw; top: 4%; }
+  .aurora-b2 { width: 60vw; height: 60vw; right: -12vw; top: 26%; }
+  .aurora-b3 { width: 50vw; height: 50vw; left: 26vw; bottom: -10%; }
+  @keyframes aurora-1 { to { transform: translate(34vw, 18vw) scale(1.15); } }
+  @keyframes aurora-2 { to { transform: translate(-30vw, 12vw) scale(.8); } }
+  @keyframes aurora-3 { to { transform: translate(-22vw, -18vw) scale(1.25); } }
+  .aurora-grid { opacity: .6; }
+}
+/* touch has no hover: the liquid floods from the tap point instead */
+.liquid.tap::before { transform: scale(80); transition-duration: .5s; }

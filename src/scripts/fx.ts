@@ -123,6 +123,18 @@ function initLiquid() {
     el.style.setProperty("--x", `${e.clientX - r.left}px`);
     el.style.setProperty("--y", `${e.clientY - r.top}px`);
   };
+  document.addEventListener(
+    "pointerdown",
+    (e) => {
+      if (e.pointerType === "mouse") return;
+      const el = (e.target as HTMLElement | null)?.closest<HTMLElement>(".liquid");
+      if (!el) return;
+      set(e);
+      el.classList.add("tap");
+      setTimeout(() => el.classList.remove("tap"), 600);
+    },
+    { passive: true },
+  );
   document.addEventListener("pointerover", set, { passive: true });
   document.addEventListener("pointerout", set, { passive: true });
 }
