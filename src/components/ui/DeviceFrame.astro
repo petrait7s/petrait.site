@@ -15,18 +15,16 @@ const { kind, class: extra = "" } = Astro.props;
       <slot />
     </div>
   ) : (
-    <div class:list={["relative drop-shadow-[0_28px_40px_rgba(0,0,0,0.55)]", extra]}>
-      <!-- side keys -->
-      <i class="absolute -left-[2.5px] top-[17%] h-[5%] w-[3px] rounded-l bg-[#59627a]" aria-hidden="true"></i>
-      <i class="absolute -left-[2.5px] top-[25%] h-[8%] w-[3px] rounded-l bg-[#59627a]" aria-hidden="true"></i>
-      <i class="absolute -left-[2.5px] top-[35%] h-[8%] w-[3px] rounded-l bg-[#59627a]" aria-hidden="true"></i>
-      <i class="absolute -right-[2.5px] top-[29%] h-[12%] w-[3px] rounded-r bg-[#59627a]" aria-hidden="true"></i>
-      <!-- titanium rim, black bezel, glass -->
-      <div class="rounded-[2.7rem] bg-[linear-gradient(145deg,#c9d0dc,#6f7889_22%,#2a3142_45%,#1a2030_60%,#7c8598_85%,#d5dbe6)] p-[2.5px] shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_0_40px_-8px_rgba(20,184,166,0.45)]">
-        <div class="rounded-[2.5rem] bg-black p-[5px]">
-          <div class="relative overflow-hidden rounded-[2.1rem] bg-stage">
+    <div class:list={["relative drop-shadow-[0_26px_36px_rgba(0,0,0,0.55)]", extra]}>
+      <!-- keys, all on the right edge -->
+      <i class="absolute -right-[2.5px] top-[20%] h-[9%] w-[3px] rounded-r bg-[#8791a6]" aria-hidden="true"></i>
+      <i class="absolute -right-[2.5px] top-[32%] h-[5%] w-[3px] rounded-r bg-[#8791a6]" aria-hidden="true"></i>
+      <!-- flat satin frame, thin even bezel, glass -->
+      <div class="rounded-[1.9rem] bg-[linear-gradient(160deg,#d4dae6,#8a93a6_30%,#4b5368_55%,#8a93a6_80%,#cfd6e2)] p-[2.5px] shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_0_36px_-10px_rgba(20,184,166,0.45)]">
+        <div class="rounded-[1.75rem] bg-black p-[4px]">
+          <div class="relative overflow-hidden rounded-[1.5rem] bg-stage">
             <slot />
-            <i class="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(255,255,255,0.14),rgba(255,255,255,0)_32%,rgba(255,255,255,0)_70%,rgba(255,255,255,0.06))]" aria-hidden="true"></i>
+            <i class="pointer-events-none absolute inset-0 bg-[linear-gradient(125deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_30%,rgba(255,255,255,0)_72%,rgba(255,255,255,0.05))]" aria-hidden="true"></i>
           </div>
         </div>
       </div>

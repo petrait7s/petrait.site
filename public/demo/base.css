@@ -185,8 +185,8 @@ td.r, th.r { text-align: right; }
   .app { display: block; }
   .side, .topbar { display: none; }
   .main { padding-top: 54px; }
-  .statusbar { display: flex; position: absolute; inset: 0 0 auto 0; height: 54px; align-items: flex-end; justify-content: space-between; padding: 0 30px 7px; font-weight: 700; font-size: 15px; background: var(--page); z-index: 6; }
-  .statusbar::after { content: ""; position: absolute; left: 50%; top: 11px; transform: translateX(-50%); width: 112px; height: 32px; border-radius: 20px; background: #000; }
+  .statusbar { display: flex; position: absolute; inset: 0 0 auto 0; height: 50px; align-items: center; justify-content: space-between; padding: 6px 28px 0; font-weight: 700; font-size: 15px; background: var(--page); z-index: 6; }
+  .statusbar::after { content: ""; position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: 24px; height: 24px; border-radius: 50%; background: #000; box-shadow: 0 0 0 2px rgba(0,0,0,.25), inset 0 0 0 5px #0d1220; }
   .statusbar span:last-child { display: flex; gap: 5px; align-items: center; }
   .statusbar svg { height: 11px; width: auto; }
   .head { padding: 8px 16px 10px; align-items: flex-start; }

@@ -44,7 +44,7 @@ def icon(name):
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[name]}</svg>'
 
 
-STATUS = '<div class="statusbar"><span>9:41</span><span><svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#0c1d35"/><rect x="5" y="5" width="3" height="6" rx="1" fill="#0c1d35"/><rect x="10" y="2.5" width="3" height="8.5" rx="1" fill="#0c1d35"/><rect x="15" y="0" width="3" height="11" rx="1" fill="#0c1d35"/></svg><svg viewBox="0 0 28 12"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="#0c1d35" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="2" fill="#0c1d35"/><rect x="25" y="4" width="2" height="4" rx="1" fill="#0c1d35" opacity=".5"/></svg></span></div>'
+STATUS = '<div class="statusbar"><span>10:24</span><span><svg viewBox="0 0 18 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#0c1d35"/><rect x="5" y="5" width="3" height="6" rx="1" fill="#0c1d35"/><rect x="10" y="2.5" width="3" height="8.5" rx="1" fill="#0c1d35"/><rect x="15" y="0" width="3" height="11" rx="1" fill="#0c1d35"/></svg><svg viewBox="0 0 28 12"><rect x=".5" y=".5" width="23" height="11" rx="3.5" fill="none" stroke="#0c1d35" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="2" fill="#0c1d35"/><rect x="25" y="4" width="2" height="4" rx="1" fill="#0c1d35" opacity=".5"/></svg></span></div>'
 
 COLORS = ["#038d91", "#3b6fd4", "#7a5bd1", "#d9822b", "#d6504b", "#1f9d6b", "#14284a", "#c2569b"]
 
