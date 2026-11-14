@@ -61,8 +61,8 @@ describe("mailto fallback", () => {
   const r = validateInquiry(good, now);
   it("addresses the company and carries every field", () => {
     if (!r.ok) throw new Error("fixture invalid");
-    const url = buildMailto("petrabd@gmail.com", r.data, "INQ-261106-ABCD");
-    expect(url.startsWith("mailto:petrabd@gmail.com?subject=")).toBe(true);
+    const url = buildMailto("petraitbd@gmail.com", r.data, "INQ-261106-ABCD");
+    expect(url.startsWith("mailto:petraitbd@gmail.com?subject=")).toBe(true);
     const body = decodeURIComponent(url.split("&body=")[1]);
     expect(body).toBe(inquiryText(r.data, "INQ-261106-ABCD"));
     expect(body).toContain("INQ-261106-ABCD");

@@ -20,8 +20,8 @@ The site is static: any static host works (Vercel, Netlify, Cloudflare Pages, Gi
 
 `verify:prod` warns when `PUBLIC_INQUIRY_ENDPOINT` is empty. Set `REQUIRE_FORM_ENDPOINT=1` to make that a hard failure.
 
-## 3. Make the demo form deliver to petrabd@gmail.com
-Simplest option, no code: create a free form at [Formspree](https://formspree.io), set its notification email to `petrabd@gmail.com`, copy the form URL (looks like `https://formspree.io/f/xxxxxxxx`) and use it as `PUBLIC_INQUIRY_ENDPOINT`. Any service that accepts a JSON POST and emails or stores it will also work.
+## 3. Make the demo form deliver to petraitbd@gmail.com
+Simplest option, no code: create a free form at [Formspree](https://formspree.io), set its notification email to `petraitbd@gmail.com`, copy the form URL (looks like `https://formspree.io/f/xxxxxxxx`) and use it as `PUBLIC_INQUIRY_ENDPOINT`. Any service that accepts a JSON POST and emails or stores it will also work.
 
 The form sends: `ref`, `_subject`, `source`, `name`, `email`, `phone`, `company`, `businessType`, `interests`, `message`, `callDate`. The visitor gets a reference like `INQ-261106-ABCD`, which is also in the email subject.
 
@@ -35,7 +35,7 @@ Behaviour you can rely on:
 
 ## 5. Pre-launch checklist
 - [ ] `PUBLIC_SITE_URL` set to the real https address; `view-source` shows it in `<link rel="canonical">`
-- [ ] `PUBLIC_INQUIRY_ENDPOINT` set; a real test request arrived at petrabd@gmail.com
+- [ ] `PUBLIC_INQUIRY_ENDPOINT` set; a real test request arrived at petraitbd@gmail.com
 - [ ] `https://your-domain/robots.txt` and `/sitemap-index.xml` open and show the real domain
 - [ ] Share the home page in Facebook or WhatsApp and check the preview image and text
 - [ ] Open the site on a real phone: menu, form, links, `tel:` and Facebook buttons

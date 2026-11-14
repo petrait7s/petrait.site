@@ -81,7 +81,7 @@ describe("product screens", () => {
 describe("contact details", () => {
   const site = readFileSync("src/content/site.ts", "utf8");
   it("uses the current company contact details", () => {
-    expect(site).toContain('email: "petrabd@gmail.com"');
+    expect(site).toContain('email: "petraitbd@gmail.com"');
     expect(site).toContain('phone: "016-16154320"');
     expect(site).toContain('phoneHref: "+8801616154320"');
     expect(site).toContain('facebook: "https://www.facebook.com/share/1DsiFUJeNB/"');
